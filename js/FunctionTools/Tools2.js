@@ -52,8 +52,7 @@ transaction((content) => {
     }
 ])
 
-// 装饰器
-
+// 装饰器模式
 Function.prototype.before = function(beforeFn){
     return (...args) => {
         beforeFn();
@@ -121,7 +120,7 @@ let obs6 = new Observer("sub2","obs6",sub2);
 sub1.setState(2);
 sub2.setState(3);
 
-// 发布订阅模式
+// 发布订阅模式，这个很重要
 class Bus {
     constructor () {
         this.callback = {};
