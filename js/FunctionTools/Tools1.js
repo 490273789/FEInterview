@@ -287,10 +287,10 @@ function type(target) {
 const deepClone = (value, hash = new WeakMap) => {
     if (value == null) return value;//排除掉null和undefined的情况
     if (typeof value !== 'object') return value;//这里包含了函数类型
-    if (value instanceof RefExg) return new RegExg(value);
+    if (value instanceof RegExp) return new RegExp(value);
     if (value instanceof Date) return new Date(value);
     // 拷贝的内容可能是一个对象也可能是一个数组（循环） for in
-    let instance = new value.constructor;//更具当前的数据类型创建一个新的实例
+    let instance = new value.constructor;//根具当前的数据类型创建一个新的实例
     if (hash.has(value)) {//防止死循环，对象中的属性存的还是此对象
         return hash.get(value);
     }
@@ -303,3 +303,12 @@ const deepClone = (value, hash = new WeakMap) => {
     }
     return instance;
 }
+
+let obj = {
+    a:{b:1},
+    c:"1",
+    d:[1,2]
+}
+
+let obj2 = deepClone(obj)
+console.log(obj2)

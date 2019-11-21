@@ -1,169 +1,82 @@
-//通用柯里化练习
-const curring = (fn, arr=[]) => {
-    let length = fn.length;
-    return (...args) => {
-        arr = arr.concat(args);
-        if (arr.length < length) {
-            return curring(fn, arr);
-        }
-         return fn(...arr);
-    }
-}
+// $dispatch
+function dispatch(componmentName, eventName, params) {
+    let parent = this.parent;
+    let name = this.$options.name;
 
-const add = (a,b,c,d) => {
-    return a+b+c+d;
-}
-let result1 = curring(add)(1)(2)(3)(4)
-let result2 = curring(add)(1,2,3,4);
-console.log(result1)
-console.log(result2)
-
-// 事务练习
-
-const transaction = (anymethod,wrap) => {
-    wrap.forEach(ele=>{
-        ele.initlizae();
-    });
-    anymethod("你好Any");
-    wrap.forEach(ele => {
-        ele.close();
-    });
-
-}
-
-transaction((content) => {
-    console.log("I am Anymethod" + content);
-},[
-    {
-        initlizae () {
-            console.log("I am Initlizae1")
-        },
-        close () {
-            console.log("I am Close1")
-        }
-    },
-    {
-        initlizae () {
-            console.log("I am Initlizae2")
-        },
-        close () {
-            console.log("I am Close2")
+    while (parent && (!name || name !== componmentName)) {
+        parent = parent.$parent;
+        if (parent) {
+            name = parent.$options.name;
         }
     }
-])
 
-// 装饰器
+    if (parent) {
+        parent.$emit.call(parent, eventName, params);
+    }
+}
+// $broadcast
+function broadcast(componmentName, eventName, params) {
+    this.child.forEach(child => {
+        const name = child.$options.name;
+        if (name === componmentName) {
+            child.$emit.apply(child, [eventName].concat[params]);
+        } else {
+            broadcast.apply(child, [eventName].concat[params]);
+        }
+    })
+}
+// debounce
 
-Function.prototype.before = function(beforeFn){
-    return (...args) => {
-        beforeFn();
-        this(...args);
+function debounce (fn, wait, type) {
+    let timeout;
+    return function (...args) {
+        let context = this;
+        if (timeout) clearTimeout(timeout);
+        if(type) {
+            let callNow = !timeout;
+            timeout = setTimeout(() => {
+                timeout= null;
+            },wait)
+            if (callNow) fn.call(context,...args);
+        } else {
+            timeout = setTimeout(() => {
+                fn.call(context,...args)
+            },wait)
+        }
     }
 }
 
-const core = (...args) => {
-    console.log("I am Core: " + args)
+// throttle
+
+function throttle (fn, wait, type) {
+    let previous;
+    return function (...args) {
+        let now = Date.now();
+        if ( now - previous >= wait) {
+            previous = now;
+            fn.apply(this, args);
+        }
+    }
+
 }
 
-const decorate = core.before(() => {
-    console.log("I am BeforeFn")
-});
+let arr = {};
+console.log(arr.constructor)
 
-decorate("Hello World")
 
-// 观察者模式
-class Subject {
-    constructor () {
-        this.state = 0;
-        this.observer = []
+function deepClone (value, hash = new WeakMap) {
+    if (value === null) return value;
+    if (value !== 'object') return value;
+    if(value instanceof Date) return new Date(value);
+    if (value instanceof RegExp) return new RegExp(value);
+    let instance = new value.constructor;
+    if(hash.has(value)) {
+        return hash.get(value);
     }
-
-    getState () {
-        return this.state;
-    }
-    setState (state) {
-        this.state = state;
-        this.notifityObserver(state);
-    }
-    notifityObserver (state) {
-        this.observer.forEach( obs => {
-            obs.update(state)
-        })
-    }
-
-    addObserver (obs) {
-        this.observer.push(obs)
+    hash.set(value,instance);
+    for (key in value) {
+        if (value.hasOwnerPrototype(key)) {
+            instance[key] = deepclone(value[key],hash);
+        }
     }
 }
-
-class Observer {
-    constructor (subName,name,subject) {
-        this.name = name;
-        this.subjectName = subName;
-        this.subject = subject
-        this.subject.addObserver(this);
-    }
-    update (state) {
-        console.log(this.subjectName + " state update: " + state);
-        console.log(this.name + "收到 " + state);
-    }
-}
-
-let sub1 = new Subject();
-let sub2 = new Subject();
-
-let obs1 = new Observer("sub1","obs1",sub1);
-let obs2 = new Observer("sub1","obs2",sub1);
-let obs3 = new Observer("sub1","obs3",sub1);
-let obs4 = new Observer("sub2","obs4",sub2);
-let obs5 = new Observer("sub2","obs5",sub2);
-let obs6 = new Observer("sub2","obs6",sub2);
-sub1.setState(2);
-sub2.setState(3);
-
-// 发布订阅模式
-class Bus {
-    constructor () {
-        this.callback = {};
-    }
-    $on (name, fn) {
-        this.callback[name] = this.callback[name] || [];
-        this.callback[name].push(fn);
-    }
-    $emit (name, ...args) {
-        this.callback[name].forEach(cb => cb(...args))
-    }
-}
-
-let bus = new Bus;
-
-bus.$on("add1",(a,b,c) => {
-    console.log(a + b + c)
-    return a + b + c;
-})
-bus.$on("add1",(a,b,c) => {
-    console.log(a + b + c + 100)
-    return a + b + c + 100;
-})
-bus.$on("add2",(a,b) => {
-    console.log(a + b + "add2")
-    return a + b + "add2";
-})
-bus.$on("add2",(a,b) => {
-    console.log(a + b + "add2" + ":2")
-    return a + b + "add2" + ":2";
-})
-
-bus.$emit("add1",1,1,1);
-bus.$emit("add2",2,2)
-
-
-// after函数
-const after = (times,fn) => (...args) => --times === 0 && fn(...args);
-
-let newAfter = after(2,(...args)=>{
-    console.log(...args);
-})
-
-newAfter(1);
-newAfter(2);
