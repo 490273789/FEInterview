@@ -62,7 +62,7 @@ function getScrollOffset () {
     }
     return {
         x: document.documentElement.scrollLeft + document.body.scrollLeft,
-        y: document.documentElemnet.scrollTop + document.body.scrollTop
+        y: document.documentElement.scrollTop + document.body.scrollTop
     }
 }
 
