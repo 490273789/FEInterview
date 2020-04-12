@@ -42,7 +42,7 @@
         let oDiv3 = document.getElementsByName("pwd");//通过元素的name属性获取  IE不支持，低版本浏览器只有部分比标签生效（表单元素、img、iframe）
         let oDiv4 = document.querySelector("div > span")// 与css选择器用法相同  ie7及以下浏览器不支持
         let oDiv5 = document.querySelectorAll("div > span")// 与css选择器用法相同   ie7及以下浏览器不支持
-        // 2、创建节点/属性
+        // 2、创建节点
         let oSpan1 = document.createElement('span');
         let oText = document.createTextNode("你好");
         let oComment = document.createComment("这是注释");
@@ -61,7 +61,7 @@
         // parent.replaceChild(new,origin);
         let repDiv = document.getElementsByClassName("replace")[0];
         let repText = repDiv.firstChild;
-        // repDiv.replaceChild(oText, repText);
+        repDiv.replaceChild(oText, repText);
     </script>
 </body>
 </html>
