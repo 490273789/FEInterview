@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!--  -->
+
+    <script>
+        console.log(Object.is("2","1"));
+
+        let bc1= {
+            a:"red",
+            b:"green"
+        }
+
+        let bc2 = new Object(bc1);
+        console.log(bc2);
+
+        let bc3 = Object.create(bc1);
+        console.log(bc3);
+
+        let obj01 = {1:"1"};
+
+        let obj02 = Object.create(obj01);
+        console.log(obj01.isPrototypeOf(obj02));//true
+        console.log(Object.prototype.isPrototypeOf(obj01));//true
+
+        function foo (a) {
+            console.log(a);
+            a = a * 10
+            console.log(a);
+        }
+        function too (b) {
+            b.value = "old"
+        }
+
+        var a = 1;
+        var b = {value: "new"}
+
+        foo(a);
+        too(b);
+        console.log(a);
+        console.log(b)
+
+        const str1 = "hello,kitty.hello,vue"
+        const reg1 = /hello/
+        const reg2 = /hello/g
+        const reg3 = "hello"
+        const result1 = str1.replace(reg1,"ok")
+        const result2 = str1.replace(reg2,"ok")
+        const result3 = str1.replace(reg3,"ok")
+        console.log(result1)
+        console.log(result2)
+        console.log(result3)
+    </script>
+</body>
+</html>

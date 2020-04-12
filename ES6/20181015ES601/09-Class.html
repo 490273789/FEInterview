@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 面向对象
+        // 机器语言 -> 低级语言（面向过程）-> 高级语言（面向对象） -> 模块 -> API
+        // 面向对象：1.封装性 2.继承性 3.多态性
+        // ES5中的面向对象，都是大家通过语言特性自己发明的，ES6的class是语言定义的标准，使用比较统一
+        // 普通构造函数
+        // 缺点：1.和普通函数一样 2.普通执行后会给全局产生变量
+        // 定义的方法在实例中
+        function Animal(name, age = 1) {
+            this.name = name;
+            this.age = age;
+            this.showMsg = function () {
+                console.log(this, name, this.age);
+            }
+        }
+
+        //ES6的class 静态属性(通过static定义，实例上需要用super.alived调用) 私有属性(Constructor上) 公有属性(原型上)
+        // 写在原型上的好处：在实例化不需要每次都执行
+        // Person也是属于函数，但是只能被new执行
+        class Person {
+            static alived () {
+                 return true;
+            }
+            constructor(name, age = 0) {
+                this.name = name;
+                this.age = age;
+                this.fn = function () { //定义的方法在实例中
+                    console.log('inner')
+                }
+            }
+            showMsg() { // 定义的方法在原型上(__proto__ --> showMsg)
+                console.log(this.name, this.age);
+            }
+        }
+
+        var p1 = new Person('wxb', 18);
+        var dog = new Animal('maotai');
+
+        console.log(typeof Animal, typeof Person) //function function
+        // ES6的class是糖衣语法，通过babel转换后就是用ES5实现的
+
+        // vue事件总线的实现
+        class Bus {
+            constructor(){
+                this.callbacks = {}
+            }
+            $on(name, fn){
+                this.callbacks[name] = this.callbacks[name] || [];
+                this.callbacks[name].push(fn);
+            }
+            $emit(name, args) {
+                if(this.callbacks[name]){
+                    this.callbacks[name].forEacch(cb=>cb(args));
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

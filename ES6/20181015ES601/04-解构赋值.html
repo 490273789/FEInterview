@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //解构赋值
+        // 模拟后台传过来的数据
+        resData = {
+        	director: 'xxx',
+        	imgs: [],
+        	casts: {}
+        	//...200
+        }
+
+        // 原始的方法取数据，缺点当传过来的树形特别多的时候代码量会非常大，不方便
+        // let director = resData.director;
+        // let imgs = resData.imgs;
+        // let casts = resData.casts;
+
+        //实质：模式匹配
+            resData1 = {
+        	director: 'xxx',
+        	imgs: [],
+        	casts: {},
+        	//...200
+        }
+
+        // let {director, imgs, casts} = resData1;//结果：director = 'xxx',imgs = [],casts = {}   进一步的写法如下
+        // let {director, imgs, casts} = {director: 'xxx',imgs: [],casts: {}}//{director, imgs, casts}是ES6的属性简写，最中完整版写法如下
+        // let {director: director, imgs: imgs, casts: casts} = {director: 'xxx', imgs: [],casts: {}}//通过后面的值取值
+        //key为规则，比如前半部分的imgs的value写为img简写也是可以的，最后 img = []
+
+        // 写法二
+        // let director, imgs, casts;
+        // ({director, imgs, casts} = resData);
+
+        // 解构失败：解构出来的值为undefined
+        // let {director,imgs,value,casts} = resData;//value的值不存在
+
+        // 不完全解构，
+        let {PI, random, pow, floor} = Math;
+        // 总结:结构失败是结构了对象不存在的值，存在的值可以正常使用。 不完全结构是没有将对象中的值全部解构
+
+        // 解构默认值
+        // 只解构了部分函数,可以给默认参数，如果对象中没有此参数则走默认值
+        // let {PI = 0, random, pow, floor,A = 0} = Math;
+
+        //嵌套解构
+        let node = {
+        	type: 1,
+        	parentNode: {
+        		tagName: 'div',
+        		values:{
+        			value:123
+        		}
+        	}
+        }
+        let {type,parentNode,parentNode: {tagName, values: {value}}} = node;
+
+
+        //数组的解构赋值,特点位置对应
+        // let [a,b,c] = [1,2,3];
+        let [a,b,c] = [1,2,3];
+        let [d, [e], f] = [1, [2], 3];
+        let [g = 10, h, i] = [,,10];
+
+        //swap  交换a 与 b的值
+        // let a = 1;
+        // let b = 2;
+        // let temp = a;
+        // 	a = b;
+        // 	b = temp;
+
+        // let a = 1;
+        // let b = 2;
+        // [a ,b] = [b, a];//原始值开辟新的存储空间空间
+
+        //0X000 a 1
+        //0X001 b 2
+        // 进行赋值操作开辟新的空间
+        //0x002 a 2
+        //0X003 b 1
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<script>
+		//ES6 之前的String and Array对象上的方法
+		let str = 'Welcome To Duyi';
+
+		// charAt(num) -- 返回字符串上的第n个字符。
+		console.log(str.charAt(3) == str[3]); //true
+
+		// charCodeAt() -- 选择当前字符串某位的unicode编码
+		console.log(str.charCodeAt(3)); //99
+
+		// slice(start=0, end=this.lemgth) -- 如果写一个参数则是从此位开始一直到结束，不写参数会将整个字符串截取
+		console.log('slice:' + str.slice(1, 4));
+
+		//indexOf(str,start=0) -- str字符串是否在调用的字符串内，如果在则返回在此字符串的起始索引位置，没有返回-1
+		console.log(str.indexOf('come')); //3   判断此字符串是否在str中，不写第二个参数默认从第0位开始匹配
+		console.log(str.indexOf('come', 2)); //3 第二个参数设置从第几位开始查找
+
+		//split(',') -- 按照填写的内容对字符串进行拆分，返回数组
+		console.log(str.split(' '));
+
+		//join -- 将数组按照括号内的内容拆分为字符串
+		console.log([1, 2, 2, 3, 4].join('-')); // "1-2-2-3-4"
+
+		//toUpperCase() -- 将所有字母变为大些，对文字和数字无效
+		console.log(str.toUpperCase()); //WELCOM TO DUYI
+
+		// toLowerCase() -- 将所有字母变为小写，对文字和数字无效
+		console.log(str.toLowerCase()); //welcom to duyi
+
+		// ES6 新定义的String方法
+		// 封装方法调用的字符串是否包含str
+		String.prototype.isInclude = function (str) {
+			if (this.indexOf(str) !== -1) {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		let str1 = 'duyi';
+		console.log("Inclide:" + str1.isInclude('du')); //true
+
+		//inclides
+		let str2 = 'you wera, are and will be in my heart';
+
+	//1、includes() 作用同indexOf，第二个参数代表从第几位开始查找，不写从第0位开始，返回结果：true或者false
+		console.log(str2.includes('heart', 20)); //true
+
+	//2、startsWith(str, index) --  1不写参数-- 判断字符串是不是以str开头。 2写参数 -- 判断第index位是不是以str开始
+		str2.startsWith('w', 4); //true
+
+	// 3、endsWith 1不写参数-- 判断字符串是不是以str结尾。 2写参数 -- 判断第index - 1 位是不是以str结束
+		str2.endsWith('w', 5); //true
+		//应用：1.前后缀比较
+		// 	   2.域名分类：.com .cn.net .edu
+
+		let stuffLists = [
+			'Google-Page',
+			'Alibaba-mayun',
+			'Tencent-mahuateng',
+			'Facebook-Zuckerberg',
+			'Duyi-ding',
+			'Duyi-song',
+			'Duyi-cheng'
+		]
+		//找以"Duyi-"开头的内容
+		let DuyiStuff = stuffLists.filter(stuff => stuff.startsWith('Duyi-')) //
+
+
+	// 4、repeat
+		//产生由5个 '$#@^&*'. 组成的字符串
+		//处理1
+		let str3 = '';
+		for (var i = 0; i < 5; i++) {
+			str3 += '$#@^&*';
+		}
+		//处理2
+		let str4 = '$#@^&*'.repeat(5);// "$#@^&*$#@^&*$#@^&*$#@^&*$#@^&*"
+
+
+		//ES6 数组对象
+
+		//初始化数组
+		//字面量 var arr = [] && 通过构造函数
+
+		var arr = new Array(9); //数字而且只有一个参数的时候，创建一个 长度为n的数组
+		var arr = new Array('7'); //非数字m。创建一个数组[m]
+		var arr = new Array('1', 2, 3); //多个参数，返回由多个参数构成的数组
+
+		//Arrary.of 加强的Array 构造函数,统一返回由参数构成的数组
+		var arr3 = Array.of();
+		var arr4 = Array.of('5');
+		var arr5 = Array.of('1', 2, 3);
+
+		// Array.from 将类数组转化成数组。arguments NodeList都是类数组
+		var likeArr1 = document.getElementsByTagName('div');
+		// function fn () {
+		// 	console.log(arguments);
+		// }
+
+		//为什么要把类数组转化成数组？  通过操作数组的方法操作类数组
+		// Array.prototype.filter.call(likeArr1)；
+		//怎么转
+		var realArr = Array.from(likeArr1);
+		let realArr2 = [...likeArr1];
+		let realArr3 = likeArr1.slice();
+		console.log(realArr,realArr2,realArr3);
+
+		//indexOf
+		var arr10 = [1, 2, 3, 4, 5, 6]
+		var arr20 = [1, 2, 3, 4, 5, 6]
+		// console.log('slice'+arr10.slice());
+		// console.log('splice:'+arr10.splice(0,3))
+		var arr100 = arr10.splice(0, 3);//截取原数组,从0开始，截取长度为3
+		var arr2000 = arr20.slice(0, 3);//返回一个新的数组，不改变原数组，截取数组，从0开始，街取到3-1位，不写第二个参数截取到最后一位，不写参数赋值整个数组
+		console.log('arr100:' + arr100 + "--" + "arr10:" + arr10);
+		console.log('ar2000:' + arr2000 + "--" + "arr10:" + arr20);
+		console.log(arr10.indexOf(NaN))
+
+		//find(fn):返回符合条件的值，没有符合田间返回undefind，找到后立即停止之后的搜索 findIndex(fn)：返回索引值，没有符合条件的返回-1，找到后立即停止之后的搜索
+		console.log(arr10.find(x => x % 2 == 0))
+		console.log(arr10.findIndex(x => x > 1))
+
+		// fill(value, start=0, end=length) 初始化填充操作
+		// 如果一个参数则将数组内所有的位数都更换为此数值，第二个参数从第几位开始替换到最后一位。有第三个参数，替换从start位开始替换替换到end位
+		let arr11 = new Array(10);
+		arr11.fill(0);
+		let arr12 = new Array(10);
+		arr12.fill(arr11);
+
+		// ES6 JSON对象
+		// 1.标准写法：注意双引号
+		// {"key":"aaa","key":12}
+			let json = {name:"wsn",age:12};
+
+			// 转换为字符串
+			let strJson = JSON.stringify(json);
+
+			let json1 = '{"name":"wsn","age":12}';
+			
+			// 转换为对象
+			let jsoJson = JSON.parse(json1);
+
+	</script>
+
+</body>
+
+</html>

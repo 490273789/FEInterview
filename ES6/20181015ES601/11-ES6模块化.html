@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // ES6语言提供的模块化支持
+    // 但是浏览器不支持，需要使用webpack等打包工具来编译
+    // 导出部分：
+    export let a = 1;
+    export const b = 1;
+    export function fn(){
+        console.log('function')
+    }
+    export class Person {
+        constructor(name){
+            this.name = name;
+        }
+    }
+
+    export {a,b,fn,Person};
+    export default a;
+
+    // 从另一个模板导出
+    export * from './m2';
+    export {x,x,x,} from './m2';
+    export {default} from './m2';
+
+    // 导入操作  import
+    import * as mod from './m2';
+    import {a,b,fn} from './m2';
+    // 引入默认成员，由export default导出的成员
+    import xxx from './m2';
+
+    // 引入模块代码，不引入成员 -- 比如图片、css文件等
+    import "./1.jpg";
+    import "./2.css";
+
+    // 异步引入  -- 可以写在一些判断条件中，引入后返回的是promise对象
+    let promise = import("./mod1");
+
+    
+
+
+    </script>
+</body>
+</html>

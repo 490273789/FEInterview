@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //链表
+        //{} {} {} {}  如果将这些对象使用一些方式连接起来就是组成了链表,如下所示：
+        let node3 = {
+            key: 'name3',
+            value: '3',
+            next: null
+        }
+
+        let node2 = {
+            key: 'name2',
+            value: '2',
+            next: node3
+        }
+
+        let node1 = {
+            key: 'name1',
+            value: '1',
+            next: node2
+        }
+
+        function myMap() {
+            this.init();
+        }
+
+        myMap.prototype.len = 8;
+        myMap.prototype.bucket = [];
+        myMap.prototype.init = function() {
+            for (let i = 0; i < this.len; i++) {
+                this.bucket[i] = { next: null }
+            }
+        }
+
+        myMap.prototype.makeHash = function(key) {
+            let hash = 0;
+            if ((typeof key) == 'string') {
+                let len = (key.length > 3) ? key.length : 3;
+                for (let i = len - 3; i < len; i++) {
+                    hash += (key[i] !== undefined) ? key[i].charCodeAt() : 0
+                }
+            } else {
+                hash = +key;
+            }
+            return hash;
+        }
+
+
+        myMap.prototype.set = function(key, value) {
+            let hash = this.makeHash(key);
+            let bucket = this.bucket[hash % this.len];
+            let nextNode = bucket;
+            console.log(bucket);
+            while (nextNode.next) {
+                console.log(nextNode.next.key)
+                if (nextNode.next.key === key) {
+                    console.log(nextNode.value);
+                    nextNode.next.value = value;
+                    return
+                } else {
+                    console.log('111');
+                    nextNode = nextNode.next;
+                }
+            }
+            nextNode.next = { key, value, next: null }
+
+        }
+        myMap.prototype.get = function(key) {
+            let hash = this.makeHash(key);
+            let bucket = this.bucket[hash % this.len];
+            console.log('buck: '+(hash % this.len))
+            let nextNode = bucket;
+            while (nextNode.next) {
+                console.log('nextNodekey:'+nextNode.key);
+                if (nextNode.next.key === key) {
+                    console.log('nextNodevalue:'+nextNode.value)
+                    return nextNode.next.value;
+                } else {
+                    console.log('111')
+                    nextNode = nextNode.next;
+                }
+            }
+            return
+        }
+        myMap.prototype.has = function(key) {
+            let hash = this.makeHash(key);
+            let bucket = this.bucket[hash % this.len];
+            let nextNode = bucket;
+            while (nextNode.next) {
+                if (bucket.key === key) {
+                    return true;
+                } else {
+                    nextNode = nextNode.next;
+                }
+            }
+            return false;
+        }
+        myMap.prototype.delete = function(key) {
+            let hash = this.makeHash(key);
+            let bucket = this.bucket[hash % this.len];
+            let nextNode = bucket;
+            while (nextNode.next) {
+                if (bucket.key === key) {
+                    nextNode.next = nextNode.next.next;
+                    return true;
+                } else {
+                    nextNode = nextNode.next;
+                }
+            }
+            return false;
+        }
+        myMap.prototype.clear = function() {
+            this.init;
+        }
+
+
+        let mm = new myMap();
+    </script>
+</body>
+
+</html>

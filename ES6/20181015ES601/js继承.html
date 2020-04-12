@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // https://www.cnblogs.com/Grace-zyy/p/8206002.html
+        function Person (name) {
+            this.name = name || "wsn",
+            this.age = 12;
+        }    
+        Person.prototype.sex = "man";
+
+        function Son () {
+            this.name = "nihao"
+        }
+        Son.prototype = new Person();
+        let son1 = new Son();
+        // son1.__proto__ == new Persion()实例 --  new Person() . __proto__ == Person.prototype
+        // 共用原型
+        // son1.__proto__.name = "t"  修改了原型后所有实例的原型都会更改
+        // son1.__proto__.__proto__.sex = "e"  修改了原型后所有实例的原型都会更改
+        // 
+
+        function SonA () {
+            Person.call(this,"jar");
+            this.name = "wsn"
+        }
+
+        let sonA1 = new SonA();
+
+        // 组合继承
+        function SonB (name) {
+            Person.call(this,name);
+
+        }
+        SonB.prototype = new Person();
+        let sonB1 = new SonB("jre");
+
+        // 原型继承  Object.create(sup1)的实现原理
+
+        function content (obj) {
+            function F (){};
+            F.prototype = obj;
+            return new F();
+        }
+
+        let sup1 = new Person();//值new了一次所以sup2和sup3也是共用原型
+        let sup2 = content(sup1);
+        let sup3 = content(sup1);
+
+        // 圣杯模式
+        function inherit (target, Origin) {
+            function F () {};
+            F.prototype = Origin.prototype;
+            target.prototype = new F();
+            target.prototype.constructor = target;
+            target.prototype.uber = Origin.prototype;
+        }
+
+        // new的实现过程
+        // 1、创建一个空对象
+        // 2、将该空对象的原型设置为构造函数的原型，即：obj.__proto__ = func.prototype
+        // 3、以该对象为上下文执行构造函数，即：func.call(obj);
+        // 4、返回该对象
+        // 注意的是如果第3步的函数有返回值，则第4步会返回func的返回值，否则默认的返回值是obj
+        // 原理模仿：
+        function new1(func) {
+            var createObject = Object.create(func.prototype);
+            var returnObject = func.call(createObject);
+            if(typeof returnObject === "object"){
+                return returnObject;
+            } else {
+                return createObject;
+            }
+        }
+
+        // Object.create();
+        Object.create = function (obj) {
+            function Fn(){};
+            Fn.prototype = obj;
+            return new Fn();
+        }
+
+
+        function SonC () {
+            this.qw = "qw";
+        }
+
+        inherit(SonC, Person);
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>123</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				height: 100px;
+				width: 100px;
+				background: red;
+				position: absolute;
+				top:200px;
+			}
+		</style>
+	</head>
+	<body>
+		<button onclick="startMove(300)">运动</button>
+		<!-- <button onclick="startMove(0)">往回飞</button> -->
+        <div id="box"></div>
+        <div id="box1"></div>
+	</body>
+</html>
+<script>
+	let box = document.querySelector("#box");
+    let box1 = document.querySelector("#box1");
+	let time = null;
+	function startMove(target){
+		clearInterval(time);
+		time = setInterval(function(){
+			let speed = target>box.offsetLeft? 5: -5;
+            let speed1 = target>box1.offsetLeft? 5: -5;
+			box.style.left = box.offsetLeft + speed + "px";
+            box1.style.left = box1.offsetLeft + speed + "px";
+			if(box.offsetLeft >= 300 || box.offsetLeft <= 0){
+				clearInterval(time);
+			}
+            if(box1.offsetLeft >= 300 || box1.offsetLeft <= 0){
+				clearInterval(time);
+			}
+		},50);
+	}
+</script>

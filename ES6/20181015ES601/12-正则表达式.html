@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 正则 -- 匹配字符串的工具
+        // 作用：1、校验--安全性  2、数据采集
+        // 使用：
+        // JS风格
+        let re = new RegExp('\\d+',g);
+
+        // perl风格
+        let re = /\d+/g;
+        // 定界符 -- //
+        // 选项：
+            // 1、i 忽略大小写
+            // 2、g 全局匹配
+        // 字符串中和正则搭配的几个方法
+        search(re);//返回匹配到的内容的索引位置
+        match(re);//返回匹配到的内容
+        replace(re,'');//替换匹配到的内容
+
+
+        // 元字符 []
+        // 1.abc任何一个
+        let yuan = /a[abc]q/; //aaq  abq acq
+
+        // 2.范围
+        let fanwei = /[a-z0-9]/i;//[3-5 9] -- 3到59
+
+        // 3.排除  ^在元字符中是排除的意思
+        let paichu = /[^0-9]/;
+
+
+        // 转义字符
+        // \d   -- [0-9];
+        // \w -- [0-9a-zA-Z]
+        // \s  -- 所有的空白[\t\n\v\r\f]
+        //  .  -- 任何字符
+        //  \D -- [^0-9]
+        //  \W -- [^0-9a-zA-Z]
+        //  \S -- 非空白[^\t\n\v\r\f]
+
+
+        // 量词
+        // {n}   /a{6}/   /\d{11}/ -- 11位数字
+        // {n,m}  /\d{5,12}/  -- 5到12位数字
+        // {n,}   /\w{6,}/ -- 6位以上的字母
+        // +  = {1,} -- 至少有1位
+        // ？ = {0,1} -- 至多1位，或者没有  /\.jsx?/   .js .jsx
+
+
+        // 修饰符
+        // ^ -- 行首     /^https?:\/\//   --以什么开始
+        // $ -- 行尾     /\.(jpg|png|gif)$/ -- 以什么结尾
+
+        // 或   |
+        // 0-9999
+        // /\d|[1-9]\d{1,4}/
+
+        // 正则的方法test() -- 返回布尔值
+  
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		//数据结构 计算机中组织数据的方式
+		let arr1 = [1, 2, 3]; //特点 有序 不定长 支持栈，队列操作 
+		// 栈操作：First in，Last out；arr.push arr.pop
+		// 队列操作：First In First Out：arr.push  arr.shift
+		// ES6新的数据结构。Map Set 构造函数
+		// 初始化赋值
+		let map1 = new Map([
+			['name', 'wsn'],
+			['age', 18],
+			['sex', 'man'],
+			[{}, '---']
+		]);
+		let obj1 = {};
+
+		//map和使用对象的区别：map的key值区分字符串和数字1，对象不区分
+		map1.set('1', 'wsn'); //存的是字符串'1',存的key就是字符串'1'
+		obj1['1'] = 'wsn'; //在对象中存字符串'1',但是属性结果是数字1
+		map1.set(1, 'wsz');
+		obj1[1] = 'wsz';
+		console.log(map1.get('1')); //wsn
+		console.log(obj1['1']); //wsz
+
+		//map：若干键值对的集合，不会发生类型转换，所以可以区分数字1和字符串"1"
+		map1.set(1, 2); //存一个键值对：可以是原始值，也可以是引用值		 
+		map1.has(1); //判断map结构是否有key为1的键值对，结果为true或false
+		map1.delete(1); //删除一个键值对
+		map1.clear(); //清空map结构
+		map1.size //map中的size属性，记录有多少个键值对
+		//遍历当前map的两种方法
+		map1.forEach((value, key, map) => console.log(value, key, map));
+
+		for (let val of map1) {
+			console.log(val); //val拿出来的是键值对组成的数组，[key:val] -- ["name", "wsn"]
+		}
+
+		//初始化map的时候可以写默认参数，设置map的键值对
+		let map2 = new Map([
+			['name', 'wsz'],
+			['key', 'value']
+		]);
+		let obj2 = {}
+		let arr2 = [1, 2, 1, '1', obj2, obj2];
+
+		//使用map进行数组去重
+		Array.prototype.unique = function () {
+			let map = new Map();
+			let arr3 = [];
+			this.forEach(item => {
+				if (!map.get(item)) {
+					map.set(item, 1);
+					arr3.push(item);
+				}
+			})
+			return arr3;
+		}
+
+		//WeakMap   弱引用，不能用forEach方法，Key只能是对象，必须是引用值。WeakMap({},1);
+		//内存回收机制:当js的内存回收机制被触发的时候会将占用的内存回收到，在外部没有使用这个引用值WeakMap占用的内存就将被释放
+		// 内存回收机制的两种情况
+		// 1.定时清理内存
+		// 2.内存达到一定量时进行清理
+
+
+		//链表
+		//{} {} {} {}  如果将这些对象使用一些方式连接起来就是组成了链表,如下所示：
+		let node3 = {
+			key: 'name3',
+			value: '3',
+			next: null
+		}
+
+		let node2 = {
+			key: 'name2',
+			value: '2',
+			next: node3
+		}
+
+		let node1 = {
+			key: 'name1',
+			value: '1',
+			next: node2
+		}
+		//Map -- Obj
+		function strMapToObj(strMap) {
+			let obj = Object.create(null);
+			for (let [k, v] of strMap) {
+				obj[k] = v;
+			}
+			return obj;
+		}
+
+		//obj -- Map
+		function objToStrMap(obj) {
+			let strMap = new Map();
+			for (let k of Object.keys(obj)) {
+				strMap.set(k, obj[k]);
+			}
+			return strMap;
+		}
+		objToStrMap({
+			yes: true,
+			no: false
+		})
+		// [ [ 'yes', true ], [ 'no', false ] ]
+
+	</script>
+</body>
+
+</html>

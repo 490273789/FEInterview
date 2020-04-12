@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //es6
+        //1995 Javascript 主要负责表单验证 LiveScript => JavaScript
+        //1996 发布了JavaScript 1.0 和1.1版本
+        //1997 网景 JavaScript
+        //     微软 JScript  IE3
+        //     Nombas ScripEase
+        //ECMA 以Javascript1.1为蓝本  =>ECMAScript1.0
+        // 1999 HTML4.0  Ajax(ActiveX XMLHttpRequest)   --web2.0时代
+        // 2008  Chrome v8 浏览器大战，Chrome大胜
+        // ES4 （class model。。）(一部分发展为ES3.1,一部分发展为ES6)
+        // ES3.1 => ES5 2009
+        //       =>ES6  2015
+        // ES => ECMAScript(Javascript)因为是ECMA组织定的规范所以叫ES，ECMAScript是制定规范的，JavaScript是对这部分规范的实现。
+        // ES3 ES5 ES6(let const)版本更新向前兼容
+        // var a = 1
+
+        // 块级作用域（代码执行会产生代码执行空间，元素可以产生的作用范围）
+        // 全局作用域 window
+        // 函数作用域  由于函数执行产生的作用域被称为函数作用域
+        // 闭包：主要是函数作用域链没有释放
+
+        for(var i4 = 0; i4<1; i4++){
+        
+        }
+        
+        console.log(i4)//i = 1
+
+        if(false){
+            var a = 10;
+        }else{
+            console.log(a);//a = undefined  声明了但是没有定义
+        }
+
+        //var定义变量  1.作用域混乱    2.可以重复定义
+
+        //块级作用域   形式：在打括号内{}，特点：在块级作用域声明的变量，他的作用域只会在当前作用域和子作用域有效
+        // var声明的变量无法识别块级作用域
+
+
+        // let && const
+        typeof msi//msi is not defined
+        {
+            var msg = '111';
+            let msi = '222';
+            {
+                let c = '3333';
+                console.log(msg);//111
+                console.log(msi);//222
+            }
+            //console.log(c);//c is not defined
+        }
+        
+        console.log(msg);//111
+        //console.log(msi);//msi is not defined
+
+        // 1.let可以识别块级作用域也就是{}.  
+        // 2.同一作用域，let的变量不能重复声明.  
+        // 3.不会变量提升.  
+        // 4.暂时性死区(TDZ  temporal dead zone)
+        // 当javascript引擎在预编译扫描代码的时候
+        // 1.如果是通过var声明      变量声明提升
+        // 2.如果是通过let声明      会把变量放到TDZ当中    
+        // 如果使用的变量在TDZ当中就会报错  
+        // 当执行到let声明此变量的时候就会把此变量从TDZ当中拿出。
+
+       // let x = x;//报错，x未定义，在这段代码执行的时候会先执行后面的x将值赋给前面的x，由于前面x还没有执行存在TDZ中，所以会报错
+
+        // let x = 10;
+        // {
+        // TDZ会统领当前作用于,每个作用域都会有自己的TDZ
+        // TDZ = [x];
+        //     let x = x;//会报错，因为最后的x会先找块级作用域中定义的x，但是此x还在TDZ当中
+        // }
+
+        //for循环，不会报错，三个i都不在一个作用域内
+        // let i1 = 111;
+        // for(let i1 = 0; i < 10; i++){
+        //     let i1;
+        // }
+        // console.log(i);//111
+        //这段代码和上面的for循环效果是一样的
+        let i2 = 111;
+        {
+            let i2 = 0;
+            while(i2++ < 20)
+            {
+                let i2;
+                console.log('scope2')
+            }
+        }
+        console.log(i2)//111
+
+        function test() {
+            var arr = [];
+            for (var i = 0; i < 10; i++) {
+                (function(j){
+                    arr[j] = function () {
+                    console.log(j);
+                }
+                }(i))
+                
+            }
+            return arr;
+        }
+
+        function test () {
+            var arr = [];
+            for ( let i = 0; i < 10; i++) {
+                arr[i] = function () {
+                    return(i);
+                }
+            }
+            return arr;
+        }
+
+        var bb = test();
+        console.log(bb[6]());
+        //const  常量   使用const定义的常量不能被改变 1.不能重复声明.  3.不会变量提升.  4.暂时性死区(TDZ  temporal dead zone)
+
+        const PI = 3.14;
+
+        {
+            var inu = "1111"
+        }
+        console.log(inu);
+
+    </script>
+
+</body>
+
+</html>

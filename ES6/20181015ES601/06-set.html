@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //set 特点：是一个有序列表 --> 包含了一些相互独立且不相等的值
+        let set1 = new Set([1, 2, 3, 4, 5, 5, 5, 5, '1']); //{1,2,3,4,5,'1'}//数组去重
+        set1.add(1); //{1,2,3,4,5,'1'}//添加重复值会忽略
+        set1.add([1, 2]);
+        console.log(set1);
+        let obj = {};
+        set1.add(obj); //添加值
+        set1.delete(obj); //删除值
+        set1.has(1); //set中是否有1，返回值为true和false
+        set1.clear(); //清空
+        set1.forEach((item, i, set) => console.log(item, i, set)) //item的值和i的值是一样的，为了forEach方法的参数统一所以重复
+        var arr1 = [...set]; //此方法能够让set变为数组
+
+        for (let prop of set1) { //ES的for of循环，前提条件循环的对象必须有迭代接口
+            console.log(prop);
+        }
+        var s = new Set([1, 2, 3, 4, 5, 5, 5]); //数组转set
+        var arr4 = [...s]; //set转数组。  ...能够拓展所有具有迭代接口的值
+        Array.from(s); //set转数组   。  具备迭代接口的值转换为数组，比如字符换也可以的。
+
+
+        //WeakSet //只能够传引用值与WeakSMap相似，注意理解弱引用
+        var ws = new WeakSet
+
+        let o = {
+            name: "wsn"
+        }
+        let arr5 = [1, 1, 2, o, 3, 4, 5, 3, 4, {
+            name: "wsn"
+        }];
+        // 下列的数组去重，缺点，如果数组中有对象，无法完成。会将所有不同的对象有保存为一个
+        // 对象在作为属性添加到obj中时会将对象先调用toString()方法转换为[object Object],所以如果传多个对象最后只会保存成一个。
+        Array.prototype.unique = function () {
+            let itemIndex = {};
+            let resArr = [];
+            this.forEach((item) => {
+                if (!itemIndex[item]) {
+                    itemIndex[item] = 1;
+                    resArr.push(item);
+                }
+            });
+            return resArr
+        }
+
+        // 数组去重
+        let oS = new Set(arr5);
+        console.log(oS);
+
+        // 并集、交集、差集
+        // 集合: arr obj set map
+
+        // 1、取并集
+        let arr2 = [1, 2, 3, 3, 5, 9];
+        let arr3 = [1, 5, 6, 7, 3, 2];
+        let bj = new Set([...arr2, ...arr3]);
+        console.log(bj);
+        // 2、取交集
+        let jj1 = new Set(arr2);
+        let jj2 = new Set(arr3);
+
+        let newJj = [...jj1].filter(ele => {
+            return jj2.has(ele);
+        })
+        console.log(newJj);
+
+        // 3、差集
+        let cj1 = new Set(arr2);
+        let cj2 = new Set(arr3);
+        let newCj1 = [...cj1].filter(ele => {
+            return !cj2.has(ele);
+        });
+
+        let newCj2 = [...cj2].filter(ele => {
+            return !cj1.has(ele);
+        })
+        console.log([...newCj1, ...newCj2]);
+    </script>
+</body>
+
+</html>

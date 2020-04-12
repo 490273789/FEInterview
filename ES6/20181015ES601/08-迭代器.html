@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>es606</title>
+</head>
+
+<body>
+    <script>
+    //迭代器（遍历器） 生成器
+    //数据迭代； 需要遍历的数据类型：数组 对象 Map Set
+    //对于数组的迭代：1.for 2. map forEach filter(返回符合条件的)
+    var arr = [1,2,3,4]
+    for(let i = 0;i < arr.length; i++){
+    	console.log(arr[i]);
+    }
+
+    arr.forEach(function(ele,index){
+    	console.log(ele);
+    })
+
+    arr.forEach(ele => console.log(ele))
+
+    //ES6--迭代器：特殊的对象，专门为可迭代对象设计的统一接口，这个方法用来遍历数据
+    //特点：每个迭代器都有next()方法，每次执行next方法，返回一个结果对象{value , done}
+    // value:每次迭代的数据。  done:迭代是否结束 Boolean
+
+
+    // 每个迭代器有专用指针，开始时指向数据结构的第一个值每次调用next方法，返回当前值，指针下移。
+    // 每个迭代器支持for of 循环
+    // let arr1 = [1, 2, 3];
+    // arr.iterator.next();执行过程 
+    // arr.iterator.net() --> {value:1, done:false}
+    // arr.iterator.net() --> {value:2, done:false}
+    // arr.iterator.net() --> {value:3, done:false}
+    // arr.iterator.net() --> {value:undefined, done:true}
+
+    // Iterator = {
+    // 	next(){
+    // 		return {
+    // 			value,
+    // 			done
+    // 		}
+    // 	}
+    // }
+    //创建一个可以迭代数组的迭代器
+    // function createIterator(arr = []) {
+    //     let nextIndex = 0;
+    //     return {
+    //         next() {
+    //             if (arr.length - 1 < nextIndex) {
+    //                 return {
+    //                     value: undefined,
+    //                     done: true
+    //                 }
+    //             } else {
+    //                 return {
+    //                     value: arr[nextIndex++],
+    //                     done: false
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // var i = createIterator(arr1);
+    // i.next() //{value:1, done:true}
+    // i.next()
+    // i.next()
+
+
+    //默认的Iterator接口 
+    // Array Map Set String arguments NodeList
+    //1.Array Map Set
+
+    let arrI = ['one', 2, 3, 4];
+    let map = new Map([
+        ['name', 'wsn'],
+        ['age', 18],
+        ['hobbit', 'boy']
+    ])
+    let set = new Set(['one', 2, 3, 4,4]);
+    // for in && for of
+    console.log("for in && for of");
+    // 数组
+    console.log("数组");
+    for (let a in arrI){
+        console.log("in: " + a);
+    }
+    for (let a of arrI){
+        console.log("of: " + a);
+    }
+    // map
+    console.log("map");
+    for (let a in map){//map不能使用for in
+        console.log("in: " + a);
+    }
+    for (let a of map){
+        console.log("of: " + a);
+    }
+    // set
+    console.log("set");
+    for (let a in set){//set不能使用 for in
+        console.log("in: " + a);
+    }
+    for (let a of set){
+        console.log("of: " + a);
+    }
+    //entries()
+    console.log("entries");
+    let arrEntries = arrI.entries(); //对于数组返回的是数组[index, value]
+    let mapEntries = map.entries(); //对于Map返回的是数组[key, value]
+    let setEntries = set.entries(); //对于数组返回的是数组[key, key]
+    for (let [key, value] of arrEntries) {
+        console.log(key, value);
+    }
+
+    //keys()
+    console.log("keys");
+    let arrKeys = arrI.keys(); //对于数组返回的是数组的索引
+    let mapKeys = map.keys(); //对于Map返回的是map的key
+    let setKeys = set.keys(); //对于数组返回的是set的key
+    for (let key of arrKeys) {
+        console.log(key);
+    }
+
+    //values()
+    console.log("values");
+    let arrValues = arrI.values(); //对于数组返回的是数组value
+    let mapValues = map.values(); //对于Map返回的是map的value
+    let setValues = set.values(); //对于数组返回的是set的key
+    for (let value of arrValues) {
+        console.log(value);
+    }
+
+
+    //所有的迭代器都有Symbol.Iterator属性，必须通过中括号形式访问
+    console.log("Symbol");
+    for(let item of map[Symbol.iterator]()) {
+    	console.log(item);
+    }
+    
+    let strI = new String("hello");
+    console.log(strI);
+
+    //原理
+    //数组中迭代器指针每次指向下一个索引
+    //Map Set 会把临接连表转化为一个单项链表，指针每次指向一个节点，指针下移
+    console.log("原理");
+    let arr1 = ['one', 2, 3, 4];
+    let map1 = new Map([
+        ['name', 'wsn'],
+        ['age', 18],
+        ['hobbit', 'boy']
+    ])
+    let set1 = new Set(['one', 2, 3, 4,4]);
+    console.log("arr");
+    for(let item of arr) { //arr[Symbol.iteratol]() => arr.values()
+    	console.log(item);
+    }
+    console.log("map");
+    for(let key of map){ //map[Symbol.iteratol]() => map.entries()
+    	console.log(key);
+    }
+    console.log("set");
+    for(let key of set){ //set[Symbol.iteratol]() => map.key()
+    	console.log(key);
+    }
+
+    //对象是不可迭代的,可以用for in来循环
+    
+
+    //String//只要能够迭代可以调用[Symbol.Iterator]().next()
+    //双字节词
+    let str = 'I😄N';
+    for(let s of str) {
+    	console.log(s);
+    }
+
+    //likeArray 类数组
+    function fn() {
+    	for(let arg of arguments){
+    		console.log(arg)
+    	}
+    }
+
+    //生成器 Generator
+    //用于生成迭代器
+    //生成器是函数 *    yield  没有返回值
+    // function *createIterator() {
+    // 	console.log('frist befor');
+    // 	yield 1;
+    // 	console.log('secound befor');
+    // 	yield 2;
+    // 	console.log('third befor');
+    // 	yield 3;
+    // }
+
+    // var i = createIterator()
+
+    function open () {
+        console.log('Opening');
+        setTimeout(() => {
+            console.log('打开冰箱');
+            process.next();
+        }, 2000)
+    }
+
+    function load () {
+        console.log('Loading');
+        setTimeout(() => {
+            console.log('fang daxiang');
+            process.next();
+        }, 2000)
+    }
+
+    function close () {
+        console.log('Closing');
+        setTimeout(() => {
+            console.log('关闭冰箱门');
+
+        }, 1000)
+    }
+
+    function *loadElephant() {
+        yield open();
+        yield load();
+        yield close();
+    }
+
+    // let process = loadElephant();
+    // process.next();
+
+
+    function *create() {
+        var res;
+        yield 1;
+        
+        res = yield 2;
+        yield res;
+    }
+
+    let i = create();
+
+
+    //吃橘子。--》洗手。扒皮。吃
+    function washHands(){
+        console.log('xi shou');
+        setTimeout(function(){
+            process.next('干净的手')
+        }, 2000)
+    }
+
+    function peeling(){
+        console.log('ba pi');
+        setTimeout(function(){
+            process.next('没有皮的橘子')
+        }, 2000)
+    }
+
+    function eat(){
+        console.log('eat');
+        setTimeout(function(){
+            process.next('真好吃')
+        }, 2000)
+    }
+
+    function *eatOrange(){
+        let result = `${yield washHands()} --1--${yield peeling()} --1-- ${yield eat()}`;
+        console.log(result)
+    }
+
+    let process = eatOrange();
+    // process.next();
+
+    //委托迭代器 yield *
+    //便利数组和字符串
+
+    function *show(arr, string){
+        yield *arr;
+        yield *string;
+    }
+
+    let u = show([1,3,2,4], 'hello');
+    for(let item of u){
+        console.log(item);
+    }
+
+    </script>
+</body>
+
+</html>

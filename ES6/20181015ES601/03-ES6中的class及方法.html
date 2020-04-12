@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 创建对象的方法
+        // 对象自变量
+        // let obj = {};
+        // new操作符
+        // let obj1 = new Object();
+        // Object.create //可以明确定义原型的指向
+        // let obj2 = Object.create(null);//创建的对象没有原型
+
+        // 复习对象操作
+        // obj.name = 'xxxx' //增加或者修改
+        // obj['name'] = 'xxxx';//增加或者修改
+        // delete obj.name;//删除
+        // obj.name//查询
+
+        // ES6 扩展 对象
+        // 扩展1.属性
+        // let name = 'wsn';
+        // let person = {
+        // 	name//属性和值相同的时候可以只写属性名：name: name
+        // }
+        // console.log(person.name);//wsn
+
+        // 扩展2.函数简写
+        // let name = 'wsn';
+        // let person = {
+        // 	name,//js引擎会在能访问的作用域中找此值，如果没有找到则是undefined
+        // sayName: function () {
+        // 	console.log(this.name);
+        // },
+        // sayName(){
+        // 	console.log(this.name);
+        // }//函数简写
+
+        // }
+
+
+        //可计算属性
+        // let front = 'elem-';
+        // let name = 'zhansan';
+        // let stuff = 'stuff';
+
+
+        // let stuffLists = {
+        // 	[front + stuff]: name//slem-stuff: 'zhangsan'
+        // }
+        // console.log(stuffLists['elem-' + stuff])
+
+        //ES6中关于对象新增的方法
+        //全局函数：类似isNaN();
+        //ECMA定义新的方法：不在全局定义，不在Object.prototype上定义方法
+        //静态方法：Object.is()加强的比较运算符(与===差不多特别的是NaN比较和+0 -0)
+        // ==(有隐式类型转换)      ===(用的比较多，没有隐式类型转换，绝对等于)
+        // console.log(NaN == NaN);//false
+        // console.log(NaN === NaN);//false
+        // console.log(Object.is(NaN, NaN));//ture
+        // console.log(Object.is([],[]))//false  引用值比较的是地址
+        // console.log(Object.is(+0, -0));//false  
+        // console.log(+0 === -0)//ture
+
+        // +[] == 0;//ture
+        // 0 == false;//ture
+
+
+        // Object.assign()  mix-in 混合
+        //把friend对象上的属性copy到person对象上面。
+
+        // function mixin(receive, obj){//此方法赋值属性会覆盖
+        // 	for(let prop in obj){
+        // 		receive[prop] = obj[prop]
+        // 	}
+
+        // 	return receive
+        // }
+
+        function test(arr1, arr2) {
+            console.log(arr1 + arr2);
+            console.log(arguments) //数组和类数组，数组的原型是Array(),类数组的原型是Object()
+        }
+        let person = {
+            name: 'wxb',
+            age: 18,
+            //height: 180,//ES5定义重复属性会报错
+            height: 180 //ES6定义重复属性不会报错下面会覆盖上面的属性
+        }
+
+        let friend = {
+        	weight: 100,
+        	height: 100
+        }
+
+        let obj = {
+        	name: 'wsz'
+        }
+
+        let p = Object.assign(person, friend, obj)//拼接对象将friend和obj拼接到person上，在改变原始对象的同时还会返回一个对象
+        console.log(p == person);//ture
+        mixin(person, friend)
+            
+        // Object.keys
+        // Object.value
+        // Object.entries
+
+        console.log(Object.keys(person));//返回一个数组存放对象的属性：["name","age","height"]
+        console.log(Object.values(person));//返回一个数组存放对象的值：["wsb","18","180"]
+        console.log(Object.entries(person));//返回一个类数组存放键值对：["name":"wsb","age":"18","height":"180"]
+
+
+        // 增强对象原型
+        // ES5中需要使用__proto__来获得原型的属性，不推荐，因为是内部属性
+        let p = {
+        	sayName() {
+        		console.log(this.name);
+        	}
+        }
+
+        let person = Object.create(p);// Object方法创建对象可以指定原型
+        Object.getPrototypeOf(person)//ES6的方法通过暴露接口的方式操作，推荐使用。 Object.getPrototypeOf(person)
+
+        function Person(name = 'none'){
+        	this.name = name;
+        }
+
+        Person.prototype.sayName = function() {
+        	console.log(this.name);//none
+        }
+
+        var p1 = new Person();
+        // p1.sayName()
+
+        Person.prototype.sayName = function(){
+        	console.log(this.name + 'proto')
+        }
+
+        var p2 = new Person();
+        p1.sayName();//noneproto
+        p2.sayName();//noneproto
+
+
+        Object.getPrototypeOf(xxxx);
+        let obj = {
+        	sayName(){
+        		console.log(this.name + 'obj')
+        	}
+        }
+        Object.setPrototypeOf(p1, obj);//设置p1对象的原型等于p2,Object.setPrototypeOf(p1, obj)
+
+        p1.sayName();
+        p2.sayName();
+
+        let p3 = {
+        	name: 'p3',
+        	sayName() {
+        Object.getPrototypeOf(this).sayName.call(this);
+        //Object.getPrototypeOf(this) = super  :访问当前对象的原型
+        //要注意如果不是简写函数会报错，不能够使用super，函数内部的私有属性[[homeObject]] = p3，匿名函数没办法绑定此属性所以会报错
+        		super.sayName.call(this); //等于这句话Object.getPrototypeOf(this).sayName.call(this)
+        	}
+        }
+
+        // Object.setPrototypeOf(p3, p1)
+        // p3.sayName()
+
+        // 定义class
+        // ES6的class是语法糖
+        // 私有属性(每个实例上都会有) 公有属性(原型属性) 静态属性 (函数属性)
+        // 必须使用new的方式执行
+        // class定义的类的prototype不能被枚举
+        // 静态属性要放到类中，非原型
+        class Plane {
+            static alive () {//静态属性
+                return true;
+            }
+            constructor (name) {//私有属性
+                this.name = name || '普通飞机';
+                this.blood = 100;
+            }
+            fly () {//公有属性
+                console.log('fly');
+            }
+
+        }
+
+        // var oP = new Plane();
+        // console.log(oP);
+        // oP.fly();
+
+        class AttackPlane extends Plane {
+            constructor (name) {
+                super(name);
+                this.logo = 'duyi';
+            }
+            dan () {
+                console.log('biubiubiu');
+            }
+        }
+
+        var oAp = new AttackPlane('攻击机');
+    </script>
+</body>
+
+</html>
