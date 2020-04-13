@@ -7,9 +7,9 @@ console.log('是否包含“字”：', str.includes('字'));
 console.log('是否以“学”开头：', str.startsWith('学'));
 // endsWith：判断字符串中是否以指定的字符串结束
 // 第二个参数：字符串的第n位，是指定的字符串
-console.log('是否以“串”结尾：', str.includes('字',2));
+console.log('是否以“串”结尾：', str.endsWith('字',2));
 // repeat：建字符串重复指定的次数，返回一个新的字符串
-console.log('重复四次：', str.includes(4));
+console.log('重复四次：', str.repeat(4));
 
 // 正则表达式y g u
 // y 匹配时，完全按照正则对象中的lastIndex位置开始匹配，并且匹配的位置必须在lastIndex位置。
