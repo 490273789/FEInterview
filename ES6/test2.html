@@ -13,22 +13,22 @@
         <p>test2</p>
     </div>
     <script>
-        getUser();
-        var asset = getQueryString("assetid");
-        console.log(asset);
-        //截取url中的参数：userId、technology
-        function getQueryString(name) {
-            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) {
-                return unescape(r[2]);
-            }
-            return null;
-        }
+        // getUser();
+        // var asset = getQueryString("assetid");
+        // console.log(asset);
+        // //截取url中的参数：userId、technology
+        // function getQueryString(name) {
+        //     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        //     var r = window.location.search.substr(1).match(reg);
+        //     if (r != null) {
+        //         return unescape(r[2]);
+        //     }
+        //     return null;
+        // }
 
-        function getUser() {
-            console.log("1");
-        }
+        // function getUser() {
+        //     console.log("1");
+        // }
     </script>
 </body>
 

@@ -11,21 +11,25 @@
 // 4. 累的所有方法内部都无法当做构造函数使用
 // 5. 类的构造器必须使用new来调用
 
+// 机器语言 -> 低级语言（面向过程）-> 高级语言（面向对象） -> 模块 -> API
+// 私有属性(每个实例上都会有) 公有属性(原型属性) 静态属性 (函数属性)
+
 const isFly = 'canFly'
 const isSwim = 'canSwim'
 class Animal {
     // 字段初始化
     a = 1
-    constructor (type, name, age, sex) {
+    // 字段初始化 此写法是定义在成员中而不再原型上
+    eat = () => { }
+    constructor(type, name, age, sex) { //私有属性，定义的方法和属性每个实例中都会有
         this.type = type
         this.name = name
         this.age = age
         this.sex = sex
         this[isSwim] = '看自己'
     }
-    // 字段初始化 此写法是定义在成员中而不再原型上
-    eat = () => {}
-    print() {
+    // 定义在原型上的方法
+    print () {
         console.log(`【种类】: ${this.type}`);
         console.log(`【名字】: ${this.name}`);
         console.log(`【年龄】: ${this.age}`);
@@ -45,7 +49,7 @@ class Animal {
 }
 
 class Dog extends Animal {
-    constructor (name, age, sex, love) {
+    constructor(name, age, sex, love) {
         super('犬类', name, age, sex)
         this._love = love
     }
@@ -70,5 +74,24 @@ class Dog extends Animal {
 const dog = new Dog('66', 100, '公', '骨头')
 dog.love = '狗粮'
 console.log(dog.love);
-console.log(dog[isFly]('不会飞')); 
-console.log(dog.canFly('不会飞+1')); 
+console.log(dog[isFly]('不会飞'));
+console.log(dog.canFly('不会飞+1'));
+console.log(dog);
+console.dir(Dog);
+
+// vue事件总线的实现
+class Bus {
+    constructor() {
+        this.callbacks = {}
+    }
+    $on (name, fn) {
+        this.callbacks[name] = this.callbacks[name] || [];
+        this.callbacks[name].push(fn);
+    }
+    $emit (name, args) {
+        if (this.callbacks[name]) {
+            this.callbacks[name].forEacch(cb => cb(args));
+        }
+    }
+}
+

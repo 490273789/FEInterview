@@ -22,7 +22,7 @@
         Son.prototype = new Person();
         let son1 = new Son();
         // son1.__proto__ == new Persion()实例 --  new Person() . __proto__ == Person.prototype
-        // 共用原型
+        // 一、共用原型
         // son1.__proto__.name = "t"  修改了原型后所有实例的原型都会更改
         // son1.__proto__.__proto__.sex = "e"  修改了原型后所有实例的原型都会更改
         // 
@@ -34,7 +34,7 @@
 
         let sonA1 = new SonA();
 
-        // 组合继承
+        // 二、组合继承
         function SonB (name) {
             Person.call(this,name);
 
