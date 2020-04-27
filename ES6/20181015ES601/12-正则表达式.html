@@ -1,30 +1,40 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: sueRimn
+ * @Date: 2019-06-08 07:37:51
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2020-04-27 12:03:54
+ -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+
     <script>
         // 正则 -- 匹配字符串的工具
         // 作用：1、校验--安全性  2、数据采集
         // 使用：
         // JS风格
-        let re = new RegExp('\\d+',g);
+        let re = new RegExp('\\d+', g);
 
         // perl风格
         let re = /\d+/g;
         // 定界符 -- //
         // 选项：
-            // 1、i 忽略大小写
-            // 2、g 全局匹配
+        // 1、i 忽略大小写
+        // 2、g 全局匹配
         // 字符串中和正则搭配的几个方法
         search(re);//返回匹配到的内容的索引位置
         match(re);//返回匹配到的内容
-        replace(re,'');//替换匹配到的内容
+        replace(re, '');//替换匹配到的内容
 
 
         // 元字符 []
@@ -52,8 +62,8 @@
         // {n}   /a{6}/   /\d{11}/ -- 11位数字
         // {n,m}  /\d{5,12}/  -- 5到12位数字
         // {n,}   /\w{6,}/ -- 6位以上的字母
-        // +  = {1,} -- 至少有1位
-        // ？ = {0,1} -- 至多1位，或者没有  /\.jsx?/   .js .jsx
+        // +  === {1,} -- 至少有1位
+        // ？ === {0,1} -- 至多1位，或者没有  /\.jsx?/   .js .jsx
 
 
         // 修饰符
@@ -65,7 +75,8 @@
         // /\d|[1-9]\d{1,4}/
 
         // 正则的方法test() -- 返回布尔值
-  
+
     </script>
 </body>
+
 </html>
