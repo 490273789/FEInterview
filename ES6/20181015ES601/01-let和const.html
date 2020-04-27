@@ -15,53 +15,24 @@
         //     微软 JScript  IE3
         //     Nombas ScripEase
         //ECMA 以Javascript1.1为蓝本  =>ECMAScript1.0
-        // 1999 HTML4.0  Ajax(ActiveX XMLHttpRequest)   --web2.0时代
+        // 1999 HTML4.0  Ajax(Active XMLHttpRequest)   --web2.0时代
         // 2008  Chrome v8 浏览器大战，Chrome大胜
         // ES4 （class model。。）(一部分发展为ES3.1,一部分发展为ES6)
         // ES3.1 => ES5 2009
         //       =>ES6  2015
         // ES => ECMAScript(Javascript)因为是ECMA组织定的规范所以叫ES，ECMAScript是制定规范的，JavaScript是对这部分规范的实现。
         // ES3 ES5 ES6(let const)版本更新向前兼容
-        // var a = 1
 
         // 块级作用域（代码执行会产生代码执行空间，元素可以产生的作用范围）
         // 全局作用域 window
         // 函数作用域  由于函数执行产生的作用域被称为函数作用域
         // 闭包：主要是函数作用域链没有释放
 
-        for(var i4 = 0; i4<1; i4++){
-        
-        }
-        
-        console.log(i4)//i = 1
-
-        if(false){
-            var a = 10;
-        }else{
-            console.log(a);//a = undefined  声明了但是没有定义
-        }
 
         //var定义变量  1.作用域混乱    2.可以重复定义
 
         //块级作用域   形式：在打括号内{}，特点：在块级作用域声明的变量，他的作用域只会在当前作用域和子作用域有效
         // var声明的变量无法识别块级作用域
-
-
-        // let && const
-        typeof msi//msi is not defined
-        {
-            var msg = '111';
-            let msi = '222';
-            {
-                let c = '3333';
-                console.log(msg);//111
-                console.log(msi);//222
-            }
-            //console.log(c);//c is not defined
-        }
-        
-        console.log(msg);//111
-        //console.log(msi);//msi is not defined
 
         // 1.let可以识别块级作用域也就是{}.  
         // 2.同一作用域，let的变量不能重复声明.  

@@ -10,22 +10,11 @@
     <script>
     //迭代器（遍历器） 生成器
     //数据迭代； 需要遍历的数据类型：数组 对象 Map Set
-    //对于数组的迭代：1.for 2. map forEach filter(返回符合条件的)
-    var arr = [1,2,3,4]
-    for(let i = 0;i < arr.length; i++){
-    	console.log(arr[i]);
-    }
-
-    arr.forEach(function(ele,index){
-    	console.log(ele);
-    })
-
-    arr.forEach(ele => console.log(ele))
+    //对于数组的迭代：1.for 2. map forEach filter
 
     //ES6--迭代器：特殊的对象，专门为可迭代对象设计的统一接口，这个方法用来遍历数据
     //特点：每个迭代器都有next()方法，每次执行next方法，返回一个结果对象{value , done}
     // value:每次迭代的数据。  done:迭代是否结束 Boolean
-
 
     // 每个迭代器有专用指针，开始时指向数据结构的第一个值每次调用next方法，返回当前值，指针下移。
     // 每个迭代器支持for of 循环
@@ -35,15 +24,6 @@
     // arr.iterator.net() --> {value:2, done:false}
     // arr.iterator.net() --> {value:3, done:false}
     // arr.iterator.net() --> {value:undefined, done:true}
-
-    // Iterator = {
-    // 	next(){
-    // 		return {
-    // 			value,
-    // 			done
-    // 		}
-    // 	}
-    // }
     //创建一个可以迭代数组的迭代器
     // function createIterator(arr = []) {
     //     let nextIndex = 0;
@@ -111,7 +91,8 @@
     console.log("entries");
     let arrEntries = arrI.entries(); //对于数组返回的是数组[index, value]
     let mapEntries = map.entries(); //对于Map返回的是数组[key, value]
-    let setEntries = set.entries(); //对于数组返回的是数组[key, key]
+    let setEntries = set.entries(); //对于set返回的是数组[key, key]
+    console.log(mapEntries);
     for (let [key, value] of arrEntries) {
         console.log(key, value);
     }
@@ -120,7 +101,7 @@
     console.log("keys");
     let arrKeys = arrI.keys(); //对于数组返回的是数组的索引
     let mapKeys = map.keys(); //对于Map返回的是map的key
-    let setKeys = set.keys(); //对于数组返回的是set的key
+    let setKeys = set.keys(); //对于set返回的是set的key
     for (let key of arrKeys) {
         console.log(key);
     }
@@ -129,7 +110,7 @@
     console.log("values");
     let arrValues = arrI.values(); //对于数组返回的是数组value
     let mapValues = map.values(); //对于Map返回的是map的value
-    let setValues = set.values(); //对于数组返回的是set的key
+    let setValues = set.values(); //对于set返回的是set的key
     for (let value of arrValues) {
         console.log(value);
     }
