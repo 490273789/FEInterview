@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html,body {
+            height: 100%;
+        }
+
+        /* .left { */
+            /* position: absolute;
+            top: 0;
+            left: 0; */
+            /* width: 100px;
+            height: 100%;
+            background: greenyellow; */
+            /* float: left; */
+        /* }
+        
+        .mid { */
+            /* float: left; */
+            /* 计算盒子高度 */
+            /* width: calc(100% - 200px); */
+            /* height: 100%;
+            background: pink; */
+        /* }
+
+        .right { */
+            /* position: absolute;
+            top: 0;
+            right: 0; */
+            /* width: 100px;
+            height: 100%;
+            background: orange; */
+            /* float: right; */
+        /* } */
+
+
+        .box {
+            display: flex;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000;
+            
+            /* 设置主轴方向
+                column：设置主轴为Y轴，方向从上向下。
+                row：默认值，设置主轴为X轴，方向从左向右。
+                column-reverse：设置主轴方向为Y轴方向从下向上。
+                row-reverse：设置主轴方向为X轴方向从右向左。
+             */
+            flex-direction: row;
+            
+            /* 设置盒子超出部分换行，
+                wrap 盒子超处部分换行。
+                nowrap设置超出部分不换行。
+                wrap-reverse:超出部分反向换行 */
+            /* flex-wrap: wrap; */
+            
+            /* 复合属性，同时设置flex-direction和flex-wrap */
+            flex-flow: column wrap;
+            
+            /* 设置子元素沿侧轴对其方式 
+            flex-end 沿结束的地方对齐,
+            flex-start 沿开始的地方对齐,
+            center 居中,
+            base-line:以文字第一行的位置进行对齐，文字内容的对齐。
+            strerch:伸展
+            */
+            align-items: center;
+
+            /* 设置子元素沿主轴方向的对其方式
+                center：居中
+                flex-start：开始的地方对其
+                flex-end：结束的地方对其
+                space-between：使每两个项目之间的空白区相同
+                space-around：每个项目的两边空白相同，每个项目两边都有空白
+             */
+            justify-content: center;
+            /* 定义了多轴对其方式 */
+            align-content: center;
+        }
+
+        .left {
+            width: 200px;
+            height: 200px;
+            background: yellowgreen;
+            /* 设置每个div的缩放比例，默认缩放部分平均分 */
+            /* flex-shrink: 2; */
+            /* 设置超出的部分伸长的比例 */
+            /* flex-grow: 0; */
+            /* 基准值，如果与盒主轴方向with同时存在则取值flex-basis */
+            /* flex-basis: 200px; */
+            /* flex:flex-grow flex-shrink flex-basis;flex是这三个属性的复合属性，这三个属性可以分开写，也可以卸载一起 */
+            /* 设置（项目）盒子的排列顺序，默认值为0，并列的数值按照结构顺序排列 */
+            /* order: 3; */
+            /* 设置此元素的在侧轴的位置，flex-end,flex-start,center,
+            base-line:以文字第一行的位置进行对齐，文字内容的对齐。
+            strerch:根据父级的方式对其
+            auto: 默认值
+             */
+            /* align-self: flex-end; */
+
+            
+        }
+
+        .mid {
+            width: 200px;
+            height: 200px;
+            background: pink;
+            /* flex-shrink: 1; */
+
+            /* flex-grow: 1; */
+        }
+
+        .right {
+            width: 200px;
+            height: 200px;
+            background: #098;
+            /* flex-shrink: 1; */
+
+            /* flex-grow: 2; */
+        }
+    </style>
+</head>
+<body>
+    <!-- 弹性盒模型 -->
+    <div class="box">
+        <div class="left">1</div>
+        <div class="mid">2</div>
+        <div class="right">3</div>
+    </div>
+    
+    
+</body>
+</html>

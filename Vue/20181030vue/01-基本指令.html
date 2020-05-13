@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>vue01</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.content {
+			width: 100px;
+			height: 100px;
+			background-color: greenyellow;
+		}
+
+		.wrapper {
+			width: 200px;
+			height: 200px;
+			background-color: #876543;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<!-- {{flag ? 'sucess' : 'faild'}} 插值语法，模版语法-->
+		<div>{{msg}}</div>
+		<div v-text="htmlVal"></div>
+		<div v-html="htmlVal"></div> <!-- 尽量少使用js注入html标签 -->
+		<div v-once>{{msg}}</div>
+		<div>{{money}}$</div>
+		<div>{{usd}}¥</div>
+		<div class="content" v-on:click="show"></div><!-- @click='show' ---简写 -->
+		<button v-on:click="(val<10)&& val++">+</button>
+		<span>{{val}}</span>
+		<button @click="sub(2, $event)">-</button>
+
+		<button v-on:click.left.once="add">+</button><!-- 左键点击生效，只生效一次 -->
+		<span>{{val}}</span>
+		<button @click.right.prevent="sub">-</button><!-- 右键点击生效,并阻止默认事件 -->
+
+		<div class="wrapper" @click="show">
+			<div class="content" @click.stop="show"></div> <!-- 阻止事件冒泡-->
+		</div>
+
+		<input type="text" value="" @keyup.enter="show"> <!-- up ,esc ,enter....,还可以写按键的key值-->
+	</div>
+
+	<script>
+		var vm = new Vue({
+			el: '#app',//挂载
+			data: {
+				msg: 'hello Vue',
+				flag: true,
+				htmlVal: '<span style="color:red;">abc</span>',
+				money: 1,
+				val: 0
+			},
+			//template: '<p>{{msg}}</p>', //配合el使用，会将挂载的dom元素替换为此元素,可以使用插值语法和vue指令
+			computed: {//定义派生属性,计算属性
+				usd() {
+					return this.money * 6
+				}
+			},
+			watch: {//监听属性:当部分属性发生变化的时候可以给予反馈
+				msg(newValue, oldValue) {
+					console.log('msg is change:' + oldValue);
+				}
+			},
+			methods: {
+				show(e) {
+					console.log(e.target.value)
+				},
+				sub() {
+					if (this.val > 0) {
+						this.val--
+					}
+				},
+
+				add() {
+					if (this.val < 10) {
+						this.val++
+					}
+				}
+			}
+
+		})
+		//渐进式：可以作为任何系统的一部分，可以将一个系统一点一点的重构为vue
+		//框架（framework）：1.完整的解决方案 2.控制整个流程
+		//库：1.函数的集合。2.使用者进行控制
+		//声明式：
+		//框架模式与设计模式
+		//设计模式：常见问题的通用解决方案的总结，就像一种题型的通用解决方法
+		//框架模式：针对的整个系统
+		//MVVM
+		//M:model V:view VM:vm对象 双向绑定
+	</script>
+</body>
+
+</html>

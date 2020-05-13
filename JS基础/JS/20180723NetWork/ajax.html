@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function ajax(method,url,callback,data,flag) {
+			var xhr = null;
+			if (window.XMLHttpRequest) {
+				xhr = new XMLHttpRequest();
+			}else {
+				xhr = new ActiveXobject('Microsoft.XMLHttp')
+			}
+			xhr.onreadystatechange = function() {
+				if (XMLReadyState == 4) {
+					if (xhr.status == 200) {
+						callback(xhr.responseText);
+					}else{
+						console.log(error);
+					}
+				}
+			}
+			method = method.toUpperCase();
+			if (method = "GET") {
+				var date = new Date(),
+				timer = data.getTime();
+				xhr.open(method, url + "?" + data + '$timer=' + timer, flag);
+				xhr.send();
+			}else if (method = 'POST') {
+				xhr.fs.open(method, url, flag);
+				xhr.setRequestHeader('content-type','application/x-ww-form-urlencode');
+				xhr.send(data);
+			}
+		}
+	</script>
+</body>
+</html>

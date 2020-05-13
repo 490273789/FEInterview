@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .demo {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 10px;
+            top: 50px;
+            /* transition: left 1s linear, top 1s linear; */
+
+            /* 参数一：关键帧的名字
+               参数二：执行动画时间
+               参数三：指定函数的运动速率
+               参数四：运动的延迟时间
+               参数五：
+             */
+            animation: move 4s linear;
+        }
+
+        a:hover + .demo {
+            left: 100px;
+            top: 100px;
+        }
+
+        @keyframes move {
+            0% {
+                left: 10px;
+                top: 50px;
+            }
+
+            25% {
+                left: 100px;
+                top: 50px;
+            }
+
+            50% {
+                left: 100px;
+                top: 100px;
+            }
+
+            75% {
+                left: 10px;
+                top: 100px;
+            }
+
+            100% {
+                left: 10px;
+                top: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#">hover</a>
+    <div class="demo"></div>
+</body>
+</html>

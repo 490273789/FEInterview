@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="app"></div>
+    <!--  1.引入vue模块 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <!-- 2.引入vue-router模块 -->
+     <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+     <script>
+        // 地址栏上 路由范式
+        // （1）xxx.html#/user/1 params动态路由参数
+        // （2）ooo.html#/user?userId=1 query
+
+        var UserParams = {
+            template: `
+                <div>我是用户1</div>
+            `,
+            created () {
+                // 跑出两个对象，挂载在vue实例化对象当中
+                console.log(this.$router)
+                console.log(this.$route)
+                console.log(this.$route.params.id)
+            }
+        };
+        var UserQuery = {
+            template: `
+                <div>我是用户2</div>
+            `
+        }
+        var router = new VueRouter({
+            // 5.配置路由对象
+            routes:[
+                // 配置路由规则
+                {
+                    // 动态路由参数，以冒号开头
+                    path:'/user/:id',
+                    name:'userP',
+                    component: UserParams
+                },
+                {
+                    path:'/user',
+                    name:'userQ',
+                    component: UserQuery
+                }
+            ]
+        })
+
+        // 引入vue-router模块，给我们抛出了两个全局组件，router-link ==> a to==>href
+        // router-view ==>路由组件的出口
+        var App = {
+            // 使用路由命名，需要绑定to属性
+            template:`
+                <div>
+                    <router-link :to="{name:'userP',params:{id:1}}">用户1</router-link>
+                    <router-link :to="{name:'userQ',query:{userId:2}}">用户2</router-link>
+                    <router-view></router-view>
+                </div>
+            `
+        }
+        new Vue({
+            el:'#app',
+            data () {
+                return {
+                    
+                }
+            },
+            components: {
+                App
+            },
+            template: `<App />`,
+            // 6.交给vue实例化对象管理
+            router
+        })
+     </script>
+</body>
+</html>

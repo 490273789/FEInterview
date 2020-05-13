@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Class List</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            display: inline-block;
+            margin: 20px;
+            border: 1px solid #000;
+            padding: 20px;
+            padding-bottom: 1px;
+            font-size: 14xp;
+            cursor: pointer;
+        }
+
+        .course {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .img-box {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .course-img {
+            width: 140px;
+            height: 80px;
+            vertical-align: bottom;
+        }
+
+        .title {
+            width: 250px;
+            box-sizing: border-box;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .free {
+            color: #5fb41b;
+        }
+
+        .play-back {
+            display: inline-block;
+            padding: 0 3px;
+            font-size: 12px;
+            border: 1px solid #73b3e7;
+            color: #73b3e7;
+        }
+
+        .course span {
+            box-sizing: border-box;
+            position: absolute;
+            bottom: 0;
+            display: block;
+            width: 100%;
+            line-height: 20px;
+            padding-left: 10px;
+            color: #fff;
+            font-size: 10px;
+            background-color: rgb(0, 0, 0, .6)
+        }
+
+        .price {
+            color: #e85308;
+        }
+
+        .choose {
+            opacity: 0.3
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <course-list :list="courseList" @price="getPrice" @click.native="onClick"></course-list>
+        <!-- 
+            @click="onClick" ：在组建上绑定事件，系统会默认为自定义事件，需要到组件中注册才能使用。
+         -->
+        <!-- 
+            1、给vue组件绑定事件的时候，必须加上.native才能够使用，添加上.native后把他看作为原生事件。
+            2、子组件内部处理click事件然后向外发送click事件: $emit("click",fn)。
+            3、只有绑定在组件上才有效，绑定在组件内部就没有效果了。
+         -->
+        <!-- 
+            如果全局组件和局部组件名字相同会优先使用局部组件。
+        -->
+        合计: {{ totalPrice }}
+    </div>
+
+    <script>
+        const courseList = {
+            // props 特性 -- 接收父组件传的值  \  非props 特性：会把父组件的值显示在行间
+            props: {//父子组件传值：可以是数组，对象
+                //如果是对象可以写一些限定条件
+                list: {
+                    type: Array,//限定传值的类型，也可以写数组，定义多个类型
+                    default: [],//定义默认值，如果父组件没有传值则使用定义的默认值
+                    requirte: true,//规定这个值是必填字段
+                    validator(value) {
+                        return true//可以写一些方法对父组件传的值进行验证，返回布尔值，true会返回父组件传的内容
+                    }
+                }
+            },
+            data() {//组件存放数据需要使用函数，因为组件可以复用，如果使用对象数据也会复用，但是数据会共享，为了防止数据冲突，所以写构造函数，组件复用，数据独立
+                return {
+                    totalPriceArr: [],
+                    alreadyBuyArr: [],
+                    totalPrice: 0,
+                    // vue单向数据流：子组件不能够改变父件的数据，
+                    // 解决方法：原始值直接将值赋给组件自己定义的变量
+                    // 引用值：需要克隆给组件自己定义的值，赋值只能赋引用地址没有实际效果，并且会影响其他组件的数据使用
+                    courseList: this.list.concat([])
+                }
+            },
+            template: `<ul>
+                            <li v-for="(item,index) in courseList"
+                                :key="item.name"
+                                @click="addToBuy(item.price, index)"
+                                @contextmenu.prevent="removeFromBuy(index, item.price)"
+                                :class="{course: true, choose: alreadyBuyArr[index]}">
+                                <div class="img-box">
+                                    <img class="couse-img" :src="item.poster"
+                                        alt="">
+                                    <span v-if="item.enrollment">{{ item.enrollment }}人报名</span>
+                                    <span v-if="item.buyNumber">{{ item.buyNumber}}人购买</span>
+                                </div>
+
+                                <div class="content-box">
+                                    <div class="title">{{ item.name }}</div>
+                                    <div class="free" v-if="item.free">免费</div>
+                                    <div class="play-Back" v-if="item.playback">回放</div>
+                                    <div class="price" v-if="item.price">{{ item.price }}￥</div>
+                                </div>
+                            </li>
+                      </ul>`,
+            methods: {
+                // 点击购买后的处理效果
+                addToBuy(price, index) {
+                    if (this.alreadyBuyArr[index]) {
+                        return
+                    }
+                    this.$set(this.alreadyBuyArr, index, true);
+                    this.totalPriceArr.push(price);
+                    this.getTotalPrice();
+                },
+                // 点击右键取消购买
+                removeFromBuy(index, price) {
+                    if (!this.alreadyBuyArr[index]) {
+                        return
+                    }
+                    const totalPriceIndex = this.totalPriceArr.findIndex(item => {
+                        return item == price
+                    })
+                    console.log(totalPriceIndex)
+                    this.alreadyBuyArr.splice(index, 1, false);
+                    console.log(index)
+                    this.totalPriceArr.splice(totalPriceIndex, 1);
+                    this.getTotalPrice();
+                },
+                // 计算总价格
+                getTotalPrice() {
+                    if (this.totalPriceArr.length === 0) {
+                        totalPrice = 0;
+                    } else {
+                        this.totalPrice = this.totalPriceArr.reduce((prove, cur) => {
+                            return prove + cur
+                        })
+                    }
+                    this.$emit('price', this.totalPrice)//注册自定义事件
+
+                }
+            }
+        }
+
+        const vm = new Vue({
+            el: '#app',
+            components: {
+                courseList
+            },
+            data: {
+                totalPrice: 0,
+                courseList: [{
+                    name: 'Web前端开发之JavaScript(Js)精英课堂【渡一教育】',
+                    free: true,
+                    playback: false,
+                    price: 0,
+                    buyNumber: 0,
+                    enrollment: 4942,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLBsSud06XlZnJACsTWd7OSA5phIFPRTNibFBeuT8jRjy00Jb5ticSEKYUnpUYdBCicH2U/356'
+                },
+                {
+                    name: 'Web前端开发之HTML+CSS精英课堂【渡一教育】',
+                    free: true,
+                    playback: false,
+                    price: 0,
+                    buyNumber: 0,
+                    enrollment: 2982,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLBDFLdArBwf70PjMrL6bq0OI9LesEsskk1iamJKibriaic0QkBZhINoDuN0DicaojkqyQjk/356'
+                },
+                {
+                    name: '淘宝商城项目实战开发【渡一教育】',
+                    free: true,
+                    playback: false,
+                    price: 0,
+                    buyNumber: 0,
+                    enrollment: 1742,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLDBpXKL1sgAOKcbSz0Od2abiaqdJibiaDDQWfmrVNBCFrIpbTQKlNyWbPg5Uo1dnT7Znk/356'
+                },
+                {
+                    name: '零基础WEB前端入门',
+                    free: false,
+                    playback: true,
+                    price: 9.9,
+                    buyNumber: 2514,
+                    enrollment: 0,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLCRlDgtxVbmyclxP9fDUYmnuqAFbN5mYsncrPrVyQbtA3fNfuZ3qicSe1r7Ppt7tICs/356'
+                },
+                {
+                    name: 'React顶级企业实战，全流程制作淘票票WebApp【渡一教育】',
+                    free: false,
+                    playback: true,
+                    price: 399,
+                    buyNumber: 670,
+                    enrollment: 0,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLB2CyXIxsb8iaAUibBB9mzlkSgKNU7GiciaYxG1SicoLjkiahZ3ia54eZWbtCGDkFyvMo0uKk/356'
+                },
+                {
+                    name: '原生JS贪吃蛇游戏实战开发【渡一教育】',
+                    free: true,
+                    playback: false,
+                    price: 0,
+                    buyNumber: 0,
+                    enrollment: 1123,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLCfsOGnxjhUXFA6SHMOu0fMUicuucRlIVNo9zBnnLiacovMnePD6586QlRj2qvwudbn8/356'
+                },
+                {
+                    name: '原生JS扫雷游戏实战开发【渡一教育】',
+                    free: true,
+                    playback: false,
+                    price: 0,
+                    buyNumber: 0,
+                    enrollment: 631,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLDaTljUSVGk2eqS1MCT3DwDqxgs7KhfMf3411SXQkRvmiaicIuz47ydO27zGPWK97wicw/356'
+                },
+                {
+                    name: '你不知道的Javascript【渡一教育】',
+                    free: true,
+                    playback: false,
+                    price: 0,
+                    buyNumber: 0,
+                    enrollment: 1696,
+                    poster: 'https://10.url.cn/qqcourse_logo_ng/ajNVdqHZLLCelo2lyibtrxDia7aq7tC0LE1Lcz2LVoDqhQy5tnOHicTzWhLuvPekL35rEmwTdgNuwI/356'
+                }
+                ]
+            },
+            methods: {
+                getPrice(price) {
+                    console.log(price);
+                    this.totalPrice = price;
+                },
+
+                onClick() {
+                    console.log('组件原生事件绑定添加native')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

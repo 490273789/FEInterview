@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .demo1 {
+            position: absolute;
+            left: calc(50% - 100px);
+            top: 150px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+
+            /* 
+                1、可以引入多张图片
+                background-image: url(img/music.jpg),url(looper.png);
+             */
+            background-image: url(img/1.jpg);
+
+            /* 
+                控制背景图片出现方式:
+                默认为repeat  -- 空白部分图片会重复出现并填充;
+                1、no-repeat  -- 空白部分不重复图片填充;
+                2、repeat-x  -- x轴方向图片会重复填充;
+                3、repeat-y -- y轴方向图片会重复填充;
+                4、round  -- css3新属性，  (content宽度 / 图片相应的宽度) 四舍五入张图片 先拉伸达到计算的值后填充一张图片;
+                5、space  -- css3新属性，  (content宽度 / 图片相应的宽度) 四舍五入张图片 先使用空白填充达到计算的值后填充一张图片;
+                6、同时写两个属性：横轴方向round，纵轴方向space;
+                   background-repeat: round space;
+             */
+            background-repeat: repeat;
+
+            /* 
+                控制背景图片大小:
+                1、可以控制多张图片
+                background-size: 100px 200px,100px 200px;
+                
+             */
+            background-size: 200px 100px;
+
+            /* 
+                在background-image和border-image使用
+                linear-gradient:线性渐变
+                radial-gradient : 径向渐变
+            */
+
+            /* 
+                设置图片展示的开始位置:
+                1、border-box -- 从border开始;
+                2、padding-box -- 从padding开始(默认值);
+                3、content-box -- 从内容区开始;
+             */
+            background-origin: content-box;
+
+            /* 
+                设置图片展示从什么位置开始截断:
+                1、border-box -- 从border截断(默认值);
+                2、padding-box -- 从padding位置开始截断;
+                3、content-box -- 从内容区开始截断;
+             */
+            background-clip: content-box;
+
+            /* 
+                控制背景图片位置:
+                1、可以控制多张图片:
+                background-position: 0 0, 100px 0;
+                2、如果有background-origin，会此属性影响，会根据此属性进行定位
+                3、制的形式多样化:
+                可以是关键字 -- center;
+                可以是百分比 -- 50%;
+                可以是像素 -- 50px;
+
+             */
+             background-position: 0 0;
+
+        }
+
+        .demo2:hover {
+            background-position: center center;
+        }
+
+        .demo2 {
+            position: absolute;
+            left: calc(50% - 400px);
+            top: 50px;
+            width: 800px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 30px;
+            border: 1px solid #ddd;
+            background-image: url(img/1.jpg);
+
+            /* 只有web-kit内核能够使用 */
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-position: 0 0;
+            transition: all .6s;
+
+        }
+
+        .demo4 {
+            margin-top: 150px;
+            margin-left: 50px;
+            width: 300px;
+            height: 400px;
+            border: 1px solid #666;
+            overflow: scroll;
+            background-image: url(img/1.jpg);
+            /* background-size: 200px 100px; */
+            /* background-position: 50px 200px; */
+            background-repeat: no-repeat;
+
+            /* 
+                改变定位属性:
+                1、scroll(默认值) 相对于容器进行定位，类似fixed
+                2、local 相对于内容进行定位；
+                3、fixed 相对于屏幕的视口进行定位，
+             */
+            background-attachment: scroll;
+
+            /* 
+                都是用一张图片来填充背景
+                cover:用一张图片来填充背景，在不该图片的比例情况下，会让一张图片完整的填充容器。img一条边对齐容器的一条边，img另一条边大于等于容器的另一条边
+                contain: 在不改变图片的比例下让容器包含一张完成的图片，img一条边对齐容器的一条边，img另一条边小于等于容器的另一条边
+             */
+            background-size: contain;
+
+        }
+
+        .demo5 {
+            position: absolute;
+            top:150px;
+            left: 500px;
+            margin-left: 500px;
+            width: 200px;
+            height: 100px;
+
+            /*  
+            可以加多个颜色渐变
+                渐变方向
+                to top right
+                to left bottom
+                0deg   --  角度
+                180deg
+                从20px开始渐变，到60像素截止
+                background-image: linear-gradient(to right, #0f0 20px, #ff0 60px);
+             */
+            /* background-image: linear-gradient(to right, #0f0, #ff0); */
+
+            /* 
+                径向渐变
+                background-image: radial-gradient(#0f0 30%, #ff0 60px);
+                 background-image: radial-gradient(circle at right bottom, #0f0, #ff0);
+                 circle:圆
+                 ellipse:椭圆
+                 closest-corner -- 最近的角落
+                 closest-side -- 最近的边
+                 farthest-corner -- 最远的角落
+                 farthest-side -- 最远的边
+             */
+            background-image: radial-gradient(ellipse closest-corner at 50px 50px, #0f0, #ff0);
+        }
+
+        /* 颜色 
+            RGB
+            RGBA  --  A透明度
+            HSL
+            HSLA
+            transparent
+            border如果不写border-color，他的值默认为currentColor，currentColor会集成color
+        */
+    </style>
+</head>
+<body>
+    <div class="demo1"></div>
+    <div class="demo2">background-clip: content-box,只有文字区域有图片</div>
+    <div class="demo3"></div>
+    <div class="demo4">
+        随着IG与JDG春季赛总决赛的逼近，又到了日常的赛前喊话时间。这时候双方都会录制一些视频或者发表一些鼓舞士气的言论来示威。而喊着喊着，性质渐渐就变了，开始变成了互相挑衅，也就是大家看到的“互飙垃圾话”，看到他们的聊天内容，网友们也是纷纷笑了出来。
+        对比去年的S8时各支队伍的“挑衅行为以及发言”今年的赛前发言确实是把大家逗乐了。视频先是JDG的绿毛对IG做出了喊话，“IG简直就是神战队，每个选手都是无敌的，根本打不过”。宁王也放出了一句狠话“你看JDG都一穿三了，也不差这最后一个嘛”
+        今年的LPL喊话可谓是一反常态，由互相“垃圾话”，变成了文明人的“商业互吹”，网友们纷纷都表示这也太逗了。而且更逗的是，Theshy与Zoom还在直播中有“交易”，Zoom表示自己看Theshy直播的时候都忍不住刷飞机，而Theshy也表示还是Zoom强Zoom猛Zoom厉害。而绿毛又站了出来，表示IG碰到JDG这是大Theshy遇到小Theshy。
+        除了上野的逗比互动，中下也开始了商业互吹。先是Jkl发言表示Imp简直是世界第一ADC，绿毛也是LPL最强辅助。而Imp则表示哪里比得上JKL，第一年参加职业赛场就拿下了世界冠军，实在是太强了。然而这和平的商业互吹却被一个人打破了，这个人就是IG的duke。
+        Duke上来别的没有多废话，直接来了一句，我是锦鲤，我是冠军，而且duke出场三次都说了这句话，看的网友们也是笑的合不拢嘴，表示Duke你这是破坏队形啊，不过确实是说道点子上了，你觉得呢？
+        </div>
+    <div class="demo5"></div>
+</body>
+</html>

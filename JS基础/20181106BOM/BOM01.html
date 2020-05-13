@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Browser Object Model:model一般都是提供一套通用解决方案，这里的意思就是如何使用js来操作浏览器，或着说是通过js和浏览器进行交互
+        //BOM的核心是window对象：我们主要使用window的方法和属性
+
+        //window
+        //innerheight（包含滚动条的高度）和clientwith（不包含滚动条的高度）的区别
+        //pageXOffset   x轴的滚动条滑动的距离，pageYOffset同理
+        //offsetTop:元素到顶层的距离
+        //onscroll:事件，在滚动条滚动的时候触发
+        // window.screenX:返回浏览器X轴距离屏幕边的距离
+        //属性的4大特性
+        //window.name属性
+
+        // 操作本次页面的历史记录
+        // history.lenght
+        // history.back();
+        // history.forward();
+        // history.go(1);//-1往前跳
+
+
+        // https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1
+        //  location对象
+        // URL --> 资源定位器
+        // https --> 网络协议
+        // www.baidu.com:443 --> 域名
+        // /s  --> 路径
+        // #123 --> 锚点
+        // ie=utf-8&f=8&rsv_bp=1 --> 参数
+
+        location.protocol//协议
+        location.host//域名
+        location.pathname//路径
+        location.search//参数
+        location.hash//锚点
+
+        location.href = 'www.taobao.com'//修改地址
+        location.search = '?wd=10'
+        location.hash = '#20'//修改锚点不会刷新页面，单页面应用-->vue的路由原理和此相关siganl page application
+        location.assign()
+        location.reload();//false 取缓存刷新，true 到服务器重新取并刷新
+        location.replace();//替换网页，替换后不会有后退操作。(没有history)
+
+        // EV录屏
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Laydate</title>
+</head>
+
+<body>
+
+    <div>
+        <label for="test1">Problem Start Time:</label>
+        <input type="text" id="test1">
+    </div>
+
+
+    <script src="laydate/laydate.js"></script>
+    <script>
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1', //指定元素
+            type: 'datetime',
+            lang: 'en',
+            theme: 'grid'
+        });
+    </script>
+</body>
+
+</html>

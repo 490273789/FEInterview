@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <!-- 路由的实现
+        （1）传统的开发方式url改变，立刻发生请求相应整个页面，有可能资源过多，传统的开发会让页面出现白屏，影响用户体验
+        （2）SPA 单页面应用，Single Page Application
+            锚点值改变后
+            不会立即发送请求，而是在某个合适的实际，发起ajax请求，页面局部渲染
+            有点L页面不立即跳转，用户体验好
+    -->
+    <a href="#/login">登录页面</a>
+    <a href="#/registe">注册页面</a>
+    <div id="app"></div>
+    <script>
+        // 路由实现原理
+        var oDiv = document.getElementById('app');
+        window.onhashchange = function () {
+            console.log(location.hash);
+            switch(location.hash) {
+                case '#/login':
+                oDiv.innerHTML = '<h2>我是登录页面</h2>'
+                break;
+                case '#/registe':
+                oDiv.innerHTML = '<h2>我是注册页面</h2>'
+                break;
+                default:
+                break
+            }
+        }
+        
+    </script>
+</body>
+</html>

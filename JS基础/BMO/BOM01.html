@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <iframe src="./BOM001.html" frameborder="0"></iframe>
+    <script type="text/javascript">
+    var bb = window.open('http:www.baidu.com','','width = 100,height = 100');//打开一个窗口
+    bb.moveTo(200,200);移动窗口的位置
+    window.scrollBy(100,200);//移动滚动条的位置
+    prompt('请输入雷数');//输入确认框
+    pageXOffset//设置或者返回当前滚动条滚动的区域
+    length//返回当前窗口中包含几个窗口
+    console.log(window.parent.a);//取父级的变量
+    console.log(window.top.a);//有多级嵌套的情况下取最上级的变量
+    history.back();//后退
+    history.forward();//前进
+    history.go(-2);//跳转
+    history.length();//查看缓存数量
+    </script>
+    
+</body>
+</html>

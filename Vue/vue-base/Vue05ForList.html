@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #app {
+            position: absolute;
+            top:20%;
+            left: 20%;
+        }
+        li {
+            line-height: 30px;
+        }
+        p {
+            display: inline-block;
+        }
+        span {
+            
+            border: 1px solid red;
+            padding: 1px;
+            color: red;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- 1.使用v-for循环的时候需要添加key值，key值是不重复的-->
+            <!-- <template></template>
+                    为v-for准备的标签，标签用作写v-for循环，在页面中是不会出现此标签的
+                    如下将li标签换为此标签后，效果和li一样，但是在页面中不会有此标签渲染
+                v-for和v-if同时使用，v-for的优先级更高-->
+            <li v-for="item in newsList" :key="item.id"> 
+                <p>{{item.title}}</p>
+                <span v-if="item.new">新</span>
+            </li>
+        </ul>
+
+        <div>
+            <ul>
+                <!-- 遍历对象：可以写三个参数分别的value key index -->
+                <!-- 通过 “.属性” 方式添加属性是不会触发视图的更新
+                    通过 “.属性” 方式修改属性是可以触发视图的更新
+                    set方法设置可以改变视图：vue.set(obj, key ,value)
+                    如果需要添加多个属性：
+                    vm.newObj = Object.assigne({}, vm.newObj, {
+                        key1: 'value1',
+                        key2: 'value2'
+                    }) 
+                    还可以通过更换对象引用值得方式更改视图-->
+                <li v-for="(value,key,index) in newObj">
+                    <span>{{ value }} -- {{ key }} -- {{ index }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // 遍历数组
+        // vm.newsList.push({title:'很帅！',new: true, id: 7}) 此方法可以让视图监测到数据的更新
+        // 利用索引添加数据的方式，是不能实时的改变view，以下方法可以通过索引进行更新
+        // Vue.set(vm.newsList, 6, {title:'cool',new: true, id: 6})
+        // vm.$set(vm.newsList, 7, {title:'cool',new: true, id: 7})
+        // 还可以使用一些数组的方法来实时的改变view
+        // push()\pop()\shift()\unshift()\splice()\sort()\reverse()
+        // 第三种方法是改变数组的引用值
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                newObj: {
+                    name: 'shaonan',
+                    sex: 'man',
+                    age: 18
+                },
+                newsList: [
+                    {
+                        title: "张柏芝第三胎生父",
+                        new: true,
+                        id: 0
+                    },
+                    {
+                        title: "被约谈艺人名称",
+                        new: true,
+                        id: 1
+                    },
+                    {
+                        title: "隔壁老王在干嘛？",
+                        new: false,
+                        id: 2
+                    },
+                    {
+                        title: "LoL S8 冠军！",
+                        new: true,
+                        id: 3
+                    },
+                    {
+                        title: "思聪抽奖。",
+                        new: false,
+                        id: 4
+                    },
+                    {
+                        title: "弟世界人民代表大会！",
+                        new: false,
+                        id: 5
+                    }
+                ]
+                
+            }
+        })
+    </script>
+</body>
+</html>

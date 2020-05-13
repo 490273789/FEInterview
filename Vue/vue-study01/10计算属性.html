@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+     * {
+        padding:0;
+        margin:0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    ul li .active {
+        background: #dfd3fd;
+    }
+    </style>
+   
+</head>
+<body>
+    <siv id="app">
+        <audio :src="getCurrentSongSrc"></audio>
+        <li v-for="(item,index) in musicData" @click="clickHandle(index)" :class="{active:'currentIndex == index'}">
+            <h2>{{ item.name }}</h2>
+            <p>歌手：{{ item.author }}</p>
+        </li>
+    </siv>
+    <script>
+         //计算属性:（可以看做特殊的data变量）
+        // 只有需要计算的属性改变是才会执行相关的方法,vue会有缓存机制，不相关的属性发生变他不会重新执行
+        // methods在每次页面渲染的时候都会重新执行
+        var musicData = [
+            {id:1,name:'王绍楠-你好1',author:'王绍楠1',songSrc:'./static/你好.mp3'},
+            {id:2,name:'王绍楠-你好2',author:'王绍楠2',songSrc:'./static/你好.mp3'},
+            {id:3,name:'王绍楠-你好3',author:'王绍楠3',songSrc:'./static/你好.mp3'}
+        ]
+        var vm = new Vue({
+            el: '#app',
+            data () {
+                return {
+                    musicData: musicData,
+                    currentIndex: 0,
+                }
+            },
+            computed: {
+                //计算属性默认只有getter
+                // setter也可以
+                // getCurrentSongSrc: function () {
+                //     return this.musicData[this.currentIndex].songSrc;
+                // },
+                getCurrentSongSrc: {
+                    set ( val ) {
+                        console.log( val );
+                        this.currentIndex = val;
+                    },
+                    get () {
+                        return this.musicData[this.currentIndex].songSrc;
+                    }
+                }
+            },
+            methods: {
+                clickHandle (index) {
+                    // 直接修改数据属性
+                    this.currentIndex = index;
+                    // 点语法  set方法  get方法
+                    console.log(this.getCurrentSongSrc);// 调用计算属性中的get方法
+                    this.getCurrentSongSrc = index;// 调用计算属性的set方法
+                }
+            }
+        })    
+    </script>
+</body>
+</html>

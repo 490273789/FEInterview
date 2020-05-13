@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+	<form>
+		<input type="text" name="username">
+		<input type="text" name="age">
+		<input type="submit">
+	</form>
+	<script src="./jquery-3.3.1.js"></script>
+	<script>
+		//add();注意两种写法的区别;集中操作
+		$('li:eq(0)').add($('li:eq(2)')).css({width: '100px',height: '100px',background: 'orange'});
+		$('li').eq(1).css({width: '50px',height: '50px',background: 'red'}).end().eq(3).css({width: '50px',height: '50px',background: 'red'});
+		//silce();选择第0到第1位,不算最后一位.silce(0,2).css({background: 'green'});
+		$('li').slice(0,2).css({background: 'green'});
+		//empty();清空ul中的内容
+		$('ul').empty();
+		//serialize();串联表单数据,serializeArray();串联数据成数组.
+		$('input:eq(2)').click(function(e) {
+			e.preventDefault();//取消默认事件.
+			console.log($('form').serialize());
+		});
+		//ready--dom加载完毕，多个ready会执行多遍
+		//$(document),ready(function () {
+		//		console.log('ready')
+		//}).ready(function () {
+		//		console.log('sec')
+		//})
+		//dom加载完毕，加载资源,多个onload最后一个会将前面的都覆盖
+		window.onload = function () {
+			console.log('onload')
+		}
+		window.onload = function () {
+			console.log('sec')
+		}
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		$.ajax({
+			type:'GET',//string/规定请求方式默认为GET
+			url:'',//string/请求地址
+			success:suc,//成功后回调
+			error:function(){//失败后回调
+
+			},
+			suc(){
+				console.log(data);
+			},
+			data:'',//string/object 发送请求的数据
+			context:'',//上下文
+			async:'',//true/false,是否异步，默认为true
+			cache:'',//true/false,是否在浏览器的缓存中加载请求信息，默认为true
+		})
+
+		
+	</script>
+	
+</body>
+</html>

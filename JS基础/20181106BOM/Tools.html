@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<div class="demo">
+    <div class=" demo">
+        <span class="demo  "></span>
+        <span class="  jfi demo okj "></span>
+    </div>
+</div>
+<body>
+    <script>
+        Element.prototype.getElementsByClassName = Document.prototype.getElementsByClassName = function (_className) {
+            // 获取document下的所有标签
+            var allDomArray = document.getElementsByTagName('*');
+            var lastDomArray = [];
+            // allArray.forEach(function (ele, index) {
+
+            // })
+            function trimSpace(strClass) {
+                var reg = /\s+/g;
+                return strClass.replace(reg, ' ');
+            }
+            var len = allDomArray.length;
+            for (var i = 0; i < len; i++) {
+               var lastStrClass = trimSpace(allDomArray[i].className).trim();
+            //    console.log('lastStrClass: ' + lastStrClass)
+               var classArray = lastStrClass.split(' ');
+            //    console.log(classArray)
+               for (var j = 0; j < classArray.length; j++ ) {
+                    if (classArray[j] == _className) {
+                        lastDomArray.push(allDomArray[i]);
+                        break;
+                    }
+               }
+            }
+            return lastDomArray;
+        }
+
+        var oDemo = document.getElementsByClassName('demo');
+
+        // debugger  断点调试
+    </script>
+</body>
+
+</html>

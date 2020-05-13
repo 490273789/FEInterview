@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	#demo {
+		position: absolute;
+		top:100px;
+		left: 100px;
+		width: 100px;
+		height: 100px;
+		background: green;
+	}
+</style>
+<body>
+	<div id="demo"></div>
+
+	
+
+	<script>
+
+		var manageCookie = {
+			setCookie: function (name,value,time) {
+				document.cookie = name + '=' + value + ';max-age=' + time;
+				return this;
+			},
+			removeCookie: function (name) {
+				return this.setCookie(name, '', -1);
+			},
+			getCookie: function (name, callback) {
+				var allCookieArr = document.cookie.split(';');
+				for (var i = 0; i < allCookieArr.length; i++) {
+					var itemCookieArr = allCookieArr[i].split('=');
+					if(itemCookieArr[0] == name) {
+						callback(itemCookieArr[1]);
+						return this;
+					}
+				}
+				callback(undefined);
+				return this;
+			}
+		}
+
+		var oDemo = document.getElementById('demo');
+
+		var drag = {
+			init: function (dom) {
+				this.dom = dom;
+				var _this = this;
+				this.bindEvent();
+				manageCookie.getCookie('newLeft', function (data) {
+					_this.dom.style.left = data + 'px';
+				}).getCookie('newTop', function (data) {
+					_this.dom.style.Top = data + 'px';
+				})
+			},
+			bindEvent: function () {
+
+				this.dom.onmousedown = this.mouseDown.bind(this);//如果用call或者apply会立即执行此函数。用bind会等到时间触发后再执行
+
+			},
+			mouseDown: function (e) {
+
+				document.onmousemove = this.mouseMove.bind(this);
+				document.onmouseup = this.mouseUp.bind(this);
+				this.disY = e.clientY - this.dom.offsetTop;
+				this.disX = e.clientX - this.dom.offsetLeft;
+			},
+			mouseMove (e) {
+				this.newLeft = e.clientX - this.disX;
+				this.newTop = e.clientY - this.disY;
+
+				this.dom.style.left = this.newLeft + 'px';
+				this.dom.style.top = this.newTop + 'px';
+			},
+			mouseUp: function () {
+				document.onmousemove = null;
+				document.onmouseup = null;
+				manageCookie.setCookie('newLeft', this.newLeft, 10000).setCookie('newTop', this.newTop, 10000);
+			}
+		}
+		drag.init(oDemo);
+	</script>
+</body>
+</html>

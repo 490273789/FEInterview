@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Music</title>
+	<style>
+		.wrapper{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.table{
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			border: 30px solid #333;
+			background: url('img/music.jpg');
+			background-size: cover;
+			animation: move 5s linear paused;
+			animation-iteration-count: infinite;
+		}
+		.pin{
+			position: absolute;
+			top: -60px;
+			left: 50%;
+			transform: translate(-50%);
+			width: 10px;
+			height: 150px;
+			border-bottom-left-radius: 100%;
+			border-bottom-right-radius: 100%;
+			background: #ccc;
+			transform-origin: top;
+			transform: rotateZ(-60deg);
+			transition: all 0.5s linear;
+		}
+
+		@keyframes move{
+			0%{
+				transform: rotate(0deg);
+			}
+			100%{
+				transform: rotate(360deg);
+			}
+		}
+		.active{
+			transform: rotateZ(-30deg);
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="table"></div>
+		<div class="pin"></div>
+	</div>
+	<button id="btn">Music</button>
+
+	<script>
+		var oTable = document.getElementsByClassName('table')[0];
+		var oPin = document.getElementsByClassName('pin')[0];
+		var flag =true;
+		btn.onclick = function () {
+			if(flag){
+				flag = false;
+				oPin.className = 'pin active';
+				oTable.style.animationPlayState = 'running';
+			}else{
+				flag = true;
+				oPin.className = 'pin';
+				oTable.style.animationPlayState = 'paused';
+			}
+		}
+
+	</script>
+</body>
+</html>

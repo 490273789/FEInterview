@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Retarded Motion</title>
+    <style>
+        .wrapper {
+            position: relative;
+            border: 1px solid #abcdef;
+            height: 300px;
+            width: 100%;
+        }
+        .target {
+            position: absolute;
+            top:20px;
+            left: 10px;
+            height: 100px;
+            width: 100px;
+            background-color: #abcdef;
+        }
+
+        span {
+            position: absolute;
+            top: 20px;
+            left: 400px;
+            width: 2px;
+            height: 100px;
+            background-color: tomato;
+        }
+
+        button {
+            width: 80px;
+            height: 30px;
+            border:none;
+            outline: none;
+            cursor: pointer;
+            margin-top: 200px;
+            margin-left: 10px;
+            background-color: turquoise;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+            <div class="target"></div>
+            <span></span>
+            <button id="btn">Run</button>
+    </div>
+   
+    <script>
+        oDiv = document.getElementsByClassName('target')[0];
+        oBtn = document.getElementById('btn');
+        var timer = null;
+        oBtn.onclick = function () {
+            console.log('123');
+            clearInterval(timer);
+            timer = setInterval(function () {
+                
+                var iSpeed = (400 - oDiv.offsetLeft) / 7;
+            
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+                 if (oDiv.offsetLeft == '400'){
+                     clearInterval(timer);
+                 }else {
+                     oDiv.style.left = oDiv.offsetLeft + iSpeed + 'px';
+                     console.log(oDiv.offsetLeft + iSpeed + 'px');
+                 }
+            }, 30)
+        }
+    </script>
+</body>
+</html>

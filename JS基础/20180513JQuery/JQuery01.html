@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">1</div>
+    <div class="demo">
+        <p></p>
+    </div>
+    <ul>
+        <!-- li{$}*5  生成5个li -->
+        <li>1</li>
+        <li>2</li>
+        <li class="demo">3</li>
+        <li>4</li>
+        <li>5
+            <p>pp</p>
+        </li>
+    </ul>
+    <script src="./jquery-3.3.1.js"></script>
+    <script>
+        //选择元素,原理与写法和css选择器类似,css选择器可以怎么选，$()就可以怎么选
+        //通过标签选择
+        //www.JQuery123.com
+        //sizzle:选择元素的方法
+        //$ == jQuery
+        //JQ可以链式调用的原因,每次调用完后都会返回一个对象,这个对象的原型链上都会有这些方法.
+        $('div').css({
+            width: '100px',
+            height: '100px',
+            background: 'red'
+        });
+
+        //class选择
+        $('.demo').css({
+            width: '100px',
+            height: '100px',
+            background: 'red'
+        });
+
+        //id选择
+        $('#demo').css({
+            width: '100px',
+            height: '100px',
+            background: 'red'
+        });
+
+        //直接子元素
+        $('.demo>p').css();
+
+        //通过原生的dom
+        var oDiv = document.getElementById('demo');
+        //以类数组的方式存储,JQuery对象
+        $(oDiv);
+
+        //存放JQuery对象
+        $($('#demo'));
+
+        //填写null,undefined会返回一个空的类数组
+        $(null);
+        $(undefined);
+
+        //填一个函数会立即执行
+        $(function () {
+            console.log('cool');
+        })
+
+        //第二个参数是执行期上下文,id为demo标签下的p标签
+        $('p', '#demo').css();
+
+        //选择ul下的第一个li,last是最后一个
+        $('ul > li:first').css();
+
+        //选择ul下的第n个li,两种写法
+        $('ul > li:eq(2)').css('color', 'red');
+        $('ul > li').eq(2).css('color', 'red');
+
+        //odd查找索引为奇数的li,even查找索引为偶数的li
+        $('ul > li:odd').css('color', 'red');
+        $('ul > li:even').css('color', 'red');
+
+        //filter&not用法相同作用相反,filter筛选li中class为demo的元素,not筛选li中class不为demo的元素
+        $('li').filter('.demo').css('color', 'red');
+        $('li').not('.demo').css('color', 'red');
+
+        //选择index%3 == 0返回true的li
+        $('li').filter(function () {
+            return index % 3 == 0;
+        }).css('color', 'red');
+
+        //选择index%3 == 0返回false的li
+        $('li').not(function () {
+            return index % 3 == 0;
+        }).css('color', 'red');
+
+        //has&find,has查找第一层,find查找第二层
+        //has查找li下有p标签的li标签,所有的子标签都会被选择
+        $('li').has('p').css();
+        //查找li下的p标签,最后查找和选择的是p标签
+        $('li').find('p').css();
+
+        //is 判断第三个li中的class是否是demo,返回的结果是true或false
+        $('ul > li').eq(2).is('.demo'); //true
+
+        //JQuery中的是函数的调用
+        //.html()添加改变标签中的内容
+        $(li).eq(0).css('color', 'red').html(123);
+
+        //点击li,弹出div内容
+        $('li').click(function () {
+            console.log('li');
+        })
+
+        //JQuery中的css的写法,100px需要加引号,100不需要加
+        $('li').css('width', '100px').css('height', '100px');
+        $('li').css({
+            width: '100px',
+            height: 100
+        });
+
+        //innerHTML和innerText在JQ中用html()和Text()
+        //html会识别内容中的标签,Text是不识别内容中的标签
+        //html和text中如果不传参数则是取值.取标签中的内容:<li>1</li> -- 1
+        //html能够取标签的格式和内容,text只能取出标签的内容
+        $('li'), text('<span>san<sapn>');
+        $('li').html('<span>san<sapn>');
+        console.log($('li').html()); //1
+
+        //如果不写要赋的值则会变成取值.取值就不能返回对象了.无法链式调用
+        $('li').css('width'); //100px
+
+        //css()取值相当于getComputed,赋值相当于dom.style,css()赋值赋一组,取值取一个
+        //attr()和prop()取值赋值和上面一样
+        //prop()设置元素的特性如.class,id等:因为此函数主要依赖的是JS中原生的对象属性的获取和设置方式
+        //attr可以设置元素的自定义的属性:原因是此函数主要依赖的是Element对象的getAttribute()和setAttribute方法
+
+        //原生js的设置属性
+        var oLi = document.getElementById('demo');
+        oLi.className = 'Sn';
+        oLi.sex = 'boy'; //这个是报错的,这种方法不能给标签设置自定义的属性
+        oLi.setAttribute('sex', 'boy'); //设置自定义属性的方法
+        //prop()和attr()获取值,<input type = 'checked' checked></input>
+        //prop()显示的是实时状态的值,attr()显示的是初始状态的值
+        //因为JQ认为:attibute的checked,selected,disable就是表示改属性的初始状态的值
+        //property的checked,selected,disabled表示该属性实时状态的值(值为true或false)
+        $('input').prop('checked'); //true
+        $('input').attr('checked') //checked
+
+        //next()下一个兄弟节点
+        //prev()上一个兄弟节点
+        //index()当前节点的索引值
+        //addClass()添加一个class,removeClass()删除类名,参数可以是function
+        $('li').click(function () {
+            $('.active').removeClass('active'); //removeClass()中写参数则移除当前class,如果不写参数则清楚此标签的所有class
+            $('this').addClass('active');
+        });
+        $('li').addClass(function (index) {
+            if (index % 3 == 0) {
+                return 'aaa';
+            }
+        });
+
+        //toggleClass();如果标签由aaa class类名则删除aaa,如果没有这个aaa class,则添加class类名
+        $('li').eq(0).toggleClass('aaa');
+        $('li:eq(0)').click(function () {
+            $(this).toggleClass('active');
+        })
+
+        //insertBefore(),before(),都有剪切的功能,差别:从表面看:返回值不同insertBefor返回查到前面的值,before返回放在后面的值.从结果看:返回最终放在前面的值.
+        $('li:eq(3)').insertBefore($('li:eq(0)'));//3插入到0前面
+        $('li:eq(0)').before($('li:eq(3)'));//3在0的前面
+
+        //insertAfter(),after(),功能与before相反,用法相同
+        $('li:eq(3)').insertAfter($('li:eq(0)'));//3放到0后面
+        $('li:eq(3)').after($('li:eq(0)'));//3的后面是0
+        //c.appendTo(d);c添加到d中,添加到最后一个子元素后
+        //d.append(c);d里添加c,添加到最后一个子元素后.
+        //prepend和prependTo用法与append相同,差别是添加到第一个子元素前
+        //remove返回元素的时候不返回事件
+        //detach返回元素的时候把事件也返回了
+        //on()可以绑定事件，on如果第二个参数是字符串会将此参数判断为事件源对象，比如‘a’的意思是判断点击的是不是a标签，如果是执行，不是就不执行,如果需要传a则可以写在第三个参数
+        //off()解除事件绑定;可以通过参数控制来选择解除绑定的目标
+        //one();绑定事件，只绑定一次。
+        //事件委托：比如一个ul下有n个li，在ul下绑定事件后ul下的所有li都有此事件
+
+        $('.item').on('click','a','a',function (e) {
+            console.log(e.data);
+            console.log($(this).html)
+        });
+        function a() {
+            console.log('a');
+        }
+        $('.wrapper').on('click','.item1',a);
+        $('.wrapper').off('click','item1',a);
+        //scrollTop();滚动条滚出去的高度
+        $(window).scroll(function () {
+            console.log($(sindow).scrollTop())
+        });
+        //innerWidth():获取宽度：content + padding
+        //outerWidth():获取宽度:content + padding + border;如果括号内填参数true，则是content + padding + border + margin
+        //width:获取实际宽度
+        //时间对象：e.pageX();相对于文档，e.clientX();相对于浏览器窗口，e.which()；哪个键或按钮，e.button();哪个鼠标按键被按下。
+        //e.preventDefault();取消绑定事件，e.stopPropagation();取消冒泡事件.
+        //offset().left/top;返回相当于文档的位置，position().left/top;相对于有定位的父级进行定位。
+        //parents();返回直接父元素;offsetparent();返回有定位的最近父元素,如果没有定位的父元素则返回html,不能传参数;parents(),返回所有的父级标签,可以传参数说明要返回哪种类型的父级标签.比如传div,会返回所有的父级div;closest:不传参数返回空传参数:比如div会返回父级div中最近的一个,还可以返回自身.
+        //end();将执行的链式调用回退到$('li');
+        $('li').eq('0').css({color: 'red'}).end().eq(4).css({color: 'green'});
+        
+        //siblings();当前元素节点的所有兄弟节点.
+        //prevAll();当前元素上面的所有兄弟元素节点.
+        //nextAll();当前元素下面的所有兄弟元素节点.
+        //prevUntil();nextUntil();掐头去尾选择中间的元素,参数必须是jQuery对象.
+        $('li:eq(2)').prevUntil($('li:eq(0)'));
+
+        //clone();克隆节点,如果参数为true,事件也能够克隆.
+        $('li:eq(1)').clone(true);
+
+        //wrap();将第2个li用<div>包裹.
+        $('li:eq(1)').wrap('<div>');
+
+        //wrapInner();将第2个li中内容用<div>包裹.
+        $('li:eq(2)').wrapInner('div');
+
+        //wrapAll();将所有的li用<div>包裹,会破破坏原本的li结构(会将所有的li都拿到这个div下).
+        $('li').wrapAll('<div>');
+
+        //unwrap();将第一个包裹li的标签删除,但是不能删除结构化的标签,比如<body>
+        $('li:eq(0)').unwrap();
+    </script>
+</body>
+
+</html>

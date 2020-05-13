@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// 设置cookie;设置缓存时间
+		var oDate = new Date();
+		oDate.setDate(oDate.getDate() + 3);
+		console.log(oDate);
+		// 两个cookie不能写在一条里，需要分开操作。如果设置name重复的cookie,相同的路径和相同的域名不会都生效，显示最后一条。
+		document.cookie = "age=18;max-age=1000";
+		document.cookie = "name=aime;expires=" + oDate;
+		document.cookie = "age=19;max-age=1000;path=/";
+		//分装cookie的增删改查方法。
+		var manageCookie = {
+			setCookie: function (name,value,time) {
+				document.cookie = name + '=' + value + ';max-age=' + time;
+				return this;
+			},
+			removeCookie: function (name) {
+				return this.setCookie(name, '', -1);
+			},
+			getCookie: function (name, callback) {
+				var allCookieArr = document.cookie.split(';');
+				for (var i = 0; i < allCookieArr.length; i++) {
+					var itemCookieArr = allCookieArr[i].split('=');
+					if(itemCookieArr[0] == name) {
+						callback(itemCookieArr[1]);
+						return this;
+					}
+				}
+				callback(undefined);
+				return this;
+			}
+		}
+
+		manageCookie
+			.setCookie('color','orange',10000)
+			.setCookie('teger','shaonan',20000)
+			.removeCookie('color')
+			.removeCookie('teater')
+			.getCookie('aae',function (data) {
+				console.log(data);
+			})
+	</script>
+</body>
+</html>

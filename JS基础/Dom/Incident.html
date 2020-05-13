@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Incident</title>
+</head>
+<body>
+    <div style="height: 100px;width: 100px;background-color: forestgreen;" onclick="console.log('a')"></div>
+
+    <script type="text/javascript">
+        // var div = document.getElementsByTagName('div')[0];
+        // 添加事件的方法.①在标签行上添加:onclick="console.log('a')"②div.onclick ③:addEventlistener()方法
+        // div.onclick = function(){
+        //     console.log('a');
+        // }
+        // div.addEventListener(事件类型, 处理函数,false);
+        // div.addEventListener('click', function(){
+        //     console.log('a');
+        // },false);
+        // div.attachEvent('on',函数)
+        // div.attachEvent('onclick',function(){
+        //     console.log('a');
+        // })
+
+        // var liCol = document.getElementsByName('li');
+        // len = liCol.length;
+        // for(var i = 0; i < len; i++){
+        //     (function(i){
+        //         liCol[i].addEventListener('click',function(){
+        //         console.log(i);
+        //     },false);
+        //     }(i))
+        // }
+        
+       function drag(elem) {
+           var disX,
+               disY;
+            elem.onmuosedown = function (e) {
+                disX = e.pageX - parseInt(elem.style.left);
+                disY = e.pageY - parseInt(elem.style.top);
+                document.onmousemove = function (e) {
+                    var event = e || window.event;
+                    elem.style.left = e.pageX - disX + "px";
+                    elem.style.top = e.pageY - disY + "px";
+                }
+                document.onmouseup = function () {
+                    elem.onmousemove = null;
+                }
+            }
+       }
+            
+    </script>
+</body>
+</html>

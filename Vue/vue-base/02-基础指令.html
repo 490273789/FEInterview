@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Users</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+        
+    <div id="app">
+
+        <!-- 
+            可以在双括号中进行简单的逻辑操作
+            {{ name + '0 ' + '1'}}
+            {{ name ? true : false}}
+            {{ describe() }}
+        -->
+        <!-- {{ name }}  -->
+        {{ describe }}
+    <br>
+        <!-- v-bind:href 简写-- :href -->
+        <a v-bind:href="url">VUE</a>
+
+        <!-- mini: bind:tap / catch : tag -->
+        <!-- vue : v-on : click 简写:@click-->
+        <button v-on:click="changeName">click</button>
+
+        <!-- 类似js中的innerHtml -->
+        <p v-html="tag"></p>
+
+        <!-- 类似js中innerText -->
+        <p v-text="tag"></p>
+
+
+    </div>
+    <script>
+        
+        //element 元素
+        const vm = new Vue({
+            el : '#app',
+            data : {
+                name : 'shaonan',
+                url : 'https://www.baidu.com',
+                tag : '<span>我是span标签！</span>',
+                looks : 'shuai',
+                // describe : 'You Cool!',
+                age : 20
+            },
+            // 定义方法
+            // methods中的方法名不能和data中的属性名重复
+            // 缺点：视图重新渲染是都执行一遍methods中的方法的.
+            methods : {
+                changeName() {
+                    this.name = this.name + '1';
+                },
+
+            },
+
+            //监听器
+            //只有监听的属性有变化的时候才会执行此属性的方法
+            //缺点：代码重复，name方法中涉及了name和looks属性，如果需要监听这两个方法就需要每个属性都写一个方法，如下需要些两个方法
+            watch: {
+                // name() {
+                //     this.describe = this.name + ' ' + this.looks
+                //     console.log('nameChange');
+                // },
+                // looks() {
+                //     this.describe = this.name + ' ' + this.looks
+                //     console.log('lookChange');
+                // }
+            },
+            //计算属性:（可以看做特殊的data变量）
+            // 只有需要计算的属性改变是才会执行相关的方法,vue会有缓存机制，不相关的属性发生变他不会重新执行，
+            // methods在每次页面渲染的时候都会重新执行
+            computed: {
+                // 第一种写法：函数
+                // describe() {
+                //     return this.name + ' ' + this.looks
+                // }
+
+                // 第二种写法：对象
+                describe: {
+                    get(){//在获取数据时执行
+                        console.log('get');
+                        return this.name + ' ' + this.looks
+                    },
+                    //在改变数据的时候执行
+                    set( value ){
+                        console.log('set: ' + value);
+                        const arr = value.split(' ');
+                        this.name = arr[0];
+                        this.looks = arr[1];
+                        if (arr[0] === 'nihao') {
+                            this.looks = 18;
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

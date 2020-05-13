@@ -2,7 +2,7 @@
 // 综合版
 function debounce (func, wait, immediate) {
     let timeout
-    return function(){
+    return function () {
         let context = this
         let args = arguments
 
@@ -28,7 +28,7 @@ function throttle (func, wait, type) {
     if (type === 1) {
         var previous = 0
     } else if (type === 2) {
-        var  timeout;
+        var timeout;
     } else {
         alert(`"type" Error!`)
     }
@@ -41,9 +41,9 @@ function throttle (func, wait, type) {
                 previous = now
                 func.apply(context, args)
             }
-        }else {
+        } else {
             if (!timeout) {
-                timeout = setTimeout (() => {
+                timeout = setTimeout(() => {
                     timeout = null
                     func.apply(context, args)
                 }, wait)
@@ -67,7 +67,7 @@ function getScrollOffset () {
 }
 
 // 获取url中的参数
-function getQueryString(name) {
+function getQueryString (name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     var r = window.location.search.substr(1).match(reg);
     if (r != null) {
@@ -105,7 +105,7 @@ function getTime (val) {
 
 
 //获取当前窗口的高度与宽度
-function getViewportOffset() {
+function getViewportOffset () {
     if (window.innerWidth) {
         return {
             w: window.innerWidth,
@@ -126,7 +126,7 @@ function getViewportOffset() {
 }
 
 //获取当前元素的位置
-function getElementOffset(ele) {
+function getElementOffset (ele) {
     var box = ele.getBoundingClientRect();
     var w = box.width || (box.right - box.left);
     var h = box.height || (box.bottom - box.top);
@@ -137,7 +137,7 @@ function getElementOffset(ele) {
 }
 
 //元素距离Body元素的距离
-function getElementPostion(ele) {
+function getElementPostion (ele) {
 
     var x = 0,
         y = 0;
@@ -154,7 +154,8 @@ function getElementPostion(ele) {
     }
 }
 
-function getStyle(obj, styleProp) {
+// 获取元素样式
+function getStyle (obj, styleProp) {
 
     if (obj.currentStyle) {
         return obj.currentStyle[styleProp];
@@ -164,12 +165,11 @@ function getStyle(obj, styleProp) {
 }
 
 // 添加事件兼容性写法
+function addEvent (elem, type, handler) {
 
-function addEvent(elem, type, handler) {
-
-    if(elem.addEventListener) {
+    if (elem.addEventListener) {
         elem.addEventListener(type, handler, false);
-    }else if(elem.attachEvent) {
+    } else if (elem.attachEvent) {
 
         elem['temp' + type + handler] = handler;
         elem[type + handler] = function () {
@@ -177,7 +177,7 @@ function addEvent(elem, type, handler) {
         };
         elem.attachEvent('on' + type, elem[type + handler]);
 
-    }else{
+    } else {
         elem['on' + type] = handler;
     }
 }
@@ -185,39 +185,39 @@ function addEvent(elem, type, handler) {
 
 // 移除事件兼容性写法
 
-function removeEvent(elem, type, handler) {
-    if(elem.removeEventListener) {
+function removeEvent (elem, type, handler) {
+    if (elem.removeEventListener) {
         elem.removeEventListener(type, handler, false);
-    }else if(elem.detachEvent) {
+    } else if (elem.detachEvent) {
         elem.detachEvent('on' + type, handler);
-    }else{
+    } else {
         elem['on' + type] = null;
     }
 }
 
 
 // 阻止事件冒泡
-function stopBubble(event) {
-    if(event.stopPropagation) {
+function stopBubble (event) {
+    if (event.stopPropagation) {
         event.stopPropagation();
-    }else{
+    } else {
         event.cancelBubble = true;
     }
 }
 
 
 // 取消默认事件
-function cancelHandler(event) {
-    if(event.preventDefault) {
+function cancelHandler (event) {
+    if (event.preventDefault) {
         event.preventDefault();
-    }else{
+    } else {
         event.returnValue = false;
     }
 
 }
 
 // 实现拖拽
-function drag(elem) {
+function drag (elem) {
     var disX,
         disY;
     addEvent(elem, 'mousedown', function (e) {
@@ -229,29 +229,29 @@ function drag(elem) {
         stopBubble(event);
         cancelHandler(event);
     });
-    function mouseMove(e) {
+    function mouseMove (e) {
         var event = e || window.event;
         elem.style.left = event.clientX - disX + "px";
         elem.style.top = event.clientY - disY + "px";
     }
-    function mouseUp(e) {
+    function mouseUp (e) {
         var event = e || window.event;
         removeEvent(document, 'mousemove', mouseMove);
         removeEvent(document, 'mouseup', mouseUp);
     }
 }
 
-function asyncLoaded(url, callback) {
+function asyncLoaded (url, callback) {
     var script = document.createElement('script');
     script.type = "text/javascript";
-    if(script.readyState) {//IE
+    if (script.readyState) {//IE
         script.onreadystatechange = function () {
-            if(script.readyState == "complete" || script.readyState == "loaded") {
+            if (script.readyState == "complete" || script.readyState == "loaded") {
                 obj[callback]();
                 script.onreadystatechange = null;
             }
         }
-    }else{//chrome safari firefox
+    } else {//chrome safari firefox
         script.onload = function () {
             obj[callback]();
         }
@@ -261,24 +261,24 @@ function asyncLoaded(url, callback) {
 }
 
 // 判断数据类型
-function type(target) {
-    var typeStr = typeof(target),
+function type (target) {
+    var typeStr = typeof (target),
         toStr = Object.prototype.toString,
         objStr = {
-            "[object Object]" : "object - Object",
-            "[object Array]" : "array - Object",
-            "[object Number]" : "number - Object",
-            "[object Boolean]" : "boolean - Object",
-            "[object String]" : "string - Object"
+            "[object Object]": "object - Object",
+            "[object Array]": "array - Object",
+            "[object Number]": "number - Object",
+            "[object Boolean]": "boolean - Object",
+            "[object String]": "string - Object"
         }
-    if(target === null) {
+    if (target === null) {
         return null;
-    }else if(typeStr === "function") {
+    } else if (typeStr === "function") {
         return "function";
     }
-    if(typeStr !== "object") {
+    if (typeStr !== "object") {
         return typeStr;
-    }else{
+    } else {
         return objStr[toStr.call(target)];
     }
 }
@@ -294,11 +294,11 @@ const deepClone = (value, hash = new WeakMap) => {
     if (hash.has(value)) {//防止死循环，对象中的属性存的还是此对象
         return hash.get(value);
     }
-    hash.set(value,instance);
+    hash.set(value, instance);
     // 循环遍历对象
-    for(let key in value) {
-        if(value.hasOwnProperty(key)){//过滤掉原型上的属性
-            instance[key] = deepClone(value[key],hash);
+    for (let key in value) {
+        if (value.hasOwnProperty(key)) {//过滤掉原型上的属性
+            instance[key] = deepClone(value[key], hash);
         }
     }
     return instance;
@@ -306,7 +306,7 @@ const deepClone = (value, hash = new WeakMap) => {
 
 // trim函数实现
 function trim (str) {
-    return str.replace(/^(\s)|*(\s)*$/g,"");
+    return str.replace(/^(\s)|*(\s)*$/g, "");
 }
 let str = "  iiq  "
 console.log(trim(str));
@@ -317,8 +317,8 @@ console.log("iiq");
 // 第二个参数可以是字符串，$1$2... 或者是字符串，或者是函数，函数第一个值为匹配到项，第二个值为子项，第三个值为匹配到位置的索引，第四个至为整个字符串
 // 没匹配到一次函数就会执行一次
 function toHump (str) {
-    return str.replace(/-(\w)/g,(str1,str2,str3,str4)=>{//(\w) 没有括号就只有一个表达式，函数也就只有一个参数，多一个子表达式函数就多一个参数
-        console.log(str1,str2,str3,str4);
+    return str.replace(/-(\w)/g, (str1, str2, str3, str4) => {//(\w) 没有括号就只有一个表达式，函数也就只有一个参数，多一个子表达式函数就多一个参数
+        console.log(str1, str2, str3, str4);
         return str2.toUpperCase();
     })
 }
@@ -327,7 +327,34 @@ console.log(hump);
 
 // 驼峰转下划线
 function toLine (str) {
-    return str.replace(/([A-Z])/g,"_$1").toLowerCase();//注意正则表达式中的括号
+    return str.replace(/([A-Z])/g, "_$1").toLowerCase();//注意正则表达式中的括号
 }
 let str8 = "sdDateCase"
 console.log(toLine(str8));
+
+/**
+ * @msg: 工具函数获取前（后）n天的时间
+ * @param {Number} AddDayCount 传入要减少的天数
+ * @param {String} type 日期之间连接的字符，不传默认为‘-’
+ * @return: {String} 格式化后的日期字符串 eg：2020-04-29
+ */
+function getDateStr (AddDayCount, type = '-') {
+    const date = new Date();
+    date.setDate(date.getDate() + AddDayCount);//获取AddDayCount天后的日期
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);//获取当前月份的日期，不足10补0
+    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();//获取当前几号，不足10补0
+    return [year, month, day].join(type)
+}
+
+/**
+ * @msg: 选择后展示在头部上的日期格式
+ * @param {Date} date 日期 
+ * @param {String} type 日期连接的字符
+ * @return: {String} 格式化后的日期字符串
+ */
+function formatDate(date, type) {
+    const month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);//获取当前月份的日期，不足10补0
+    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();//获取当前几号，不足10补0
+    return `${date.getFullYear()}${type}${month}${type}${day}`
+}

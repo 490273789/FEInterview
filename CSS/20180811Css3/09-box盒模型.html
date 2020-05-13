@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            /* 设置当前使用的盒模型
+                border-box 混杂模式盒子。
+                content-box 标准模式盒模型。
+             */
+            box-sizing: border-box;
+            /* 水平竖直方向 内容移除时的方向 
+                overflow-x或overflow-y只要设置一个非默认值visible， 另一个值就会默认设置为auto；
+                hidden：隐藏溢出容器的内容，并且不出现滚动条。
+                visible：正常展示，溢出的内容不做处理，正常显示
+                scroll:隐藏溢出容器的内容，溢出的内容可以通过滚动呈现
+                auto:与scroll的区别是，当内容不溢出的时候不会出现滚动条，不过早最新的浏览器中scroll和auto的效果已经一样了。
+
+
+            */
+            overflow: scroll;
+
+            /* k可以改变盒子的大小，必须配合overflow属性一起使用才能生效。
+                要慎用：因为每次改变大小都会引发页面的重构和重排，会极大的影响页面的性能。
+             */
+            resize: both;
+            
+        }
+
+        textarea {
+            /* horizontal 可横向拖动但是不能改变高度。 
+               vertical 可纵向拖动但不能改变宽度。
+               both 默认值 横向纵向都可以改变。
+               none 不可以改变宽和高。
+               用处比较少因为兼容性不好。
+            */
+            resize: horizontal;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+    <textarea name="test" id="123" cols="30" rows="10"></textarea>
+</body>
+</html>

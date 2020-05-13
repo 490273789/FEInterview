@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+// provide 和  inject
+        Vue.component('Child',{
+            data () {
+                return {
+                    msg:''
+                }
+            },
+            template:`
+                <div>
+                   我是孩子{{ msg }}
+                </div>
+            `,
+            inject:['for'],
+            created () {
+                this.msg = this.for;
+            }
+        })
+
+        Vue.component('Parent',{
+            template:`
+                <div>
+                    <p>我是父亲</p>
+                    <Child/>
+                </div>
+            `
+        })
+
+        var App = {
+            data() {
+                return {
+
+                }
+            },
+            
+            provide:{
+                for:'他爹'
+            },
+            template:`
+                <div>
+                    <h2></h2>
+                    <Parent></Parent>
+                </div>
+            `
+        }
+
+
+        var vm = new Vue({
+            el:'#app',
+            data () {
+                return {
+
+                }
+            },
+            components: {
+                App
+            },
+            template:`
+                <App/>
+            `
+        })
+    </script>
+</body>
+</html>

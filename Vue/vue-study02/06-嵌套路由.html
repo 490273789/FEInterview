@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="app"></div>
+    <!--  1.引入vue模块 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <!-- 2.引入vue-router模块 -->
+     <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+     <script>
+
+        var Home = {
+            template: `
+                <div>我首页
+                    <br />
+                    <router-link to='/home/song'> 歌曲</router-link>
+                    <router-link to='/home/movie'> 电影</router-link>
+                    <router-view></router-view>
+                </div>
+            `,
+        };
+
+        var Song = {
+            template: `
+                <div>我是音乐
+                </div>
+            `,
+        };
+        var Movie = {
+            template: `
+                <div>我是电影
+                </div>
+            `,
+        };
+
+        var router = new VueRouter({
+            // 5.配置路由对象
+            routes:[
+                // 配置路由规则
+                {
+                    path:'/home',
+                    name:'home',
+                    component: Home,
+                    children:[
+                        {
+                            path:'song',
+                            component:Song
+                        },
+                        {
+                            path:'movie',
+                            component:Movie
+                        }
+                    ]
+                }
+            ]
+        })
+
+        var App = {
+            // 使用路由命名，需要绑定to属性
+            template:`
+                <div>
+                    <router-link :to="{name:'home'}">首页</router-link>
+                    
+                    <router-view></router-view>
+                </div>    
+            `
+        }
+        new Vue({
+            el:'#app',
+            data () {
+                return {
+                    
+                }
+            },
+            components: {
+                App
+            },
+            template: `<App />`,
+            // 6.交给vue实例化对象管理
+            router
+        })
+     </script>
+</body>
+</html>

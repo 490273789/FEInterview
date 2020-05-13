@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+    * {
+    	font-size: 0;
+    }
+	.wrapper {
+		display: flex;
+		height: 600px;
+		border: 1px solid #aaa;
+	}
+	.item {
+		text-align: center;
+		height: 30px;
+		line-height: 30px;
+		border: 1px solid #000;
+		box-sizing: border-box;
+		font-size: 20px;
+	}
+	.item:nth-of-type(1) {
+		width: 200px;
+	}
+	.item:nth-of-type(2) {
+		flex-grow: 1;
+	}
+	.item:nth-of-type(3) {
+		width: 300px;
+	}
+</style>
+<body>
+	<!-- 主轴(x)侧轴/交叉轴 -->
+	<div class="wrapper">
+		<div class="item">1</div>
+		<div class="item">2</div>
+		<div class="item">3</div>
+	</div>
+</body>
+</html>

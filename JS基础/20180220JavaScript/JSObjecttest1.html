@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var mrWang = {
+
+			name : "MrWng",
+			sex : "boy",
+			health : 100,
+			smoke : function(){
+				console.log('I am smoking ! cool!!!');
+				this.health --;
+			},
+			drink : function(){
+				console.log('I am drink');
+				this.health ++;
+			}
+		}
+//对象创建方法
+//1.var obj = {}
+//2.构造函数
+//	1)系统自带的构造函数
+var obj = new Object();
+obj.name = 'Wang';
+obj.sex = 'boy';
+
+//	2)自定义
+//自已函数
+//因为函数和构造函数没有本质的区别,为了区分函数和构造函数,在命名规范上要加以区分:大驼峰式命名规则
+//构造函数的首字母要大写,函数是第二个单词的首字母大写.
+function Person(){
+
+}
+
+var person1 = new Person();
+person1.name = 'Shaonan';
+//构造函数内部原理
+//1.在函数体最前面隐式的加上this = {}
+//2.执行this.xxx = xxx;
+//3.隐式的返回this
+function Car(color){
+	//有了new的执行:var this = {} AO{this : {name : 'BMW'...}}
+	//var this = {
+	//name :''
+	//age : ''
+	//lange : ''
+	//}
+	this.color = color;
+	this.name = 'BMW';
+	this.height = '1400';
+	this.lang = '4900';
+	this.weight = 1000;
+	//return this
+}
+//上述代码如果显示的return {};空对象则隐式的失效,如果return的是原始值,则效果与隐式的一样
+var car = new Car('red');
+var car1 = new Car('green');
+
+
+	</script>
+
+</body>
+</html>

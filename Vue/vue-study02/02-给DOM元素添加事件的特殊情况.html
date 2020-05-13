@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        // 如果给标签绑定ref = ‘XXX’属性，使用this.$refs.XXX来获取原生的jsDOM对象
+        // ref的命名不能重复，如果过重复最后一个会将之前的覆盖
+        // $refs所有绑定了ref的元素集合。
+        // 如果给组件绑定ref属性，获取的是当前的组件对象。
+        var App = {
+            data () {
+                return {
+                    isShow:false
+                }
+            },
+            template:`
+                <div class='app'>
+                    <input type="text" v-show="isShow" ref="input"/>
+                </div>
+            `,
+            
+            mounted () {
+                this.isShow = true;
+                // $nextTicket()是在DOM更新循环结束之后执行回调函数，在修改数据之后使用此方法在回调中获取到更新之后的DOM
+                
+                // this.$nextTick(() => {
+                //     this.$refs.input.focus();
+                // })
+
+                this.$nextTick(function () {
+                    this.$refs.input.focus();
+                })
+            }
+        }
+        new Vue({
+            el:'#app',
+            data () {
+                return {
+                    
+                }
+            },
+            template: `
+                <App />
+            `,
+            components: {
+                App
+            }
+        })
+    </script>
+</body>
+</html>

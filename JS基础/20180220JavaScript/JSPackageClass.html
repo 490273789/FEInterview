@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Package Class</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//数字num
+		var num = 123;
+		//对象num1
+		var num1 = new Number(123);
+		var str = new String('abcd');
+		var bol = new Boolean('true');
+		//undifind和null不可以有属性
+		//原始值是没有属性和方法的.
+		//包装类:原始值操作属性是因为包装类隐式的调用了new Number(4).length
+		var num = 4;
+
+		num.len = 3;
+		//new Number(4).len = 3; delete
+		console.log(num.length);//undefind
+		//new Number(4).len
+		
+		var str1 = "abcd";
+		str.length = 2;
+		console.log(str);//abcd
+		console.log(str.length);//4
+		//new String('abcd').length
+
+		var str2 = "abc";
+		str2 += 1;
+		var test = typeof(str);//test == "String"
+		if(test.length == 6){
+			test.sign = "typeof的返回结果可能为String"
+			//new String(test).sign = 'xxx'
+		}
+		console.log(test.sign)//undefind
+		//new String(test).sign
+	</script>
+</body>
+</html>

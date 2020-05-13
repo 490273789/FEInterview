@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <course-list1></course-list1>
+        <course-list :msg="testData" @showdata="toChange"></course-list>
+    </div>
+    <script>
+        // 组件的data必须是一个函数，如果是对象，他们会指向同一个对象，当操作一个组件时，其他复用此组件的数据也会跟着改变。
+        // 全局组件 -- 可以直接使用
+        Vue.component('courseList1', {
+            props: {
+                type: [Number,String],//接收的类型
+                require: true,//必填字段
+                default: 100,//默认值
+                default: function () {//对象或者数组必须从一个工厂函数获取
+                    return { message : "hello"}
+                }
+            },
+            data () {
+                return {
+                    sex: "boy"
+                }
+            },
+            template: `<div> 全局组件: {{ sex }}</div>`
+        })
+        // 局部组件 -- 需要到vue实例中进行注册在使用
+        // 如果局部组件和全局组件同名，会优先使用局部组件
+        const courseList = {
+            props: {//父组件使用props将数据传给子组件
+                msg: [Number,String],//接收的类型
+                require: true,//必填字段
+                default: 100,//默认值
+                default: function () {//对象或者数组必须从一个工厂函数获取
+                    return { message : "hello"}
+                }
+            },
+            data() {
+                return {
+                    count: "data返回值"
+                }
+            },
+            template: `<div @click="changeData"> 局部组件接收父组件的值: {{ msg }}</div>`,
+            methods: {
+                changeData () {
+                    this.$emit('showdata',"m");//用于子组件触发父组件自定义的事件
+                }
+            }
+        }
+
+        const vm = new Vue({
+            el: '#app',
+            components: {//注册局部组件
+                courseList
+            },
+            data: {
+                testData:"我是父组件中的值"
+            },
+            methods: {
+                toChange (data) {
+                    console.log(data);
+                }  
+            }
+        })
+    
+    </script>
+</body>
+</html>

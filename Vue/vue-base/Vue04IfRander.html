@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue04</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        p {
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            text-align: center;
+            line-height: 100px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- v-if：条件判断true的时候显示标签，false的是隐藏标签
+            if和else-if和else中间不能有任何标签，必须紧挨着写
+            操作原理：将标签完全注释去掉,会比较耗性能-->
+        <button @click="ifAll">显示/隐藏</button>
+        <p v-if="if1 === '1'">邵楠if</p>
+        <p v-else-if="if1 === '2'">邵楠else-if</p>
+        <p v-else>邵楠if隐藏了</p>
+
+        <!-- v-show：也是条件判断，作用与v-if相似
+            是给标签添加display: none 属性 ，性能更好一些 -->
+        <button @click="showAll">显示/隐藏</button>
+        <p v-show="show">邵楠show</p>
+        
+        <!-- key:给标签起名字，告诉浏览器两个标签不一样
+                    如下如果不写key在点击切换的时候vue会复用之前的一个input，导致username的input会继续使用在password中，填写的值也会带过来 -->
+        <div v-if="login">
+            <span>用户名: </span>
+            <input type="text" key="usename">
+        </div>
+        <div v-else>
+            <span>密码: </span>
+            <input type="password" key="password">
+        </div>
+        <button @click="loginAll">切换</button>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                if1: '1',
+                login: true
+
+            },
+            methods: {
+                ifAll() {
+                    this.if1 = this.if1 === '1' ? '2' : '1';
+                    console.log(this.if1);
+                },
+                showAll() {
+                    this.show = !this.show;
+                    console.log(this.show); 
+                },
+                loginAll() {
+                    this.login = !this.login;
+                    console.log(this.login);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

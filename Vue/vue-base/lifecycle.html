@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lifecycle</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+         <button @click="changeMsg">Excute</button>   <!--存在问题执行完vm.$destroy()后click事件任然可以使用 -->
+        {{ msg }}
+    </div>
+
+    <script>
+        // init Events & lifecycle  --> beforeCreate    --> init injections & reactivity    -->     created()  -->
+                            // --> Yes --> 
+        // Has "el" option?                                                --->  Has template option?
+                            // -- No -->  when vm.$mount(el) is called-->
+
+                            // --> Yes --> Compile template into render function
+                            // --> No --> Compile el`s innerHTML as template
+
+                            // --> beforeMount() --> Create vm.$el and replace "el" with it --> mounted() --> Mounted --> 
+                            // when data change --> beforeUpdate() -- Virtual DOM re-render and patch --> updated --> Mounted -->
+                            // when vm.$destory()is called --> beforeDestory() --> Teardown watchers,child components and event listeners
+                            // --> destroyed --> destroyed()
+     const vm = new Vue({
+         el: '#app',
+         data: {
+             msg: 'Vue Lifecycle'
+         },
+         methods: {
+             changeMsg () {
+                 console.log('click');
+                 this.msg = 'Vue Lifecycle Show'
+             }
+         },
+         beforeCreate() {
+             console.log("msg: "+ this.msg);
+             console.log('changeMsg: ' + this.changeMsg);
+             alert('beforeCreate');
+         },
+         created () {
+             console.log('msg: ' + this.msg);
+             console.log('changeMsg: ' + this.changeMsg);
+             alert('created');
+             console.log(this.el);
+         },
+         beforeMount () {
+             console.log('msg: ' + this.msg);
+             console.log('changeMsg: ' + this.changeMsg);
+             alert('beforeMount')
+         },
+         mounted () {
+             console.log('msg: ' + this.msg);
+             console.log('chengeMsg: ' + this.changeMsg);
+             alert('mounted');
+         },
+         beforeUpdate () {
+             alert('beforeUpdate');
+         },
+         updated () {
+             alert('updated');
+         },
+         beforeDestroy () {
+             alert('beforeDestroy');
+         },
+         destroyed () {
+            alert('destroyed');
+         }
+         
+     })
+    </script>
+</body>
+</html>

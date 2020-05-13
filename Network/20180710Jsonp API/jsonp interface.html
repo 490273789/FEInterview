@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>interface</title>
+	<link rel="stylesheet" type="text/css" href="jsonp.css">
+</head>
+<body>
+	
+	<div class="wrapper">
+		<input type="text">
+		<ul></ul>
+	</div>
+	<script>
+		var oInput = document.getElementsByTagName('input')[0];
+		var oUl = document.getElementsByTagName('ul')[0];
+
+		oInput.oninput = function () {
+			var value = this.value;
+			var oScript = document.createElement('script');
+			oScript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value + '&cb=callback';
+			document.body.appendChild(oScript);
+		}
+
+		function callback (data) {
+			var s = data.s;
+			console.log(s);
+			var str = '';
+			if(s.length > 0){
+				s.forEach(function  (ele,index) {
+				str += '<li><a href=https://www.baidu.com/s?wd=' + ele + '>'+ ele + '</a></li>';
+			})
+				console.log(str);
+				oUl.innerHTML = str;
+				oUl.style.display = 'block';
+			}else{
+				oUl.style.display = 'none';
+			}
+			
+		}
+	</script>
+
+</body>
+</html>

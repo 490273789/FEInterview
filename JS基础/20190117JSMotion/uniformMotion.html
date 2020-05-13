@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Uniform Motion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        div {
+            position: absolute;
+            left: 800px;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            background: orange;
+        }
+
+        span {
+            position: absolute;
+            top: 0;
+            left: 400px;
+            width: 2px;
+            height: 100px;
+            background: #000;
+        }
+
+        #btn {
+            margin-top: 200px;
+            margin-left: 10px;
+            width: 80px;
+            height: 30px;
+            background-color: #0b78e4;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <span></span>
+    <button id="btn">Run</button>
+
+    <script>
+        oDiv = document.getElementsByTagName('div')[0];
+        oBtn = document.getElementById('btn');
+        // s = vt
+        var timer = null;
+        oBtn.onclick = function () {
+            clearInterval(timer);
+            iSpeed = (400 - oDiv.offsetLeft > 0 ? 7 : -7);
+            timer = setInterval(function(){    
+                if (Math.abs(400 - oDiv.offsetLeft) < Math.abs(iSpeed)) {
+                    // console.log('1');
+                    clearInterval(timer);
+                    oDiv.style.left = '400px';
+                } else {
+                    // console.log(oDiv.offsetLeft + iSpeed + 'px')
+                    oDiv.style.left = oDiv.offsetLeft + iSpeed + 'px';
+                }
+                
+            }, 30)
+        }
+    </script>
+</body>
+</html>

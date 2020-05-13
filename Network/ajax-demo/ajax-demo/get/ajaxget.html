@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+
+
+
+
+
+function Ajax (method,address,flag,callBacks,data) {
+	var xhr = null;
+	if(window.XMLHttpRequest) {
+		xhr = new window.XMLHttpRequest()
+	}else{
+		xhr = new ActiveXObject('Microsoft.XMLHTTP')
+	}
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState === 4) {
+			if(xhr.status === 200) {
+				getNews(xhr.responseText);
+			}else {
+				alert('出错了,Err：' + xhr.status);
+			}
+		}
+	}		
+	method === 'GET' && ( xhr.open(method,address,flag) || xhr.send() );
+	method === 'POST' && ( xhr.open(method, address,flag) || xhr.setRequestHeader('content-type','application/x-www-form-urlencoded') || xhr.send(data) );				
+}
+
+function getNews (res) {
+	
+	var data = JSON.parse( res );
+	console.log(res)
+	console.log(data);
+	var oUl = document.getElementById('ul1');
+	var html = '';
+	for (var i=0; i<data.length; i++) {
+		html += '<li><a href="">'+data[i].title+'</a> [<span>'+data[i].date+'</span>]</li>';
+	}
+	oUl.innerHTML = html;		
+}	
+
+
+window.onload = function() {
+	var oBtn = document.getElementById('btn');
+	
+	oBtn.onclick = function() {
+		Ajax('POST','getNews.php',true,getNews);
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<input type="button" value="按钮" id="btn" />
+    <ul id="ul1"></ul>
+</body>
+</html>

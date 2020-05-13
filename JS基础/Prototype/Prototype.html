@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Prototype</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//Person.prototype  ----原型---->一种继承关系
+		//Person.Prototype = {}//在函数出生的时候就被定义好了的对象
+		Persion.prototype.name = "hehe"
+		function Person() {
+
+		}
+		var person = new Person();
+		//函数创建的时候又会有一个prototype属性,prototype是一个对象,是所有构造函数产生对象的祖先
+		//原型和自身都有的属性,用自身的属性
+		//子对象不能增加/修改/删除原型的属性,只能继承原型的属性
+		//对象如何查看对象的构造函数:constructor属性是原型的自带属性,用来查看此对象的构造函数constructor属性会指向此对象的构造函数.
+		//persion.__proto__,在new对象的时候会隐式的创建一个this对象,对象中会有一个__proto__属性指向prototype对象，存储的是原型，起到连接的作用，当自己没有的属性向上一级寻找的时候通过此方法连接的，修改此方法的值是可以修改原型的。
+		//Object.prototype是所有对象的最终原型.
+		//var obj = {};---->隐士发生new Object();
+		function Person2(){
+			//var this = {__proto__ : Person2.prototype}
+		}
+		var person2 = new Person2();
+
+		//练习1
+		Person3.prototype = 'sunny'; 
+		function Person3(){
+			//var this = {__proto__ : Person3.prototype}
+		}
+		var person3 = new Person3();
+		Person3.prototype = {
+			name : 'cherry';
+		}
+		console.log(Person3.name);//sunny
+
+		//练习2
+		Person3.prototype = 'sunny';
+		function Person3(){
+			//var this = {__proto__ : Person3.prototype}
+		}
+
+		Person3.prototype = {
+			name : 'cherry';
+		}
+		
+		var person3 = new Person3();
+		
+		console.log(Person3.name);//cherry
+
+		//a.sayName() sayName里面的this指向是,谁调用的这个方法,this就是指向谁
+		//object.create(原型);没有原型的对象创建方法eg:var obj1 = object.create(null),此方法创建出的对象是没有原型的,没有原型的对象是不能通过手动添加原型的,有原型的对象是可以手动的更换原型的.
+		//document.wirte(a);会隐式的调用a.toString()方法s
+		//js尽量避免使用小数计算,有bug,
+		//Math.ceol(123.234)//124 向上取整
+		//Math.floor(123.234)//123 向下取整
+		//Math.random()产生0到1之间的随机数
+		//2e-16   2乘10的负16次方
+		//可正常计算的范围小数点前16后16
+		//call/apply
+		function test(name,age){
+			//执行person.call的时候 this == obj
+			this.name = name;
+			this.age = age;
+		}
+		var person = new Person('deng',100);
+		var obj = {
+
+		}
+		Person.call(obj,'cheng',300);
+		//test() ---> test.call();
+		//在执行test的时候是隐式的调用test.call()方法.
+		//Person.call(obj, '参数1','参数2') 改变this的指向，全部指向obj
+		//如下例子将Person中this的指向变为第二个函数中的this对象
+		//this默认指向window
+		function Person(name,age,sex){
+
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+		function Student(name,age,sex,tel,grade){
+			//var this = {}
+			Person.call(this, name,age,sex);
+			this.tel = tel;
+			this.grade = grade;
+		}
+		var student = new Student('wang',26,'boy','83248667','12')
+		//apply用法与call一样,传参的方式有区别
+		//call 需要把实参按照形参的个数传进去
+		//apply 需要传一个arguments
+		function Person(name,age,sex){
+
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+		function Student(name,age,sex,tel,grade){
+			//var this = {}
+			Person.apply(this, [name,age,sex]);
+			this.tel = tel;
+			this.grade = grade;
+		}
+		var student = new Student('wang',26,'boy','83248667','12')
+		//继承
+		//1.传统方式-->原型链方式：缺点继承的内容过于臃肿。
+		//2.借用构造函数-->Person.call(this, '参数','参数');缺点：只能借用方法，不能借用原型链,每次执行效率比较低。
+		//3.共享模式--->缺点是当给一个对象的原型添加属性另一个对象也会跟着拥有此属性，无法做到一个对象拥有自己独特的属性。
+		//inherit 继承
+		Father.prototype.lastName = 'deng';
+		function Father() {
+
+		}
+
+		function Son() {
+
+		}
+
+		function inherit(Target, Origin){
+			Target.prototype = Origin.prototype;
+		}
+		inherit(Father, Origin);
+		Son.prototype.firstName = 'Xuming';
+		 var son = new Son();
+		 var father = new Father();
+		 //圣杯模式
+		 Father.prototype.lastName = 'deng';
+		function Father() {
+
+		}
+		function Son() {
+
+		}
+
+		function inherit(Target, Origin){
+			function F() {}
+			F.prototype = Origin.prototype;
+			Target.prototype = new F();
+			Target.protoptype.constructor = Target;
+			Target.prototype.uber = Origin.prototype;
+		}
+		inherit(Son, Father);
+		 var son = new Son();
+		 var father = new Father();
+
+		 //优化圣杯模式
+		 var inherit = (function () {
+		 	var F = function() {}
+		 	return function (Target, Origin){
+		 		F.prototype = Origin.prototype;
+		 		Taget.prototype = new F();
+		 		Target.prototype.constructor = Target;
+		 		Target.prototype.uber = Origin.prototype;
+		 	}
+		 }());
+		 //闭包：私有化属性.模块开发，避免全局变量污染
+		 function Person() {
+		 	var prepareWife = 'xiaoxiao'
+		 	this.wife = wife;
+		 	this.name = name;
+		 	this.divorce = function() {
+		 		this.wife = prepareWife;
+		 	}
+		 	this.changePrepareWife = function(Target){
+		 		prepareWife = Target;
+		 	}
+		 	this.sayPrepareWife = function(){
+		 		console.log(prepareWife);
+		 	}
+
+		 }
+		 var person = new Person();
+		 //函数的连续调用
+		 var May = {
+		 	somke : function() {
+		 		console.log('Smoking');
+		 		return this;
+		 	}
+		 	drink : function() {
+		 		console.log('Drinking');
+		 		return.this;
+		 	}
+		 	perm : function() {
+		 		console.log('perming');
+		 		return this;
+		 	}
+		 	May.somke().drink().perming();
+		 }
+	</script>
+</body>
+</html>

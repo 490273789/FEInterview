@@ -1,0 +1,22 @@
+<!DOCTYPE html><!--DOCTYPE:定义渲染模式,查看扣篮器渲染模式:document.compatMode,IE6以及以下的的浏览器的渲染模式是怪异模式 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="demo">usename:</label>
+    <input type="text" id="demo">
+    <script type="text/javascript">
+        var oInput = document.getElementById('demo'),
+            oLable = document.getElementsByTagName('label')[0];
+        oInput.setAttribute('name','value');//可以设置不是先天存在的属性属性
+        console.log(oInput.getAttribute('name'));//可以获取先天不存在的属性信息.如果是先天存在的属性可以使用 oInput.属性的方法来获取或者设置
+        //"特性"自身就有的属性,"属性"自身存在的和后来设置的,所以属性包含特性.
+        //特片预加载
+    </script>    
+</body>
+</html>

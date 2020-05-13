@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //js是解释性语言  单线程
+        // 异步：几个任务同时进行
+        // 同步：几个任务排队进行
+        // javaScript ---> ECMAScript  ---> ES
+        // js三个阶段：ecmajavascript  DOM  BOM
+        //单线程执行多任务，首先会把每个任务分解为无数个片段，然后将这些片段随机排列并按照排列顺序进行执行；----> 轮转时间片
+        //一个js标签只能引入外部文件或在标签内写代码。不能同时使用，如果同时使用内部的代码会失效
+        //变量-->冰箱-->存数据以便后续使用
+        //原始值：Number Boolean String undifined null
+        //js中的Number是浮点型
+        //引用值：array Object function date RegExp
+
+        // stack   栈      存原始值  特点先进后出   栈内存的值之间赋值是copy，改变一个值不影响另一个值;
+        // 最底层：原始值不能够改变，重新赋值是新建一个房间，之前的值只是把房间的门牌号清除了，
+        // 唯一能够删除的方法是将内存存满会有新的内容将没有门牌号的内容覆盖掉（删除硬盘内容的方法）
+
+
+        // heap    堆      存原始值      原始值之间的赋值，是堆内存地址的赋值，都指向同一个房间，改变房间的内容两个值都会改变
+
+
+        // 错误分为两种
+        // 1，低级错误（语法解析错误）：会通篇翻译，如果有语法错误，则js不会执行（只影响当前代码块，不会影响其他代码块）
+        // 2，逻辑错误：在代码执行到错误时会停止执行
+
+
+        // 任何类型+字符串都等于字符串
+        // 0/0  NaN  --> Not a Number  (数字类型)
+        // 1/0 infinity(Number)正无穷  -1/0
+        // %  取余
+        // 先++ ，++ a   先加加在执行
+        //后++  先执行语句在执行++
+        // +undefined == NaN   隐式类型转换不会报错，不识别的会是NaN
+
+
+        // js的字符串使基于数组的
+        var str = "123";
+        var charAt = str.charAt(1);//2
+        var char = str[1];//2
+        console.log(char);
+        console.log(charAt);
+
+
+        var a = 1;
+        var b = a -- + --a;//0  先运算--a，a=0  
+        
+        var a = 10,
+            b = 20,
+            c = 30,
+            d; //单一var模式
+        var num = "2" * "1";
+        var num1 = 2 * 1;
+        console.log(typeof (num) + " : " + num + " & " + typeof (num1) + " : " + num1); //number : 2 & number : 2
+
+        var demo = undefined;
+        var num2 = Number(demo);
+        console.log(typeof (num2) + " : " + num2); //number : NaN
+
+        var demo1 = undefined;
+        var num3 = parseInt(demo1, 16); //以16进制为基底返回10进制.
+        console.log(typeof (num3) + " : " + num3); //number : NaN
+
+        var demo2 = 1010101;
+        var num4 = parseInt(demo2, 2); //以16进制为基底返回10进制.
+        console.log(typeof (num4) + " : " + num4); //number : 85
+        var num5 = num4.toString(16);
+        console.log(typeof (num5) + " : " + num5) //String : 55
+
+        console.log(typeof (a)); //String//undefined,String
+        console.log(typeof (undifined)); //String//undefined,String
+        console.log(typeof (NaN)); //String//Number
+        console.log(typeof (null)); //Obgect
+
+        //隐式类型转换
+        var a = "123abc";
+        console.log(typeof (+a)); //Number
+        console.log(+a); //NaN
+        console.log(typeof (!!a)); //Boolean
+        console.log(typeof (a + "")); //String
+        console.log(1 == "1"); //在比较的时候如果两边的类型不同会先进行隐式类型转换在进行数值的比较//true
+        console.log(undefined == undefined); //true
+        console.log(NaN == NaN); //False
+        console.log(NaN == undefined); //false
+        console.log("11" + 11); //String//1111
+        console.log(1 === "1"); //如果数据类型不同直接为false，如果数据类型相同在进行数值的比较//false
+        console.log(parseInt("123abc")); //可解析一个字符串，并返回一个整数。如果第一个字符无法被解析则会返回NaN//123
+        var num6 = 123123.345789;
+        console.log(num6.toFixed(3)); //可把 Number 四舍五入为指定小数位数的数字。//123123.346
+    </script>
+</body>
+
+</html>

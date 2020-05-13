@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES5</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //目前的浏览是基于es3.0和es5.0的新增方法使用的，有冲突的基于3.0，如果启用es5.0严格模式 那么es3.0和es5.0冲突部分就是用es5.0
+        "use strict";//启用es5.0严格模式,唯一的启动方法，要在逻辑的最顶端第一行，放在全局是整个代码都启用es5.0，放在局部只有部分启用。使用字符串的原因保证老本的浏览器不报错。
+
+        function test() {
+            console.log(arguments.callee);
+        }
+
+        var obj = {
+            name : "obj"
+        }
+
+        var name = 'window';
+
+        function test() {
+            var name = 'scope';
+            with(obj){//with的作用如果蚕食放入对象，他会改变with中的作用于链，是这个函数变成作用域链的第一个寻找的域
+                console.log(name);//obj
+            }
+        }
+        //with简化代码:正常使用document.wirte调用方法，将document放到with中就可以省略document。
+        //原理：将with中的作用域链改为document对象了，wirte方法直接到document中寻找。缺点：改变作用域链会消耗内存，使代码执行效率降低。es5.0模式不允许使用。
+        //arguments.callee和arguments.caller也不允许在es5.0模式下使用
+        //在es5.0中this在预编译的时候如果没有被赋值，则不会在指向window，会是undefined。
+        //拒绝的重复的属性和参数。重复的参数会报错，重复的属性不会报错。
+        //变量赋值前必须赋值
+        //eval('console.log(a)')//会将字符串当代码使用，但是在es3.0中都不能使用，
+        //原因
+        with(document){
+            wirte('q');
+        }
+    </script>
+</body>
+</html>

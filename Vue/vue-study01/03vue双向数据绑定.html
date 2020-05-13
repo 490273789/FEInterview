@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <input type="text" v-model:value="msg"> -->
+        
+        <!-- v-model(语法糖) 实现原理 -->
+        <input type="text" :value="msg" @input="valueChange">
+        <h3>{{ msg }}</h3>
+    </div>
+    <script>
+        // v-module  双向数据绑定  只会体现在form控件中  只能应用在有value属性的标签中  ()
+        var vm = new Vue({
+            el: '#app',
+            data(){
+                return {
+                    msg: '大王'
+                }
+            },
+            methods: {
+                valueChange (e) {//e.target  目标元素
+                    this.msg = e.target.value;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

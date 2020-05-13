@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- iframe--内敛元素，可以嵌套一个界面，好处：在做广告是可以用此标签可以引入广告界面，而不影响现在的页面结构，还可以做导航栏的tab页切换，qq邮箱登录的弹窗都是使用iframe做的 -->
+	<iframe src="./test.html" frameborder="0" name='test'></iframe>
+
+	<script>
+		var oldAge = 40;
+		var oIframe = document.getElementsByTagName('iframe')[0];
+		oIframe.onload = function () {
+			console.log(window.frames['test'].age);
+			console.log(oIframe.contentWindow.age);
+
+		}
+		
+
+	</script>
+</body>
+</html>

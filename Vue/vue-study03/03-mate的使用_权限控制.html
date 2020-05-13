@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/home">首页</router-link>
+        <router-link to="/blog">博客</router-link>
+        <router-link to="/login">登录</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+     <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+     <!-- 
+         提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，原来的组件实例会被复用。
+         因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。
+         不过，这也意味着组件的生命周期钩子不会再被调用。
+     -->
+    <script>
+        Vue.use(VueRouter);
+        var Home = {
+            template: `
+                <div>
+                    我是登录界面    
+                </div>
+            `
+        }
+
+        var Blog = {
+            template: `
+                <div>
+                    博客界面
+                <div>
+            `
+        }
+
+        var Login = {
+            data () {
+                return {
+                    username: "",
+                    password: ""
+                }
+            },
+            template: `
+                <div>
+                    <input type="text" v-model="username">
+                    <input type="password" v-model="password">
+                    <input type="button" @click="loginHandler">
+
+
+                </div>
+            `,
+            methods: {
+                loginHandler () {
+                    // 将密码存储到本地
+                    localStorage.setItem("user",{username:this.username,password:this.password});
+
+                    // 点击登录后跳转到博客界面
+                    // 编程式导航
+                    this.$router.push({
+                        name:"blog"
+                    })
+                }
+            }
+        }
+
+        var router = new VueRouter({
+            routes:[
+                {
+                    path: "/",
+                    redirect: "/home"
+                },
+                {
+                    path:"/home",
+                    // name:"home",
+                    component:Home
+                },
+                {
+                    path:"/blog",
+                    name:"blog",
+                    component:Blog,
+                    // 给未来的路由左权限控制
+                    meta: {
+                        // 默认为false
+                        auth: true
+                    }
+                },
+                {
+                    path: "/login",
+                    name: "login",
+                    component: Login
+                }
+            ]
+        });
+        // 路由全局守卫
+        router.beforeEach((to, from, next) => {
+            //to and from are Route Object,next() must be called to resolve the hook}
+            console.log(to);
+            console.log(from);
+            if (to.meta.auth) {
+                if (localStorage.getItem('user')){//判断本地是否有登录信息的存储
+                    next()
+                }else{
+                    next({
+                        path:"/login"
+                    })
+                }
+            }else{
+                next();
+            }
+        })
+       
+        new Vue({
+            el:'#app',
+            data () {
+                return {
+                    
+                }
+            },
+            router
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="/bootstrap-3.3.7-dist/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css">
+</head>
+
+<body>
+    <div>
+        <label for="start">Start Time</label>
+        <input type="text" id="datetimepicker">
+    </div>
+
+    <div>
+        <label for="end">Start Time</label>
+        <input type="text" id="end">
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $("#datetimepicker").datetimepicker({
+                format:'yyyy-mm-dd hh:ii:ss',  //格式  如果只有yyyy-mm-dd那就是0000-00-00
+                autoclose:true,//选择后是否自动关闭 
+                minView:0,//最精准的时间选择为日期  0-分 1-时 2-日 3-月
+                language:  'zh-CN', //中文
+                weekStart: 1, //一周从星期几开始
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+               // daysOfWeekDisabled:"1,2,3", //一周的周几不能选 格式为"1,2,3"  数组格式也行
+                todayBtn : true,  //在底部是否显示今天
+                todayHighlight :false, //今天是否高亮显示
+                keyboardNavigation:true, //方向图标改变日期  必须要有img文件夹 里面存放图标
+                showMeridian:false,  //是否出现 上下午
+                initialDate:new Date()
+                //startDate: "2017-01-01" //日期开始时间 也可以是new Date()只能选择以后的时间
+            }).on("changeDate",function(){
+                var start = $("#start").val();
+                $("#end").datetimepicker("setStartDate",start);
+            }); 
+            $("#end").datetimepicker({
+                format:'yyyy-mm-dd hh:ii:ss',  //格式  如果只有yyyy-mm-dd那就是0000-00-00
+                autoclose:true,//选择后是否自动关闭 
+                minView:0,//最精准的时间选择为日期  0-分 1-时 2-日 3-月
+                language:  'zh-CN', //中文
+                weekStart: 1, //一周从星期几开始
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                //daysOfWeekDisabled:"1,2,3", //一周的周几不能选
+                todayBtn : true,  //在底部是否显示今天
+                todayHighlight :false, //今天是否高亮显示
+                keyboardNavigation:true, //方向图标改变日期  必须要有img文件夹 里面存放图标
+                showMeridian:false  //是否出现 上下午
+               // startDate: "2017-01-01"  //开始时间  ENdDate 结束时间
+            }).on("changeDate",function(){
+                var end = $("#end").val();
+                $("#datetimepicker").datetimepicker("setEndDate",end);
+            });   
+        });
+        </script>
+</body>
+
+</html>

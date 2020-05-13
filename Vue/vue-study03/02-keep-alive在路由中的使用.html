@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+     <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+
+    <script>
+
+        var TimeLine = {
+            template:`
+                <div id="timelne">
+                   我是首页
+                </div>
+            `,
+            created () {
+                console.log("组件创建");
+            },
+            mounted () {
+                console.log("DOM渲染")
+            },
+            destroyed () {
+                console.log("组件销毁了")
+            }
+
+        }
+        var Pins = {
+            template:`
+                <div>
+                    <h3 @click="clickHandler">我是沸点</h3>
+                </div>
+            `,
+            created () {
+                console.log("组件创建");
+            },
+            mounted () {
+                console.log("DOM渲染")
+            },
+            destroyed () {
+                console.log("组件销毁了")
+            },
+            methods: {
+                clickHandler (e) {
+                    e.target.style.color = "red";
+                }
+            }
+
+        }
+
+        var router = new VueRouter({
+            routes:[
+                {
+                    path:"/timeline",
+                    component:TimeLine
+                },
+                {
+                    path:"/pins",
+                    component:Pins
+                }
+            ]
+        })
+        var App = {
+            data () {
+                return {
+
+                }
+            },
+            template:`
+            <div>
+                <router-link to="/timeline">首页</router-link>
+                <router-link to="/pins">沸点</router-link>
+                <keep-alive>
+                        <router-view></router-view>
+                </keep-alive>
+                
+            </div>
+            `
+        }
+        new Vue({
+            el:'#app',
+            data () {
+                return {
+                    
+                }
+            },
+            components: {
+                App
+            },
+            router,
+            template: `<App />`
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        // 之前的两种方式处理都是父子组件之间的数据传递，如果两个不是父子组件关系呢？
+        // 这种情况下可以使用中央事件总线的方式
+        // 新创建一个Vue事件bus对象，然后通过bus.$emit触发事件，bus,$on监听触发的事件。
+        var bus = new Vue;
+
+        Vue.component('brother2',{
+            data () {
+                return {
+                    msg:'hello brother1'
+                }
+            },
+            template:`
+                <div>
+                    <p>我是老大</p>
+                    <input type="text" v-model="msg" @input="passData(msg)">{{ $attrs.messagec }}</input>
+                </div>
+            `,
+            methods:{
+                passData (val) {
+                    // alert(1);
+                    bus.$emit('globalEvent',val);
+                }
+            }
+        })
+
+        Vue.component('brother1',{
+            data () {
+                return {
+                    msg: 'hello brother1',
+                    brother2Msg:''
+                }
+            },
+            props:['message'],
+            template:`
+                <div>
+                    <p>我是老二</p>
+                    <p>老大传过来的数据：{{ brother2Msg }}</p>
+                </div>
+            `,
+            mounted () {
+                // 绑定全局事件globalEvent事件
+                bus.$on('globalEvent',(val)=> {
+                    this.brother2Msg = val;
+                })
+            }
+        })
+
+        var App = {
+            data() {
+                return {
+                    msg: '我是父组件的内容',
+                    messagec:'helloc'
+                }
+            },
+            template:`
+                <div>
+                    <brother1></brother1>
+                    <brother2></brother2>
+                </div>
+            `,
+            methods: {
+                // 执行c组件的触发函数
+                getCData(val) {
+                    console.log(val);
+                }
+            }
+        }
+
+
+        var vm = new Vue({
+            el:'#app',
+            data () {
+                return {
+
+                }
+            },
+            components: {
+                App
+            },
+            template:`
+                <App/>
+            `
+        })
+    </script>
+</body>
+</html>

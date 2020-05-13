@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Arrgument</title>
+</head>
+
+<body>
+	<script type="text/javascript">
+		//操作数组的方法
+		var str = '1-2-3-4';
+		var arr = [1, 2, 3, 4];
+		//1.改变原数组的方法
+		arr.push(); //从数组尾部插入一位
+		arr.pop(); //从数组尾部移除一位
+		arr.shift(); //删除数组的第一位
+		arr.unshift(); //在数组的前面添加一位
+		arr.reverse(); //反转数组
+		arr.splice(n, m, k); //从第n位开始， 截取m长度 ， 在切口处添加新的数据k
+		arr.sort() //数组排序,不写值按照升序方法排序
+		//看返回值 1）当返回值位负数时，那么前面的数放在前面
+		//		  2）为正数，那么后面的数在前
+		//		  3）为0,不动
+		arr.sort(function (a, b) {
+			return a - b
+		}); //按照升序排列
+		arr.sort(function (a, b) {
+			return a + b
+		}); //按照降序排列
+
+		//2.不改变原数组生成新的数组
+		var arr5 = [1, 2, 3, 4];
+		arr5.join('-'); //将数组中的每一位使用-连接成字符串:1-2-3-4
+		str.split("-") //按照括号内的字符进行拆分，拆分成数组.
+		arr5.concat(0, 0, 0); //将数组添加三位(可以添加n位),不会改变原数组.
+		arr5.concat(arr1); //参数是数组，拼接两个数组，不写参数，就是copy原数组，数组克隆
+		arr5.lenth; //返回数组的长度
+		arr5.toString(); //将数组以字符串的形式展示出来"1,2,3,4"
+		arr5.indexOf(n); //返回n在数组中第一次出现的索引值,如果数组中没有n则返回-1.
+		arr5.lastindexOf(n); //返回n在数组中最后一次出现的索引值.
+		arr5.slice(n, m) //两个参数从n位开始截取到m位（包含第n位，不包含m位）,一个参数，是从该位截取到最后,不写参数，复制整个数组，多数用在将类数组转化为数组
+		//判断数组的每一位是否都满足条件，返回值为布尔类型
+		//相当于逻辑运算的"与",都满足条件才会返回true
+		arr5.every(function (ele) {
+			return ele > 0
+		});
+
+		//判断数组是否有满足条件的，返回值为布尔类型
+		//相当于逻辑运算中的"或",有一个满足条件就为true
+		arr5.some(function (ele) {
+			return ele > 3
+		});
+
+		//遍历数组
+		arr5.forEach(function (ele, index) { //ele取出对象中的每一位,index:取出每一位相对的索引
+			console.log(ele, index);
+		})
+		//解析forEach源码,封装自己的myForEach()方法
+		Array.prototype.myForEarch = function (fn) {
+			var len = this.lenth;
+			for (var i = 0; i < len; i++) {
+				fn(this[i], i);
+			}
+		}
+		//调用自己创建的myForEach方法
+		arr5.myForEach(function (ele, index) {
+			console.log(ele, index);
+		})
+
+		//filter方法返回满足条件的数组
+		var arr6 = arr5.filter(function (ele, index) {
+			if (ele.age > 15) {
+				return true;
+			}
+		})
+		//解析filter源码,封装自己的myFilter方法
+		Array.prototype.myFilter = function (fn) {
+			var len = this.lenth;
+			var newArr = [];
+			for (var i = 0; i < len; i++) {
+				if (fn(this[i], i)) {
+					if (this[i] == 'boject') {
+						var obj = {};
+						newArr.push(deepClone(obj, this[i]))
+					} else {
+						newArr.push(this[i])
+					}
+				}
+			}
+			return newArr;
+		}
+		//调用自己创建的myFilter方法
+		var fArr = arr5.myFilter(function (ele, index) {
+			if (ele.age > 15) {
+				return true;
+			}
+		})
+
+		//map创建新数组,不改变原数组
+		var c = arr5.map(function (ele, index) {
+			return ele += 10;
+		})
+		console.log(c); //创建的新的数组[11,12,13,14]
+		//封装myMap方法
+		Array.prototype.myMap = function (fn) {
+			var len = this.lenth;
+			var arr = [];
+			for (var i = 0; i < len; i++) {
+				arr.push(fu(this[i], i));
+			}
+		}
+
+		//reduce累加器
+		arr5.reduce(function (preTotal, ele, index) {
+			//preTotal:初始值,如果如果写第二参数100,则初始值是100,如果不写100则初始值是数组的第一位.
+			return preTotal + ele;
+		}, 100)
+		//封装自己的reduce方法.
+		Array.prototype.myReduce = function (fn, init) {
+			var len = this.lenth;
+			var pre = init;
+			var i = 0;
+			if (init === undefined) {
+				pre = this[0];
+				i = 1;
+			}
+			for (i; i < len; i++) {
+				pre = fn(pre, this[i], i)
+			}
+			return pre;
+		}
+
+		//进阶版typeof
+		function type(target) {
+			var template = {
+				"[object Array]": "array",
+				"[object object]": "object",
+				"[object Boolean]": "boolean - object",
+				"[object Number]": "number - object",
+				"[object String]": "string - object"
+			}
+			if (target === null) {
+				return null;
+			} else if (typeof (target) == 'object') {
+				//数组、对象、包装类 Object.prototype.toString
+				var str = Object.prototype.toString.call(target);
+				return template[str];
+			} else {
+				return typeof (target);
+			}
+			//1.分两类 原始值引用值
+			//2.区分引用值
+		}
+
+		var obj1 = {
+			name: 'simei'
+		}
+		var obj2 = {
+			sex: 'girl',
+			name: 'shaonan',
+			teacher: {
+				t1: {
+					name: 'xiaofeng',
+					age: 58
+				},
+				t2: {
+					name: 'azhen',
+					age: 18
+				}
+			}
+		}
+		//封装深度拷贝
+		function deepClone(target, option) {
+			var copy,
+				src;
+			if (option != null) {
+				for (var prop in option) {
+					copy = option[prop];
+					src = target[prop];
+					if (copy && typeof copy == 'object') {
+						if (Object.prototype.toString.call(copy) == '[object Array]') {
+							src = src ? src : [];
+						} else {
+							src = src ? src : {};
+						}
+						target[prop] = deepClone(src, copy);
+					} else {
+						target[prop] = copy;
+					}
+				}
+			}
+			return target;
+		}
+
+		deepClone(obj1, obj2);
+		console.log(obj1);
+	</script>
+
+</body>
+
+</html>

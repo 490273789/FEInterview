@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script>
+        //beforeCreate
+        // create
+        Vue.component('Test',{
+            data () {
+                return {
+                    msg:"hello"
+                }
+            },
+            template:`
+                <div>
+                    <div>{{ msg }}</div>
+                    <button @click="changeHandle">改变</button>
+                </div>
+            `,
+            methods: {
+                changeHandle () {
+                    this.msg = this.msg + 'haha';
+                }
+            },
+            beforeCreate () {
+                // 组件创建之前
+                console.log(this.msg);
+            },
+            created () {
+                // 组件创建之后
+                console.log(this.msg);
+                // 使用该组件就会调用created方法
+                // 在create这个方法中可以操作后端的数据  数据驱动视图
+                // 应用发起ajax请求
+            },
+            beforeMount () {
+                // 挂载数据到DOM之前会调用,模板中的标签还没有渲染
+                console.log(document.getElementById('app'));
+            },
+            mounted () {
+                // 挂载数据到DOM之后会调用 Vue作用以后的DOM  操作DOM
+                console.log(document.getElementById('app'));
+            },
+            beforeUpdate () {
+                // 在更新DOM之前调用该钩子，应用：获取原始DOM
+                console.log(document.getElementById('app').innerHTML);
+            },
+            updated () {
+                // 在更新DOM之后调用，应用：获取最新DOM
+                console.log(document.getElementById('app').innerHTML);
+            },
+            beforeDestroy () {
+                // 组件销毁之前执行
+                console.log('beforDes')
+            },
+            destroyed () {
+                // 组件销毁之后
+                console.log('Des');
+            },
+            activated () {
+                console.log('组件被激活了')
+            },
+            deactivated () {
+                console.log('组件被停用了')
+            }
+        })
+        var App = {
+            data () {
+                return {
+                    isShow: true
+                }
+            },
+            // vue内置组件,<keep-alive></keep-alive>，使用后就不会触发beforeDestory和destory方法了，但是会调用actived和deActived方法
+            // 能够在组件切换过程中将状态保存在内存中。防止重复渲染DOM
+            template:`
+                <div class='app'>
+                        <keep-alive>
+                            <Test v-if="isShow"/>
+                        </keep-alive>
+                    
+                    <button @click="isShow = !isShow">改变生死</button>
+                </div>
+            `
+        }
+        var vm = new Vue({
+            el:'#app',
+            data () {
+                return {
+
+                }
+            },
+            components: {
+                App
+            }
+        })
+    </script>
+</body>
+</html>

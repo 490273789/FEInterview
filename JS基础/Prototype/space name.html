@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>space name</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// var obj = {
+		// 	name : "xiaowang"
+		// }
+		//obj.name -----> 内部隐式转换为 obj["name"]  优势可以用在属性拼接上,使用的比较灵活
+		var may = {
+			wife1 : {name : "xiaowang"},
+			wife2 : {name : "xiaozhang"},
+			wife3 : {name : "xiaomeng"},
+			sayWife : function (num){
+				return this['wife' + num]
+			}
+		}
+		//枚举-->遍历 enumeration	
+		//for in循环
+	var obj = {
+		name : "shaonan",
+		age : 10,
+		sex : "boy",
+		__proto__ : {
+			lastName : "Deng"
+		}
+	}
+	for(var prop in obj){
+	// console.log(prop + " " +typeof(prop))
+	// //console.log(obj.prop)//--->obj['prop'] 直接变为方法调用了
+	// console.log(obj[prop])//正确写法,此方法会打印出自己添加的原型中的内容(注意这块自己添加的原型链都能够打印出来,系统自带的内容是不会打印出来的)
+	if(obj.hasOwnProperty(prop)){//此函数是用来排除原型中的内容,能够筛选出此对象的属性
+		console.log(obj[prop]);
+	}
+	}
+	// in  操作符 判断'age' 是否属于obj对象,特点不会区分这个属性属不属于这对象,是父级对象的也会返回true,只能判断这个对象上能不能访问这个属性,注意和hasOwnProperty函数的区别
+	'age' in obj;
+	//注意:属性单独使用时要加字符串
+	function Person(){
+
+	}
+	var person = new Person();
+	//区别数组和对象的三种方法
+	//A instanceof B;
+	//A对象是不是B函数构造出来的.
+	// 看A对象的原型链上有没有B的原型
+	console.log(person instanceof Person);
+	//toString();方法
+	Object.prototype.toString.call([]);
+	//constructor
+	[].constructor;
+
+	//进制：满足一个数从个位到十位就是进制
+	//eg：十进制：1 + 9 = 10 ； 十一进制：1 + 9 = a; 1 + a = 10;十六进制： 6 + 10 = 10 代表16个数;二进制：满2就进一位
+
+	var x = 1;
+	if(function f() {}){
+		x += typeof f;
+	}
+	console.log(x);//"1undefined";解析：（function f() {}）在括号中会把这个函数变为表达式，失去了函数定义的作用，所以typeof f结果是undefined
+
+	//{} == {}//false 比较的是引用地址。是否指向一个房间
+	//this 函数预编译过程 this指向window
+	//全局作用域里this指向window
+	//call/apply可以改变this的指向
+	//obj.func();   func()里面的this指向obj)；函数中的this，指向被调用者，谁调用指向谁
+	</script>
+
+
+	
+</body>
+</html>

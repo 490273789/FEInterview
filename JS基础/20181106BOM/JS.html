@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Js收官</title>
+    <style>
+        body {
+            height: 3000px;
+        }
+
+        .div {
+            position: absolute;
+            top: 1500px;
+            width: 400px;
+            height: 200px;
+            border: 2px solid #000;
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" value="aaa" id="demo" data="duyi">
+    <div id="pic"></div>
+
+    <ul id="wrapper">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        // 浏览器访问服务器的步骤
+        // 1. url：资源定位器 (DNS解析为IP地址) --> IP
+        // 2. tcp -->三次握手
+        // 3. 返回你需要的资源
+        // 4. js 时间线
+        // 5. HTML和CSS--渲染过程-->渲染引擎
+        // 6. tcp四次挥手
+
+
+        // 属性和特性
+        // 属性包含了特性
+        // 先天带的是特性，后天学的是属性(特性也是属性的一种),特性和dom是有映射关系的
+        // 比如type value id class 这些都是特性，也属于属性
+        // data cst hello 这些是自定义的为属性，不是特性
+        // 特性是可以使用DOM对象以".属性名"的方式来获取或者设置他的值
+        // 自定的属性是不能使用DOM以对象".属性名"的方式来获取或者设置他们的值
+        // setAttribute() getAttribute()这两个方法是可以设置和获取属性/特性和属性值/特性值
+        // JQuery中的prop方法只能获取特性，底层原理是使用DOM.属性名的方式
+        // JQuery中的attr方法是可以获取和设置属性/特性和属性值/特性的值
+
+        // 图片的预加载和图片的懒加载
+        
+        // 预加载：提前将图片加载好
+        var oImg = new Image();
+        oImg.onload = function () {
+            var oDiv = document.getElementById('pic');
+            oDiv.append(this);
+        }
+        oImg.src = '图片地址';
+
+        // 懒加载：使用的时候加载图片
+        // 原理不断的监控滑轮事件
+        // 不断的判断当前div的位置
+        // 采取预加载
+        // 把图片正式的添加到页面之中
+
+        Math.random();//根据场景灵活使用
+        // 生成12到36之间的随机数
+        // 36 - 12 = 24 * [0,1) --> [0,24) + 12 --> [12,36)
+
+        // 抽奖几率
+        var num = Math.random() * 100;
+        if (num < 1) {//控制获奖概率
+            console.log ('一等奖');
+        } else if (num <= 2) {
+            console.log ('二等奖');
+        }else {
+            console.log('谢谢惠顾');
+        }
+
+        // 文档碎片（可以想象成一个容器）
+        var oF = document.createDocumentFragment();
+        var oUl = document.getElementById('wrapper');
+        for (var i = 0; i <= 10; i++ ) {//每次操作DOM都会引起重绘和重排，影响性能,
+                                        // 优化：使用拼接字符串的方式来减少对Dom的操作
+            var oLi = document.createElement('li');
+            oLi.innerText = i + ' ';
+            oUl.appendChild(newLi);
+        }
+
+        for (var i = 0; i <= 10; i++ ) {
+            var oLi = document.createElement('li');
+            oLi.innerText = i + ' ';
+            oF.appendChild(oLi);//先将这些结构放到文档碎片中，之后将文档碎片一次加载到界面，实际上不会减少性能
+            
+        }
+        oUl.appendChild(oF);
+
+        // 虚拟Dom
+        // 直接操作Dom(包括查询，因为Dom对象中有很多方法)很耗费系统性能
+        // 对虚拟Dom操作可以较少对Dom的操作，提升页面的性能
+
+        
+    </script>
+</body>
+</html>

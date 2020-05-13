@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 500px;
+            height: 100px;
+            font-size: 50px;
+            
+            /* 可以写多个方向的组合值，可以参考boxShadow */
+            /* text-shadow: 1px 1px #000, -1px -1px #fff; */
+            margin: 1%;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .demo1 {
+            background-color: #0ff;
+            color: #ddd;
+            /* 浮雕效果 */
+            text-shadow: 1px 1px #000, -1px -1px #fff;
+        }
+        .demo2 {
+            background-color: #0ff;
+            color: #ddd;
+            /* 镂刻效果 */
+            text-shadow: -1px -1px #000;
+        }
+
+        .demo3 {
+            background-color: #000;
+            color: #ddd;
+            text-shadow: 0px 0px 10px #0f0,
+                         0px 0px 10px #0f0,
+                         0px 0px 10px #0f0;
+                         transition: all 2s;
+        }
+
+        .demo3:hover {
+            text-shadow: 0px 0px 10px #f00,
+                         0px 0px 10px #f10,
+                         0px 0px 10px #f20,
+                         0px -5px 20px #f10,
+                         0px -10px 20px #f20,
+                         0px -15px 30px #f10,
+                         0px -20px 40px #f20,
+                         0px -25px 50px #f20;     
+        }
+        .demo3::before {
+            content: "NO ";
+            opacity: 0;
+            text-shadow: 0px 0px 10px #f20,
+                         0px 0px 10px #f20,
+                         0px 0px 10px #f38e1c,
+                         0px -5px 20px #ffae34,
+                         0px -10px 20px #f38e1c,
+                         0px -15px 30px #f3d131,
+                         0px -20px 40px #f3d131,
+                         0px -25px 50px #feec85;  
+            transition: all 2s;
+        }
+
+        .demo3:hover::before {
+            opacity: 1;
+        }
+
+        .demo4 {
+            width: 500px;
+            height: 140px;
+            font-size: 100px;
+            font-weight: bold;
+            background-repeat: no-repeat;
+            background-position: -400px -55px;
+            background-image: url(img/eye.jpeg);
+            background-size: 400px 300px;
+
+            /* 添加此属性后文字就会变为背景图片的一部分了，阴影会出现在文字的上面，注意和text-shadow的搭配使用 */
+            -webkit-background-clip: text;
+            background-clip:text;
+            -webkit-text-fill-color: transparent;
+            /* text-fill-color: transparent; */
+            transition: all 2s;
+
+            text-shadow: -5px -5px 3px rgba(255, 0, 255, .3),
+                         5px 5px 3px rgba(0, 255, 255, .3);
+            
+        }
+        .demo4:hover {
+            background-position: 0 -55px;
+        }
+        .demo5 {
+            border: 1px solid #ddd;
+            background-color: #000;
+            width: 500px;
+            height: 250px;
+        }
+
+        .demo6 {
+            width: 500px;
+            height: 140px;
+            font-size: 60px;
+            font-weight: bold;
+            color: #f10;
+
+            transition: all 1s;
+
+            text-shadow: 0px 0px 5px #f10,
+                         0px 0px 10px #f10,
+                         0px 0px 10px #f10;
+            
+        }
+
+        .demo6:hover {
+            text-shadow: 10px -10px 10px #f00,
+                         10px 10px 10px #ff0,
+                         -10px 10px 10px #f0f,
+                         -10px -10px 10px #f00,
+                         20px -35px 5px #ff0,
+                         35px 15px 5px #00f,
+                         -25px 25px 5px #0f0,
+                         -25px -20px 5px #ff9
+                         
+                         
+        }
+
+        .demo7 {
+            font-size: 100px;
+            font-weight: bold;
+            font-family: simsun;/*我的浏览器不支持此字体*/
+            /* color: transparent; */
+
+            /* 此属性兼容性不太好 */
+            -webkit-text-stroke:1px greed;
+        }
+
+        /* 动态的引入字体包 */
+        @font-face {
+            src: url('font/Beautiful Script.otf'),
+                 url('font/Beautiful Script.ttf') format('otf');
+                 /* 给字体包命名 */
+            font-family: 'myFont';
+        }
+
+        p {
+            /* 
+                break-word 强制换行
+                normal 单词换行
+            */
+            /* word-wrap: break-word; */
+
+            /*  
+                break-all 强制换行，不区分单词。
+                keep-all区分单词，把单词展示完全
+                break-word 尽可能的保留应为单词的完整性，只有一个单词的长度超过行的长度，才会将单词换行
+             */
+            /* word-break: break-all; */
+
+            /* white-sapce：对空白操作也可用于换行 
+                pre 保留所有空格 包括换行；
+                nowrap 不换行 文字将展示在一行内 并且不识别换行符和多空格。
+                pre-line 保留换行符 合并空格 换行由单词界定 单词展现完整。
+                pre-wrap 保留空白正常进行换行。
+            */
+            /* white-space: pre; */
+
+            /* 文字超出部分打点 */
+            overflow: hidden;
+            white-space: nowrap;
+            /* 默认值是clip切断，ellipsis超出部分变三个点 */
+            text-overflow: ellipsis;
+
+            /* 自定义字体 
+            第二部使用字体
+            */
+            font-family: myFont;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo1">浮雕效果</div>
+    <div class="demo2">镂刻效果</div>
+    <div class="demo3">火焰效果</div>
+    <div class="demo5">
+            <div class="demo4">死神来了</div>
+            <div class="demo6">COM WITH ME</div>
+    </div>
+
+    <div class="demo7">你帅吗？</div>
+    <p>jdosjdojfosdjfojsdjfpsjpj</p>
+    
+    
+</body>
+</html>

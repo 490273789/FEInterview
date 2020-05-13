@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .demo {
+            margin: 100px auto;
+            width: 100px;
+            height: 100px;
+            background: yellowgreen;
+
+            /* 变换函数 是按照顺序执行的 */
+
+            
+            /* 平面内的元素是没有厚度的 */
+            /* transform: rotateX(30deg); 绕着X轴进行旋转的
+               transform: rotateY(30deg); 绕着Y轴进行旋转的
+               transform: rotate(30deg); 默认绕着Z轴进行旋转的
+               transform: rotate3D(1,1,1 30deg); 绕着X轴进行旋转的
+               transform: rotate2D(1,1,1 30deg); 绕着X轴进行旋转的
+               坐标轴也会跟着旋转
+            */
+            /* transform: rotate(30deg); */
+
+            /* 缩放  即可放大又可缩小 ，值为放大或缩小的倍数 
+                一个值：同时缩放宽和高
+                两个值：第一个缩放宽，第二个缩放高
+                scaleX(2)：只缩放宽度
+                scaleY(2)：只缩放高度
+                scaleZ(2)：没有效果
+                scale3D(2)：同时缩放
+            */
+            /* transform: scale3D(2,3,3); */
+
+            /* 默认沿x轴进行扭曲=skewX(30deg)
+               skewY(30deg) 沿Y轴进行扭曲
+               skew(30deg, 30deg) X轴和Y轴都进行平移
+             */
+            /* transform: skew(30deg); */
+
+            /* 平移
+               默认是沿着X轴进行旋转
+               translate(200px, 100px) 沿着XY轴进行平移
+               translateY(200px) 沿着Y轴进行旋转
+               translateZ(200px) 沿着Z轴进行旋转
+               translate3D(200px, 100px, 300px) 沿着XYZ轴进行平移
+             */
+            /* transform: translate(300px); */
+            /* transform: translate3D(40px, 200px, 50px); */
+            
+            /* 设置旋转的位置，默认值为center 
+               top:沿着顶端旋转
+               可以填复合值
+               top left: 沿着左上角旋转
+               left center:沿着左边的中心点
+            */
+            /* transform-origin: top; */
+            /* 展示变换过度的效果
+               transfor 是要过度的css属性， 2s过度动画的执行事件 
+               linear（线性过度 匀速运动） 代表过度动画 
+               ease（先慢后快 默认值）
+               all:代表给所有的元素添加相同的过度效果
+               可以一次给多个元素添加过度效果
+             */
+            transition: transform 2s ;
+
+        }
+        .demo:hover{
+            transform: translateX(100px);
+        }
+        .line {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="line"></div>
+    <div class="demo"></div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#demo {
+			position: absolute;
+			left: 0;
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="demo"></div>
+	<script src="./jquery-3.3.1.js"></script>
+	<script src="./jquery.easing.min.js"></script>
+	<script>
+		//JS做动画
+		// var oDiv = document.getElementById('demo');
+		// var timer = setInterval(function () {
+		// 	if(oDiv.offsetLeft >= 300) {
+		// 		oDiv.style.left >= '300px';
+		// 		clearInterval(timer);
+		// 	}else{
+		// 		oDiv.style.left = oDiv.offsetLeft + 10 + 'px';
+		// 	}
+		// },100)
+		// Jquery做动画,jquery.easing.js
+		// animate（{运动距离，高的变化，宽的变化}，运动时间，运动方式（默认为Swing先快后慢），回调函数）
+		$('#demo').animate({left: 300, height: 300,width: 300},1000, 'easeInOutBounce',function () {
+			console.log('game over');
+		});
+		//delay(3000);延迟三秒钟
+		$('#demo').animate({left:300},3000, 'easeInOutBounce').delay(3000).animate({left: 300,height: 300});
+		$('document').click(function () {
+			//参数一：是否停止后续运动 false：不停止，继续运动； true：停止后续运动
+			//参数二：是否立即到达当前目标点 false：不到达；true：到达
+			$('demo').stop(true, true);
+		})
+		//finish停止当前运动，并且达到最后运动的目标点
+		//slideToggle(speed,callback);通过使用滑动效果（高度变化）来切换元素的可见状态。如果被选元素是可见的，则隐藏这些元素，如果被选元素是隐藏的，则显示这些元素
+		//toggleClass('active');对设置或移除被选元素，的一个或多个进行切换，检查每个元素中指定的类，如果不存在则添加，如果以设置则删除
+		//slideDown()通过使用滑动效果，显示隐藏的被选元素
+		//slideUp(speed,callback);如果元素已显示出来，通过使用滑动效果，隐藏被选元素。
+		//callback：如果希望在一个涉及动画的函数之后来执行语句，使用callback函数
+		//fadeIn();淡入动画，用法与slide相同
+		//fadeIn();淡出动画
+		//fadeToggle();淡出淡入，用法与slideToggle();相同
+		//trigger();主动出发事件，触发事件后是会事件冒泡，可以传递参数
+		$('li').on('click',function (e,data){
+			console.log(data);
+		})
+		trigger('click',100);
+		//判断当前数据类型
+		$.type();
+		//去掉字符串两边的空格
+		$.trim(" test ");
+		//将类数组转换为数组
+		$.makeArray();
+		//判断当前输入的值是否在数组中，如果在返回索引值，如果不在返回-1
+		$.inArray(1,arr);
+		//返回当前输入值是否在数组中，如果在返回索引值，如果不在返回-1
+		arr.indexOf();
+		//将之前$的权限交出，如下现在的$将功能给到了own$，$已经没有之前的功能了。 --ctrl+x
+		// var own$ = $.noConflict();
+		// 将$权限给了own$,但是自身的功能还在.ctrl+c
+		// var own$ = $;
+		// $.extend()
+		// $.fn = $.prototype
+		// $.fn.extend
+	</script>
+</body>
+</html>

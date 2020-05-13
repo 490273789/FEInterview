@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+
+    <div class="test01">
+        <span></span>
+    </div>
+
+    <div class="demo01"></div>
+    <div class="demo01"></div>
+    <div class="demo01"></div>
+    <script src="./jquery.js"></script>
+    <script>
+
+        //参数传递原生DOM
+        var div = document.getElementsByTagName('div')[0];
+        $(div).css({width:'100px',height: '100px',backgroundColor:'red'})
+
+        $(function(){
+            // 在DOMContentLoaded事件触发完成后执行此函数，可以参考js事件线，在dom加载完成后，在window.onload（所有的事情加载完在最后执行）前执行
+        })
+
+        $(document).ready(function(){
+            // 上面函数就是此函数的简写，执行原理和作用都是一样的，
+        })
+
+        // 存放两个参数 -- 选择div下的span标签
+        $('span','.test01')
+
+        //Jq中的方法
+
+        //get() -- Jquery返回的是对象，此方法会将JQ对象变为原生的DOM对象，括号中填写索引值，不填写默认取出所有的dom凡在数组中
+        console.log( $('.demo01').get(0) );
+
+
+
+
+    </script>
+</body>
+</html>

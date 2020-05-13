@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+	<title>Document</title>
+	<style>
+		.item{
+			position: absolute;
+			left: 0px;
+			top: 100px;
+			width: 100px;
+			height: 100px;
+			background: red;
+			animation: move 5s linear;
+		}
+		@keyframes move {
+			/* 如果只有0%～100%可以使用from～to */
+			0%{
+				left: 200px;
+			}
+			
+			50%{
+				background: green;
+				top: 100px;
+			}
+			100%{
+				left: 700px;
+				top: 300px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="item"></div>
+</body>
+</html>

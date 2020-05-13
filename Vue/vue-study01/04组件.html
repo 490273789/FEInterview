@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        //全局组件：第一个组件是组件名称，第二个参数是options
+        Vue.component('Vbtn',{
+            template: `
+                <button>我是内容组件</button>
+            `
+        })
+        var Vheader = {
+            data () {
+                return {
+
+                }
+            },
+            template:`
+                <div> 我是头部组件</div>
+            `
+        };
+
+        var Vaside = {
+            data () {
+                return {
+                    
+                }
+            },
+            template:`
+                <div> 我是侧边栏组件</div>
+            `
+        };
+        var Vcontent = {
+            data () {
+                return {
+                    
+                }
+            },
+            template:`
+                <div> 我是内容区组件 , <Vbtn /><Vbtn /><Vbtn /></div>
+            `
+        };
+        // 创建局部入口组件
+        //建议组件的首字母要大写，防止与html标签重复，比如组件名为header ，使用时就是<header/>,就和h5的标签重复了
+        var App = {
+            data () {
+                return {
+
+                }
+            },
+            methods:{
+                clickHandle () {
+                    console.log(this);
+                }
+            },
+            components: {
+                Vheader,
+                Vaside,
+                Vcontent
+            },
+            template: `
+                <div>我是入口组件
+                    <button @click="clickHandle">123</button>
+                    <Vheader />
+                    <Vaside />
+                    <Vcontent />
+                </div>
+            `
+        }
+        console.log(App);
+
+        var vm = new Vue({
+            el: '#app',
+            data(){
+                return {
+                    msg: '大王'
+                }
+            },
+            components: {
+                App
+            },
+            methods: {
+                valueChange (e) {//e.target  木匾元素
+                    this.msg = e.target.value;
+                }
+            },
+            template: `
+                <App/>
+            `
+        });
+        console.log(vm);//$root是根组件
+        //局部组件的使用打油诗 ： 声子 挂子 用子
+    </script>
+</body>
+</html>

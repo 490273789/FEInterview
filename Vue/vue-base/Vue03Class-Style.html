@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue03</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        p {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            color: #fff;
+            font-size: 20px;
+            text-align: center;
+            line-height: 100px;
+        }
+        
+        .active {
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 绑定class： “{} / []”
+        {} -- key/value -- key:class Name，value:布尔值，决定是否启用calss name
+        [] -- 放类名class name -->
+
+        <!-- 绑定style： “{} / []”
+            第一种写法： -- :style="{width: '200px',height: '200px',lineHeight: '200px'} 
+            第二种写法：写一个对象:style="styleObj"  注意复合单词使用大驼峰式命名
+                               :style = "{ height: '200px',width: '200px',lineHeight: '200px'}"
+            第三种写法：数组 :style="[styleObj, colorObj]"  可以传多个对象 -->
+        <p :class="{active: activeBool}" 
+           @click="changeColor"
+           :style="[styleObj, colorObj]">邵楠</p>
+        <p :class="[active]" @click="changeColor01">邵楠1</p>
+    </div>
+
+    <script>
+
+        
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                activeBool: false,
+                active:'',
+                styleObj: {
+                    height: '200px',
+                    width: '200px',
+                    lineHeight: '200px'
+                },
+                colorObj: {
+                    backgroundColor: 'green'
+                }
+            },
+            methods: {
+                changeColor() {
+                    console.log('color');
+                    this.activeBool = !this.activeBool;
+                },
+                changeColor01() {
+                    console.log('color01');
+                    this.active = this.active === 'active' ? '' : 'active';
+                }
+            }
+        })
+    </script>
+</body>
+</html>

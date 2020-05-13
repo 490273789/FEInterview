@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang = "en"><!-- lang  告诉搜索引擎爬虫,我们的网站是关于什么内容的,例如中文他的值就是:lang = "zhongwen" -->
+<head>
+	<mate charset = "utf-8"><!-- 增加字符集(给系统一个字典),gb2312,gbk(中文,和繁体中文)Unicode(万国码)utf-8是unicode的升级版 -->
+		<mate content = "手撒糕" name = "keywords">
+		<mate content = "这里是一个描述" name = "descirption">
+	<title>HTML Lable Study</title>
+</head>
+<body>
+	<p>段落标签</p><!-- paragraph -->
+	<h1>标题标签</h1>
+	<h2>有三个功能:独成一段,加粗字体,更改字体的大小</h2>//header
+	<h3></h3>
+	<h4></h4>
+	<h5></h5>
+	<h6></h6>
+	<strong>加粗展示</strong>
+	<em>斜体展示</em>
+	<!-- 标签是可以嵌套的 -->
+	<del>删除标签:在字体中间加一条横线(中划线)</del>
+	<address>地址标签:成段展示,斜体</address>
+	<div>此标签是容器:1,结构化2,可以绑定化操作</div>
+	<!-- 空格是英文单词分隔符,如果许多字母之间没有空格,则浏览器会将这些字符识别成一个单词 -->
+	<!-- HTML编码:&nbsp,&lt (less than)< ,&gt >(great than)-->
+	<br><!-- 换行 -->
+	<hr><!-- 水平线 -->
+
+	<!-- 有序列表 -->
+	<ol>
+		<li>ol是有序标签</li>
+		<li>li是列表中的标签</li>
+		<li>属性:默认是1234数字列表</li>
+		<li>属性1:type:a:按英文字母来排列,多余26个按照aa ab...,A按照大写字母排序,</li>
+		<li>如果写:i :按照小写的罗马数字来排列,I  :按照大写的罗马数字来排列</li>
+		<li>reversed:此属性让排列倒着来排列</li>
+		<li>start:从第几个开始排;start的值是数字</li>
+		<li>此列表基本不用</li>
+	</ol>
+
+	<ul>
+		<li>无序标签</li>
+		<li>type属性:默认是discircle(实心圆) circle:空心圆</li>
+		<li></li>
+		<li></li>
+	</ul>
+	<!-- img标签 source src 资源-->
+	<img src="" alt="图片占位符:当图片地址出错时,显示文字描述" title="图片提示符:当鼠标放到图片上时会有相应的文字提示">
+	<!-- 
+		网上的url:右击图片:选择在新标签打开图片
+	绝对路径:如果html文件与图片不在同一文件夹下<img src="D:/a/b/c/Tupian.jpg">
+			例如:D:/a/b/HTML_Lable.html
+				D:/a/b/c/Tupian.jpg
+	相对路径:同一路径下的两个文件路径之间的关系为相对路径,如果html文件和图片在同一文件夹下<img src="Tupian.jpg">
+			例如:D:/a/b/HTML_Lable.html
+				 D:/a/b/Tupian.jpg
+
+	 -->
+
+	 <a href="www.baidu.com" target="_blank">百度</a>
+	 <!-- hyperText reference 超文本引用 a是anchor -- 锚-->
+	<span></span>
+	Life is shit!!!
+
+	<form>
+		密码加密:国家安全级监管的公司使用的加密协议:md5加密
+		特点不可逆加密
+	</form>
+</body>
+</html>

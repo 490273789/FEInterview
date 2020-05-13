@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+</body>
+
+<script>
+	//封装好的 Ajax ：打开方式 地址 是否异步 回调函数 提交数据
+	function Ajax (method,address,flag,callBacks,data) {
+		var xhr = null;
+		if(window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		} else {
+			xhr = new ActiveXObject('Microsoft.XMLHTTP');
+		}
+		if (method == 'GET') {
+			xhr.open('GET',address,flag);
+			xhr.send();		
+		}else if (method == 'POST') {
+			xhr.open('POST',address,flag);
+			xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+			xhr.send(data);			
+		}
+		
+		xhr.onreadystatechange = function() {
+			if ( xhr.readyState == 4 ) {
+				if ( xhr.status == 200 ) {
+					callBacks(xhr.responseText);
+				} else {
+					alert('出错了,Err：' + xhr.status);
+				}
+			}
+			
+		}	
+	}		
+	
+	window.onload = function () {
+		var btn = document.getElementById('btn');
+		function show (data) {
+			console.log(data);
+		}
+		btn.onclick = function () {
+			var username = document.getElementById('user').value;
+			var age = document.getElementById('age').value;
+			data = "username=" + username + "&age=" + age;
+			Ajax('POST','post.php',true, show, data);
+		}
+	}
+</script>
+	<input type="text" name="username" id="user"></input>
+	<input type="text" name="age" id="age"></input>
+	<button id="btn">提交</button>
+
+
+</html>

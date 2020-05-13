@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#item {
+			position: absolute;
+			top: 0;
+			left: 0;
+			animation:move 3s linear alternate-reverse infinite; 
+			height: 100px;
+			width: 100px;
+			background: green;
+		}
+
+		@keyframes move {
+			0%{
+				left: 0;
+			}
+			50%{
+				left: 200px;
+			}
+			100%{
+				left: 0;
+			}
+		}
+
+		#btn {
+			margin-top: 200px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="item"></div>
+	
+	<button id="btn">btn</button>
+
+	<script>
+
+		var flag = true;
+		btn.onclick = function () {
+			if (flag) {
+				flag = false;
+				// animation-play-state控制元素动画的播放状态，paused暂停，running播放
+				item.style.animationPlayState = 'paused';
+			}else{
+				flag = true;
+				item.style.animationPlayState = 'running';
+			}
+		}
+	</script>
+</body>
+</html>

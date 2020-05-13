@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="msg">
+        <h3>{{ msg }}</h3>
+        <h4>{{ stus[0].name}}</h4>
+
+        <button @click="stus[0].name='rose'">change</button>
+
+        <h4>{{ obj.name}}</h4>
+        <button @click="obj.name='rose'">change</button>
+        <p>{{fullname}}</p>
+        <input type="text" v-model:value="firstName">
+    </div>
+    <script>
+        //watch 监听的是单个属性，在某个属性变化了要进行一系列的处理可以使用watch属性
+        // 最初绑定的时候不会执行的
+        // 注意在watch和compute中不要修改和监听相关的属性，这样容易造成死循环
+        // 基本数据类型 -- 简单监视
+        // 复杂数据类型 -- 深度监视
+        var vm = new Vue({
+            el: '#app',
+            data(){
+                return {
+                    msg: '',
+                    stus: [ {name:"jack"}],
+                    obj: {name:"shaonan"},
+                    firstName:"Make",
+                    lastName:"Wang",
+                    fullname:""
+                }
+            },
+            watch: {
+                // 监听的内存地址，引用值要注意
+                msg:function (newV,oldV) {
+                    console.log(newV,oldV);
+                    if(newV === 'wang') {
+                        console.log("来了")
+                    }
+                },
+                //监听复杂数据类型， 使用深度监视，但是会比较耗性能，因为要给对象下的每个属性都添加监听事件
+                stus:{
+                    deep:true,
+                    handler:function (newV,oldV) {
+                        console.log("deep watch")
+                    }
+                },
+
+                // deep watch的改进方法
+                'obj.name':{
+                    handler () {
+                        console.log("obj.name Change");
+                    }
+                },
+
+                // 使用handler包装一下，设置immediate属性为true，在页面刷新的时候回立刻执行一次，
+                // 如果不这样处理，开始刷新如果监听的数据没有改变，方法是不会执行的；
+                firstName: {
+                    handler (newName, oldName) {
+                        this.fullname = newName + ' ' + this.lastName;
+                    },
+                    // 注释下面可以查看效果
+                    immediate: true
+                }
+            }
+            
+        });
+    </script>
+</body>
+</html>

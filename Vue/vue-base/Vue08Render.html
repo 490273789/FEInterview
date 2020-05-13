@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ msg }}
+    </div>
+
+    <script>
+    // template:String ->AST({})->render -> VNode ->真实数据
+                    //  抽象语法树   函数      虚拟节点
+    //初始化 -> el ? -> true ->              有  template -> 执行template操作
+                    // false -> $mount ->   没有 app.outerHTML(字符串)-->将此字符串作为模板进行处理
+                    // 不论有没有template都会当成template执行，只不过没有template的时候回隐式的转换成template
+
+      const vm = new Vue({
+        //   el: '#app',
+          data: {
+              msg: 'hello',
+              red: true,
+              green: false
+          },
+          template: `<div>我是模板{{ msg }}</div>`,
+        //   createElement是一个函数参数
+        // 使用优先级:render > template > el
+          render ( h ) {
+            //   此函数有三个属性
+            return h('div',{
+                style:{color: 'red',
+                    fontSize: '12px'
+                },
+                // 第一种绑定class的方法
+                // class: ['red','green']
+                // 第二种绑定class的方法
+                // class: {
+                //     red: true,
+                //     green: false
+                // }
+                // 第三种绑定class的方法
+                class: {
+                    red: this.red,
+                    green: this.green
+                }// ,
+                // domProps: {
+                //     innerHTML: 'dom操作'
+                // }
+            },[
+                h('h1'),
+                h('h2'),
+                h('h3')
+            ])//得到了一个VNode
+
+          }
+      })
+
+      vm.$mount('#app');//作用与el相同，挂载元素
+
+    </script>
+</body>
+</html>

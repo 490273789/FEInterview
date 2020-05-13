@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+// this.$children[0] 和  this.$parent
+        Vue.component('Child',{
+            data () {
+                return {
+                    mymessage:this.value
+                }
+            },
+            methods: {
+                changeValue () {
+                    this.$parent.message = this.mymessage;//通过如此调用可以改变父组件的值
+                }
+            },
+            
+            template:`
+                <div>
+                        <input type="text" v-model='mymessage' @change='changeValue'/>
+                        <p>123:{{ mymessage }}</P>
+                </div>
+            `,
+            
+        })
+
+        Vue.component('Parent',{
+            data () {
+                return {
+                    message: 'hello'
+                }
+            },
+            template:`
+                <div>
+                    <p>我是父亲组件</p>
+                    <p>{{ message }}</P>
+                    <button @click="changeChildValue">test</button>
+                    <Child />
+                </div>
+            `,
+            methods: {
+                changeChildValue () {
+                    this.$children[0].mymessage = this.message;
+                }
+            }
+        })
+
+        var App = {
+            data() {
+                return {
+
+                }
+            },
+            template:`
+                <div>
+                    <h2>我是入口组件</h2>
+                    <Parent></Parent>
+                </div>
+            `
+        }
+
+
+        var vm = new Vue({
+            el:'#app',
+            data () {
+                return {
+
+                }
+            },
+            components: {
+                App
+            },
+            template:`
+                <App/>
+            `
+        })
+    </script>
+</body>
+</html>

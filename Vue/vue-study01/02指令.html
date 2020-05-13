@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        // v-text  innerText (可以进行简单的运算)
+        // v-html  innerHTML
+        // v-if   appendChild()  removeChild() 创建和销毁，对性能消耗比较大
+        // else
+        // v-show   display:none | block    对dom的频繁操作就是用v-show，使用Form表单的时候不能用display
+        // 控制类名对元素的显示和隐藏   display
+        // v-bind:  绑定标签上的属性，简写 :
+        // v-on: 绑定事件
+        // v-for  便利数组   v-for="(item,index) in arr"
+        //        遍历对象         "(key,val,index) in obj"
+
+
+
+        // 先写数据在写视图
+
+        var vm = new Vue({
+            el:'#app',
+            data: function () {
+                return {
+                    msg: '指令系统',
+                    msg2:'<h2>指令系统</h2>',
+                    obj: {
+                        name:"1--",
+                        age:"2--",
+                        vs:"3--"
+                    }
+                }
+            },
+            template:`
+            <div class='app'>
+                <h2>{{ msg }}</h2>
+                <p v-text = "msg"></p>
+                <p v-html="msg2"></p>
+                <ul>
+                    <li v-for="(val,key,index) in obj">{{ val }} == {{ key }}  ===  {{ index }}</li>
+                    </ul>
+            </div>
+
+            `
+                
+        });
+    </script>
+</body>
+</html>

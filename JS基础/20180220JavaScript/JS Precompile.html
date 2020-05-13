@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Precompile</title>
+
+</head>
+<body>
+	<script type="text/javascript">
+
+		function fn(a){
+			console.log(a);
+
+			var a = 123;
+
+			console.log(a);
+
+			function a(){};
+
+			console.log(a);
+
+			var b = function(){}
+
+			console.log(b);
+
+			function d(){}
+		}
+		fn(1);
+		
+		// 函数预编译过程
+		// 1.创建AO对象
+		// 2.找形参和变量声明将变量和形参作为AO属性名,值为undefined.
+		// 3.将实参值和形参统一
+		// 4.在函数体里面找函数声明,值赋予函数体.
+		// AO{
+		// 	a : ①undefined,②1,③function a(){},④123
+		// 	b : ①undefined,②function (){},
+		// 	d : function d(){};
+		// }
+		// 执行结果
+		// function a(){}
+		// 123
+		// 123
+		// function (){}
+
+		//全局预编译
+		//1,生成一个GO对象(Global Object)其他过程与函数预编译过程一样
+		//GO ====== window,任何全局变量都是window的属性.
+		//未经声明就赋值的变量为全局所有.预编译阶段存在GO对象中
+		// GO{
+		// 	b : 123
+		// }
+		// function test(){
+		// 	var a = b = 123;
+
+		// }
+		// test();
+		// AO{
+		// 	a : undefind;
+		// }
+		// 先生成GO,在生成AO,GO内按顺序执行,有AO则AO也在执行顺序内,执行完AO会继续向下执行
+		// GO{
+		// 	test : ①undefined,②function test(){};③123
+		// }
+		// console.log(test);
+		// function test(test){
+		// 	console.log(test);
+		// 	var test = 123;
+		// 	console.log(test);
+		// 	function test(){}
+		// }
+		// AO{
+		// 	test :①undefined,②function (){},②123,
+		// }
+		// test(1);
+		// var test = 123;
+		// function test(){
+		// 	console.log(b);//undefind
+		// 	if(a){
+		// 		var b = 100;
+		// 	}
+		// 	console.log(b);//undefind
+		// 	c = 234;
+		// 	console.log(c);//234
+		// }
+
+		// var = a;
+		// test();
+		// a = 10;
+		// console.log(c)//234
+		
+		//练习题
+		// a = 100;
+		// function demo(e) {
+		// 	function e() {}
+		// 	arguments[0] = 2;//
+		// 	console.log(e);//2
+		// 	if(a){
+		// 		var b = 123;
+		// 		function c() {//if中不允许定义函数
+		// 			//hello
+		// 		}
+		// 	}
+		// 	var c;
+		// 	a = 10;
+		// 	var a;
+		// 	console.log(b);//undefined
+		// 	f = 123;
+		// 	console.log(c);//undefined
+		// 	console.log(a);//10
+		// }
+		// var a;
+		// demo(1);
+		// console.log(a);//100
+		// console.log(f);//123
+		//typeof(a)typeof中放一个未定义的变量不报错,返回一个字符串类型的undefind
+		function test(){
+			var arr = [];
+			for(var i = 0;i < 10; i ++){
+				arr[i] = function () {
+					document.wirte(i + " ")
+				}
+			}
+			return arr;
+		}
+
+		var myArr = test();
+		for(var j = 0; j < 10; j ++){
+			myArr[j]();
+		}
+		//
+
+		
+	</script>
+</body>
+</html>

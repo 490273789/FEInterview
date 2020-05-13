@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .default {
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            background: #fff;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            transition: .1s;
+            font-weight: 500;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .success {
+
+            color: #fff;
+            background-color: #67c23a;
+            border-color: #67c23a;
+        }
+
+        .primary {
+            color: #fff;
+            background-color: #409eff;
+            border-color: #409eff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        //全局组件：第一个组件是组件名称，第二个参数是options
+        Vue.component('Vbtn', {
+            // 插槽 内置组件slot 作为承载分发内容的出口
+            template: `
+                <button class='default' :class='type'>
+                    <slot>
+                        按钮
+                    </slot>
+                </button>
+            `,
+            props: ['type']
+        })
+
+        var Vcontent = {
+            data() {
+                return {
+
+                }
+            },
+            template: `
+                <div> 我是内容区组件
+                    <Vbtn type="success">success</Vbtn>
+                    <Vbtn type="primary">primary</Vbtn>
+                    </div>
+            `
+        };
+        // 创建局部入口组件
+        //建议组件的首字母要大写，防止与html标签重复，比如组件名为header ，使用时就是<header/>,就和h5的标签重复了
+        var App = {
+            data() {
+                return {
+
+                }
+            },
+            methods: {
+                clickHandle() {
+                    console.log(this);
+                }
+            },
+            components: {
+                Vcontent
+            },
+            template: `
+                <div>我是入口组件
+                    <button @click="clickHandle">123</button>
+                    <Vheader />
+                    <Vaside />
+                    <Vcontent />
+                    </div>
+            `
+        }
+        console.log(App);
+
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: '大王'
+                }
+            },
+            components: {
+                App
+            },
+            methods: {
+                valueChange(e) {//e.target  木匾元素
+                    this.msg = e.target.value;
+                }
+            },
+            template: `
+                <App/>
+            `
+        }); 
+    </script>
+</body>
+
+</html>

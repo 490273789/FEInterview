@@ -7,8 +7,8 @@ function getScrollOffset () {//此方法封装意义不大，直接用else中的
         }
     } else {
         return {
-            x: document.body.scrollLeft + documentElement.scrollLeft,
-            y: document.body.scrollTop + documentElement.scrollTop
+            x: document.body.scrollLeft + document.documentElement.scrollLeft,
+            y: document.body.scrollTop + document.documentElement.scrollTop
         }
     }
 }

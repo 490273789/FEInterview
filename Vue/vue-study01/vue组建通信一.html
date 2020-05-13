@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
+    <script>
+        // $attrs和$listeners
+        // 第一种方式处理父子组件之间的数据传输有一个问题：如果父组件A下面有子组件B，
+        // 组件B下面有组件C，这个时候组件A想要传递数据给组件C该怎么办呢？
+        // 如果采用第一种方法，我们必须让组件A通过Prop传递信息给组件B
+        // 组件B通过prop传递消息给组件C；要是组件A和组件C之间有更多的组件，那采用这种方式就很复杂了。
+        // Vue2.4开始提供了$attrs和$listeners来解决这个问题
+        // 能够让组件A直接传递消息给组件C
+        Vue.component('C',{
+            data () {
+                return {
+
+                }
+            },
+            template:`
+                <div>
+                    <div @click='cClickHandler'>{{ $attrs.messagec }}</div>
+                </div>
+            `,
+            methods:{
+                cClickHandler () {
+                    alert(1);
+                    this.$emit('getCData','我是c的数据')
+                }
+            }
+        })
+
+        Vue.component('B',{
+            data () {
+                return {
+
+                }
+            },
+            template:`
+                <div>
+                    <C v-bind="$attrs" v-on='$listeners'></C>
+                </div>
+            `
+        })
+
+        Vue.component('A',{
+            data () {
+                return {
+
+                }
+            },
+            // props:['message'],
+            template:`
+                <div>
+                    <B v-bind="$attrs" v-on='$listeners'></B>
+                </div>
+            `
+        })
+
+        var App = {
+            data() {
+                return {
+                    msg: '我是父组件的内容',
+                    messagec:'helloc'
+                }
+            },
+            template:`
+                <div>
+                    <p>这是一个父组件</p>
+                    <A :messagec = 'messagec' v-on:getCData="getCData"></A>
+                </div>
+            `,
+            methods: {
+                // 执行c组件的触发函数
+                getCData(val) {
+                    console.log(val);
+                }
+            }
+        }
+
+
+        var vm = new Vue({
+            el:'#app',
+            data () {
+                return {
+
+                }
+            },
+            components: {
+                App
+            },
+            template:`
+                <App/>
+            `
+        })
+    </script>
+</body>
+</html>

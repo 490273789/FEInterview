@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue01</title>
+</head>
+<body>
+    <div id="container">
+        <h1 id="title">谁最帅？<span></span></h1>
+        <p id="content">You!</p>
+    </div>
+
+    <script>
+        //1.性能更好
+        //虚拟DOM（virtual Dom -- vDom）,由js模拟的一个具有真实dom结构的树形结构
+        //优点：js运行效率高，减少dom操作
+        const vDom = {
+            tag:'div',
+            attr: {
+                id:'container'
+            },
+            children : [
+                {
+                    tag : 'h1',
+                    attr : {
+                        class : 'title'
+                    },
+                    children : [
+                    '谁最帅？',
+                        {
+                           tag:'span'
+                        },
+                    ]
+                },
+                {
+                    tag : 'content',
+                    attr : {
+                        id : 'content'
+                    },
+                    children : [
+                        'You!'
+                    ]
+                }
+
+            ]
+
+        }
+
+        //snabbdom
+        //bootcdn
+
+        //2.视图、数据分离
+        //3.维护成本低
+        
+    </script>
+</body>
+</html>

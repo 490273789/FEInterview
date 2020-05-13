@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            width: 400px;
+            height: 80px;
+            background: orange;
+            position: absolute;
+            left: -400px;
+            top: 200px;
+        }
+
+        .wrapper span {
+            width: 50px;
+            height: 80px;
+            background: red;
+            position: absolute;
+            right: -50px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <span></span>
+    </div>
+
+    <script>
+        var timer = null;
+        var oDiv = document.getElementByClassName('wrapper')[0];
+        oDiv.onmouseenter = function () {
+            startMove(this, 0);
+        }
+        oDiv.onmouseleave = function () {
+            startMove(this, 400);
+        }
+
+
+        function getStyle (dom, attr) {//封装方法获取元素样式值
+            if(window.getComputedStyle) {
+                return window.getComputedStyle(dom, null)[attr];//null不获取伪类的样式
+            }else {
+                return dom.currentStyle[attr];//兼容老版本IE
+            }
+        }
+    </script>
+</body>
+</html>

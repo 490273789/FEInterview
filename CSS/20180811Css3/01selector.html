@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Selector</title>
+	<style>
+		/* 属性选择器 */
+		div[data="demo"] {
+		  	width: 100px;
+		  	height: 100px;
+		  	background: green;
+		  }
+
+		/*  ^: 查找属性data，并且data的值是以d开头的div
+			$: 查找属性data，并且data的值是以d结尾的div;
+			*: 查找属性data，并且data的值中存在d的div;
+			~: 查找属性data，并且data的值中存在demo类的div; */
+		  
+
+		div[data~="demo"] {
+		   	height: 100px;
+		   	height: 100px;
+		   	background: blue;
+		   }
+
+		/* 跟标签选择器 HTML */
+:root {
+		width: 100%;
+		height: 100%;
+		background: yellow;
+	}
+
+		/* 选择不存在data属性或者data属性的值中没有demo的div */
+div:not([data~="demo"]) {
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+
+		/* 伪类选择器 */
+
+		/* 选择标签中没有内容的div，有空格也不行 */
+div:empty {
+		width: 100px;
+		height: 100px;
+		background: blue;
+		margin: 10px;
+	}
+
+		/* 目标选择器，点击哪个哪个就是目标 */
+		.demo {
+		   	width: 100px;
+		   	height: 100px;
+		   	background: blue;
+		   	margin-bottom: 1000px;
+		   }
+
+div:target {
+	background: yellowgreen;
+}
+
+		/* 选择第一个子元素是div的标签，找长子*/
+		/* div {
+		   	width: 100px;
+		   	height: 100px;
+		   } */
+div:first-child {
+		background: blue;
+	}
+
+div:last-child {
+		background: blueviolet;
+	}
+
+		/* 选择第几个改变，如果有n，n重0开始计算，比如2n就是代表选择第偶数个标签是div，n + 1代表从第1个div开始选择。 在所有的孩子中找儿子 */
+		div:nth-child(n + 2){
+				background: yellowgreen;
+		   }
+		/* 与上面相反从后向前来 */
+		div:nth-last-child(){
+				background: yellowgreen;
+		   }
+		/* 找第一个出现的div 找第一个男孩或者女孩 */
+		div:first-of-type{
+		   	    background: blue;
+		   }
+		/* 找第最后出现的div 找第一个男孩或者女孩 */
+		div:last-of-type{
+		   	    background: blue;
+		   }
+		/* 找奇数位出现的div，直计算div，忽略其他标签，比如：找第奇数个儿子。 只在儿子中找 */
+		div:nth-of-type(2n-1){
+		   		background: green;
+		   }
+		/* 与上面相反从后面开始计算 */
+		div:nth-last-of-type(2n-1){
+		   		background: green;
+		   }
+		/* 找div元素，并且这个div是唯一的子元素，找独生子 */
+		div:only-child {
+		   		background: yellow;
+		   }
+		/* 找div元素，并且只有一个div字元素，可以存在其他的子元素，所有孩子中只有一个男孩 */
+		div:only-of-type {
+		   		background: yellow;
+		   }
+
+		/* 表单元素 */
+
+		/* 选择可用的input标签 */
+		input:enable {
+		   	    background: blue;
+		   }
+		/* 选择disable的input标签 */
+		input:disable {
+				background: yellow;
+		   }
+		/* 选择只读的input标签 */
+		input:readonly {
+		   		background: black;
+		   }
+		/* 选择可读可写的input标签，包函disable的input标签 */
+		 input:readwrite {
+		   		background: red;
+		   }
+
+		/* 选择选中的标签，比如单选框复选框被选中的时候 */
+		input:checked {
+		   	width: 100px;
+		   	height: 100px;
+		   }
+
+		/* 伪元素选择器 */
+
+		/* 被选择的文字变为蓝色 */
+		div::selection {
+			background: blue;
+			/* user-select: none; 设置文字不可被选中 */
+		}
+
+		/* 选择p标签中文字的第一行 */
+		p::first-line {
+				background: yellowgreenl
+			}
+		/* 选择p标签内的第一个字符 */
+		p::first-letter {
+				background: green；
+			}
+
+		/* 标签前添加样式
+		伪元素--是可以通过标签来实现效果/html代码可以实现的效果 */
+		p::before {
+
+				content: aaa;
+			}
+
+			p::after {
+
+				content: aaa;
+			}
+
+		/* 条件选择器 */
+
+		/* 直接字元素选择器 */
+		.demo > .son {
+				font-size: 28px;
+			}
+		/* 紧挨着demo的兄弟p标签 */
+		.demo + p {
+				background: orange;
+			}
+		/* demo后面所有的兄弟p标签 */
+		.demo ～ p {
+				background: orange;
+			}
+	</style>
+</head>
+
+<body>
+	<!-- <a href="#demo1">demo1</a>
+	<a href="#demo2">demo2</a>
+	<a href="#demo3">demo3</a> -->
+	<!-- <div class="demo" id="demo1"></div>
+	<div class="demo" data="123" id="demo2">123</div>
+	<div class="demo" id="demo3"> </div>
+
+	<input type="text" name="name">
+	<input type="text" name="age">
+	<input type="checkbox" name="checkbox">
+	<input type="radio" name="radio"> -->
+
+	<!-- <div>今天是开心的一天，我在学习！</div>
+	<div>
+		<p>jslijcosjdciojso</p>
+	<p>csmdlckmsldmcls</p>
+	<p>cmsdlcmlsmclksmdklcmslkd</p>
+	</div> -->
+
+	<div class="demo">
+
+	</div>
+	<p>1</p>
+	<p>2</p>
+	<p>3</p>
+</body>
+</html>

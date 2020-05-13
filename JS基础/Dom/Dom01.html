@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = 'may' calss = 'may' name = 'nan'></div>
+    <div>
+        <strong></strong>
+    </div>
+    <div>
+        <sapn>
+            <strong class="hello">123</strong>
+        </sapn>
+    </div>
+    <script type="text/javascript">
+        //getElementById和querySelector的区别： https://www.cnblogs.com/songForU/p/10913649.html
+        //html和xml的区别xml可以自定标签
+        //DOM :Document Object Model
+        //DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。DOM对象即为宿主对象，由浏览器厂商定义，用来操作html和css功能的一类对象的集合。也有人称DOM是对HTML以及XML的标准编程接口
+        //dom对象
+        var div1 = document.getElementById('may'); // 会更具DOM的改变实时更新
+        var div2 = document.getElementsByTagName('div')[0];
+        var div3 = document.getElementsByName('nan')[0];
+        var strong = document.querySelector('div span strong.hello');//获取完一次就不会在更新了
+        var div5 = document.querySelectorAll('div > span strong.demo');//获取完一次就不会在更新了
+        
+        //document的构造函数是HTMLDocument,HTMLDocument.prototype继承于Document.prototype
+        Element.prototype.myChildren = function () {
+            
+        }
+        var div6 = document.createElement('div');//创建节点(标签)
+        var span = document.getElementsByTagName('span');
+        var strong = document.getElementsByTagName('strong');
+        var comment = document.createComment("这是注释");
+        var text = document.createTextNode("这是文本");
+        div6.appendChild(text);
+        div6.insertBefore(strong, span);
+        //插入节点
+        var div7 = document.getElementsByTagName('div')[0];//创建节点(标签)
+        var span1 = document.getElementsByTagName('span')[0];
+        var strong1 = document.createElement('strong');
+        div7.insertBefore(strong1, span1);
+        //删除节点
+        div7.removeChild();//剪切节点
+        span1.remove();//删除
+
+        //parenNode.replaceChild(new, origin);替换标签,前面的替换后面的
+
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- 为了页面在移动端和pc端的显示效果相同，设置可视窗口的属性，width=device-width：页面的宽度等于设备的宽度，initial-scale：页面的缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 方式1:动态引入css文件 -->
+    <link rel="stylesheet" media="screen and (max-width: 800px)" href="index.css">
+    <style>
+        /* 方式2:import引入方式，不常用IE: 7和6不兼容 */
+        @import url('index.css') screen and (max-width: 500px);
+        /* em:相对于父级的长度单位
+           rem:相对与HTML根元素的长度单位
+         */
+        div {
+            background: green;
+            width: 100px;
+            height: 100px;
+        }
+        /* 方式3:动态的引入css文件，常用方式 */
+        @media screen and (max-width: 500px) and (min-width: 300px) {
+            div {
+                background: yellowgreen;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Border Image</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			border: 10px solid black;
+			border-color: lightpink;/*设置border-image-source后此属性便会失效*/
+			border-image-source: linear-gradient(red,yellow);/*设置渐变色*/
+			border-image-source: url('img/9.png');/*添加图片*/
+
+			/* 4个值
+				设置分割线，4条线会将页面分割为9个部分，除了最中间的部分其他部分放到border的对应位置
+				如果不写此属性，会自动设置默认值为100%；
+				第5个值：fill会将整个内容区填满
+				注意值后面没有px
+			*/
+			border-image-slice: 10;
+
+			/* 设置border背景向外延伸的距离 */
+			border-image-outset: 10px;
+
+			/* 设置背景占border宽度的比例，默认值是1--即为100% ，如果天auto会取slice的值，添加px*/
+			border-image-width: 1;
+
+			/* 
+				stretch: 若宽度超出boder宽度的话--拉伸;
+				repeat: 若宽度超出border的宽度的话--复制图片(平铺);
+				round: (content宽度 / border图片相应位置的宽度) 四舍五入 张图片 先拉伸达到计算天剑填充一张图片;
+				space:与round计算一样，先拿空白补充，达到条件填充一张图片
+				填写两个参数：一个代表水平方向 一个代表竖直方向
+			 */
+			border-image-repeat: round;
+
+			/* 可以复合写 */
+			/* border-image: url('img/9.png') 100 round;
+							 source           slice repeat
+			 */
+		}
+		/* calc函数能够进行简单的计算 */
+		/* div {
+			border: 50px solid #bbb;
+			padding: 50px;
+			width: 100px;
+			height: 100px; */
+			/* background: red; */
+			/* 
+			stretch: 若宽度超出boder宽度的话  拉伸;
+			repeat: 若宽度超出border的宽度的话  复制图片;
+			round: (content宽度 / border图片相应位置的宽度) 四舍五入 张图片 填充;
+			 */
+			/* border-image: url('img/9.png') 100 round; */
+			
+			/* 一个值带表四个点的半径  两个值：第一个值代表左上和右下的半径，第二个值代表右上和左下的半径 */
+			/* 三个值：第一个代表左上角，第二个值代表右上角和左下角，第三个值代表右下的半径
+			四个值：左上 右上 右下 左下 */
+			/* border-radius: 30px 30px 40px 40px/20px 20px 30px 30px;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+			border-bottom-left-radius: 10px; */
+			
+			/* 设置背景图片 */
+			/* background-image: url('img/music.jpg'); */
+			
+			/* 设置背景图片的其实位置 */
+			/* background-origin: content; */
+			
+			/* 如果图片没有铺满，会重复出现 默认值为repeat */
+			/* background-repeat: repeat; */
+
+			/* border-box,padding-box,content-box参数分别从不同的区域向外剪裁背景。 */
+			/* background-clip: content-box; */
+
+			/* 设置背景图片的大小
+				contain: 按比例扩大缩小背景图片 宽度和高度保持不变 按照差值最小的边进行扩展;
+				cover: 按比例扩大缩小背景图片 宽度和高度保持不变 按照差值最大的边进行扩展;
+				具体值: 指定图片的宽和高，背景图片会全部展示;
+				百分比: 宽和高按照百分比进行缩放;
+			 */
+			/* background-size: cover; */
+
+			/* 给背景图片设置定位定位的起始位置是看 background-origin: content;*/
+			/* background-position: center; */
+
+			/* 默认值为auto，fixed固定在屏幕不会碎滚动条移动，scroll会随着滚动条移动 */
+			/* background-attachment: auto; */
+
+			/* 设置背景颜色 */
+			/* background-color: black; */
+
+
+
+		/* } */
+		/* div:target {
+			color: red;
+		} */
+	</style>
+</head>
+<body>
+	<!-- <a href="#box1">box1</a>
+	<a href="#box2">box1</a> -->
+	<div id="box1">1</div>
+	<!-- <div id="box2">2</div> -->
+</body>
+</html>

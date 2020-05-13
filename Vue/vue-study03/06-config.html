@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="app"></div>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+   <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+    <script src="/node_modules/axios/dist/axios.js"></script>
+    <script>
+
+        // 一下两种添加axios的方式 
+        // Vue.use(axios);
+        Vue.prototype.$axios = axios;
+        let App = {
+            data () {
+                return {
+                    res1:'',
+                    res2:''
+                }
+            },
+            template:`
+                <div>
+                    <button @click='sendAjax'>并发请求</axios>
+                </div>
+            `,
+            methods: {
+                sendAjax () {
+                    this.$axios.defaults.baseURL='http://127.0.0.1';
+                    this.$axios.get('',{
+                        params:{id:1},
+                        // 在传递给then/catch前
+                        transformResponse: [
+                        function (data) {
+                            // 对data数据进行转换和修改
+                        return data
+                        }
+                        ]
+                    })
+                    .then(res=>{
+                        console.log(res.data.msg)
+                    })
+                },
+
+                sendAjax1 () {
+                    this.$axios.defaults.baseURL='http://127.0.0.1';
+                    this.$axios.post('/add','name-jack',{
+                        // 允许在向服务器发送前，修改请求数据
+                        // 最后能用在PUT，POST，PATCH这几个请求方法
+                        // 后面数组中的函数必须返回一个字符串，或ArrayBuffer，或Stream
+                        transformRequest: [
+                        function (data) {
+                            // 对data数据进行转换和修改
+                        return 'name=rose'
+                        }
+                        ]
+                    })
+                    .then(res=>{
+                        console.log(res.data.msg)
+                    })
+                }
+                
+            }
+        }
+        new Vue({
+            el:'#ap',
+            data () {
+                return {
+                    
+                }
+            },
+            template: `
+                <App />
+            `
+        })  
+    </script>
+</body>
+</html>

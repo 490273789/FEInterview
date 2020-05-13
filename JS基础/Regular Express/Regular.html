@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Regular</title>
+</head>
+<body>
+    <script type="text/javascript">
+        // var str = "abc\rd";
+        // var reg = /abc/i;//i可以忽略大小写
+        // var  reg2 = new RegPre("abc","1");//创建正则表达式的第二种方法,第二个参数写属性,如果没有则可以忽略,第一个参数放置表达式内容
+        // var reg1 = RegPre(reg3);//reg会将引用给到reg1,reg和reg1指向同一个房间
+        var str3 = "ababababab";
+        var reg3 = /ab/g;//g--global,全局匹配,如果不写g则匹配第一个匹配到的
+
+        var reg4 = /^a/gm;//在全局找以a开头的a
+        var str4 = "abdh\na";//如果不加m则只能匹配第一个a,加上m后就可以匹配到第二行中的开头的a.多行匹配.
+
+        // reg.test();//只能判断是否有匹配
+        // str.match(reg);//能判断显示出匹配的内容,加g与不加g在console中的显示不一样,再不加g的情况下会显示出详细的信息
+        var reg5 = /[0123456789][][]/g;//[]表达式,内部是区间
+        var str5 = "123clsdl34mklsdm456cmkds789000dl";
+        
+        var reg6 = /[ab][cd][d]/g;
+        var str6 = "abcd";//bcd
+
+        var reg7 = /[0-9a-zA-Z]/g;//[0-9A-z],^ 非的意思,^a:不是a的意思
+
+        var reg8 = /[(abc|bcd)]/g;//abc或bcd
+
+        //\w === [0-9A-z_]
+        //\W === [^\w]//w的补集
+
+        //\d === [0-9]
+        //\D === [^\d]
+
+        //\s === [\t\n\r\v\f ]找空白字符包含\t\n\r\v\f空格
+        //\S === [^\s]
+
+        //\b === 单词边界
+        //\B === 非单词边界
+
+        var reg9  = /[\s,\S]/;//匹配一切.
+
+        // .  [^\r\n]
+        //n+ 加号表示n可以出现一次到无数次 n
+        //n* 星号表示可以出现0到无数个n
+        //n? 匹配0到1个n
+        //n{X} 匹配到x个n
+        //n{x,y}  n{1.3}匹配1到3个n
+        //n{x, }  x到正无穷个n
+        //^ 以什么开头
+        //$ 以什么结尾
+        var reg = /^abc$/g;//以同一个abc开头和结尾
+        //检验一个字符串首尾是否含有数字
+        var reg10 = /^\d | \d$/g;
+
+        reg10.exec()//
+        reg10.lastIndex;
+
+        //
+        var reg11 = /(\w)\1\1\1/g;//\1 反向引用(\w)中的内容
+        var str11 = "aaaa";
+
+        var reg11 = /(\w)\1(\w)\1/g;//\1 反向引用(\w)中的内容,\2反向引用第二个(\w)中的内容,以此类推
+        var str11 = "aabb";
+        //在exec方法中会将子表达式的内容也显示出来
+        // str11.search(reg);//返回匹配的位置
+        // str11.split(reg);//按照正则表达式拆分
+        var reg12 = /(\w)\1(\w)\2/;
+        var str12 = "aa";
+        var str13 = "aabb";
+        str12.replace("a","b");//没有正则表达式只能改变第一个a,无法方位全局.
+        str13.replace(reg12,"$2$2$1$1");//bbaa
+        console.log(str13.replace(reg, function ($, $1, $2){
+            return $2 + $2 + $1 + $1;
+        }));
+
+        // str13.toUpperCase();//变为大写字母
+        // str13.toLowerCase();//变为小写字母
+        //高级用法
+        //the-first-name
+        //theFirstName
+        var reg15 = /-(\w)/g;
+        var str15 = "the-fiest-name";
+        console.log(str15.replace(reg15, function ($, $1){
+            return $1.toUpperCase();
+        }))
+
+        var str16 = "abaaaa";
+        var reg17 = /a(?=b)/g;//正向预查,查找a后面有b的a
+        var reg18 = /a(?!b)/g;//查找a后面没有b的a
+
+        // 正则表达式默认是贪婪匹配,能匹配到多个不会去匹配一个
+        //非贪婪匹配.
+        var str19 = "aaaaaa";
+        var reg19 = /a+?/g;
+        var reg20 = /a{1,3}?/;//能取1不取3
+        var reg20 = /a??/;//能取0不取1
+
+        //100000000-----100.000.000
+        var str = "100000000";
+        var reg = /(?=(\B)(\d{3})+$)/
+        console.log(str.replace(reg,"."));
+        
+    </script>
+</body>
+</html>

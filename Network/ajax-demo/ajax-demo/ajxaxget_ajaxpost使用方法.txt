@@ -1,0 +1,11 @@
+
+
+把 ajaxget.html ajaxpost.html getNews.php pos.php 放在 ajax-demo 文件夹下
+
+开启服务器
+
+访问localhost/ajaxget.html  或者 localhost/ajaxpost.html
+
+
+
+

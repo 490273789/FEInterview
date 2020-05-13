@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<script type="text/javascript">
+		var obj1 = {
+			name: 'simei'
+		}
+		var obj2 = {
+			sex: 'girl',
+			name: 'shaonan',
+			teacher: {
+				t1: {
+					name: 'xiaofeng',
+					age: 58
+				},
+				t2: {
+					name: 'azhen',
+					age: 18
+				}
+			}
+		}
+		//封装深度拷贝
+		function deepClone(target, option) {
+			var copy,
+				src;
+			if (option != null) {
+				for (var prop in option) {
+					copy = option[prop];
+					src = target[prop];
+					if (copy && typeof copy == 'object') {
+						if (Object.prototype.toString.call(copy) == '[object Array]') {
+							src = src ? src : [];
+						} else {
+							src = src ? src : {};
+						}
+						target[prop] = deepClone(src, copy);
+					} else {
+						target[prop] = copy;
+					}
+				}
+			}
+			return target;
+		}
+
+		deepClone(obj1, obj2);
+		console.log(obj1);
+
+		var arr = [1, 2, 5, 4, 3];
+		var arr1 = [5, 6];
+		var arr2 = arr.concat();
+
+		var arr3 = [1, 4, 3, 6, 9, 5, 2];
+		arr3.sort(function (a, b) {
+			return a - b;
+		})
+
+		arr.every(function (ele) {
+			return ele > 0
+		}); //true,相当于逻辑运算的"与",都满足条件才会返回true
+		arr.every(function (ele) {
+			return ele > 3
+		}); //false
+
+		var arr5 = [1, 2, 5, 4, 3];
+		//map
+		var c = arr5.map(function (ele, index) {
+			return ele += 10;
+		})
+		console.log(c);//
+		console.log(arr5);
+
+		//累加器
+		var d = arr5.reduce(function (preTotal, ele, index) {
+			//preTotal:初始值,如果如果写第二参数100,则初始值是100,如果不写100则初始值是数组的第一位.
+			return preTotal + ele;
+		}, 100)
+	</script>
+
+</body>
+
+</html>

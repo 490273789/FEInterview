@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        // 数据发生改变时，视图发生改变 -- 数据驱动视图
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                // 数据属性
+                // 可以是对象也可以是函数
+                msg: '黄瓜',
+                isTrue: 1==1,
+                str: 'hello'
+            },
+            template:''//如果模板中有值会优先渲染模板中的值
+        });
+        console.log(vm);
+        console.log(vm.$el === document.getElementById('app'));
+        console.log(vm.$data);//就是vue实例中的data属性
+    // 除了数据属性 vue实例还暴露了一些有用的实例属性和方法，他们都有前缀$
+    </script>
+</body>
+</html>

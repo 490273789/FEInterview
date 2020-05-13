@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* body {
+            background-color: #000;
+        } */
+/* 光球 */
+/* div {
+    position: absolute;
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
+    width: 300px;
+    height: 300px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 50px #fff,
+                inset 10px 0px 80px #f0f,
+                inset -10px 0px 80px #0ff,
+                inset 10px 0px 300px #f0f,
+                inset -10px 0px 300px #0ff,
+                0px 0px 50px #fff,
+                -10px 0px 80px #f0f,
+                10px 0px 80px #0ff;
+} */
+
+/* 小太阳 */
+/* div {
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0px 0px 100px 90px #fff,
+                0px 0px 250px 175px #ff0;
+} */
+        
+    div {
+        position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, .1);
+    transition: all .6s;
+    }
+    div::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 3px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, .3);
+        opacity: 0;
+        transition: all .6s
+    }
+    div:hover {
+        transform: scale(1.25, 1.25);
+    }
+    div:hover::after {
+        opacity: 1;
+    }
+
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

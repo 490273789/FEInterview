@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-inp v-bind="bindmsg"></my-inp>
+    </div>
+    <script>
+    const myInp = {
+        template: `
+						<div>
+	<span>{{title}}</span>
+	<input type='text' v-model='val'/>
+	<span >{{msg}}</span>
+						</div>
+			`,
+        data() {
+            return {
+                val: ''
+            }
+        },
+        props: {
+            title: {
+                default: '',
+                type: String
+            },
+            reg: {
+                type: RegExp,
+                default: null
+            },
+            errmsg: {
+                type: String,
+                default: 'No'
+            },
+            sucmsg: {
+                type: String,
+                default: 'Yes'
+            }
+        },
+        computed: {
+            msg() {
+                if (!this.val) {
+                    return " "
+                } else {
+                    return this.reg.test(this.val) ? this.sucmsg : this.errmsg
+                }
+
+            }
+        }
+    }
+    new Vue({
+        el: '#app',
+        components: {
+            myInp
+        },
+        data: {
+            bindmsg: {
+                title: 'Plase input QQ Email!',
+                errmsg: '请重新输入',
+                sucmsg: '正确',
+                reg: /@qq.com$/
+            }
+
+
+        }
+    })
+    </script>
+</body>
+
+</html>

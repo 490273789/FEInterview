@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		//预编译(先会通篇扫描低级的语法错误在执行预编译)
+		//函数声明整体提升			变量:声明提升  var a = 9;  只会提升var a;
+		//1.imply global  暗示全局变量 :即任何变量,如果变量未经声明就赋值次变量为全局对象所有
+		//2.一切声明的全局变量,全是window的属性.
+		//综上所述未经声明的变量和全局变量都是window所有
+		//window就是全局的域:
+		//var a = 123;
+		//console.log(a) ==> console.log(window.a) 
+		//
+		/*var a = 123;
+		var b = 234;
+		var c = 345;
+		 
+		 相当于如下
+
+		window{
+			a : 123,
+			b : 234,
+			c : 345
+		}
+		预编译发生在函数执行的前一刻:
+		1.创建AO对象   AO  Activation Object(执行期上下文)
+		2.找形参和变量声明,将变量和形参作为AO的属性名,值为undefined
+		3.将实参和形参统一
+		4.在函数体里面找函数声明,赋值予函数体
+		全局预编译:生成一个GO对象(Global Object); GO === window;
+
+		*/
+		/*function bar(){
+			return foo;
+			foo = 10;
+			function foo(){
+
+			}
+			var foo = 11;
+		}
+		console.log(bar());//function*/
+
+		/*console.log(bar());//11
+		function bar(){
+			foo = 10;
+			function foo(){
+
+			}
+			var foo = 11;
+			return foo;
+		}*/
+
+		//Review:
+		/*var x = 1;
+		if(function f(){}){
+			x += typeo(f);
+		}*/
+		/*正确理解:先执行括号内的,注意第二个参数要加括号运算优先级问题
+		(window.foo || (window.foo = 'bar'));
+		window.foo*/
+
+		/*
+		 
+
+		 */
+
+		//闭包例子
+		/*function test(){
+			var num = 100;
+			function a (){
+				num ++;
+				console.log(num);
+			}
+			function b() {
+				num --;
+			}
+			return [a,b];
+		}
+		var myArr = test();
+		maArr[0];
+		myArr[1];*/
+
+		//立即执行函数:执行一次立即释放
+		//格式
+		//只有表达式才能被之星符号执行
+		//能被执行符号'()'执行的表达式,这个函数的名字就会被忽略..函数表达式分两步第一步函数声明,第二步是函数的赋值,这样省略了函数赋值的过程
+		//函数前放正负符号也可以让侧函数变为函数表达式.
+		/*(function (){
+
+		}())
+
+		(function (){})()
+		function(a, b, c){
+			console.log(a)
+		}(1, 2, 3)*/
+		//闭包问题
+
+		// function test(){
+		// 	var arr = [];
+		// 	for(var i = 0; i < 10; i ++){
+		// 		arr[i] = function(){
+		// 			document.write(i + " ");
+		// 		}
+		// 	}
+		// 	return arr;
+		// }
+		// 	var myArr = test();
+		// 	for(var j = 0; j < 10; j++){
+		// 		myArr[j]();
+		// 	}
+		// 	解决闭包问题
+
+		/*function test(){
+			var arr = [];
+			for(i = 0; i < 10; i ++){
+				(function(j){
+					arr[j] = function(){
+						document.write(j + " ");
+					}
+				}(i))
+			}
+			return arr;
+		}
+		var myArr = test();
+		for(var j = 0; j < 10; j++){
+			myArr[j]();
+		}*/
+		/*	var d = 10;
+			var a = 10;
+			var b = a++;
+			var c = ++d;
+			// var b = ++a - 1 + a++;
+			document.write(b,c);*/
+
+		var o = "10" > "8";
+	</script>
+</body>
+
+</html>
