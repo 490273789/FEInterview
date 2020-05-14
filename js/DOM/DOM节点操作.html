@@ -14,6 +14,9 @@
     <div class="replace">replace1</div>
     <input type="text" name="pwd">
     <script>
+        //getElementById和querySelector的区别： https://www.cnblogs.com/songForU/p/10913649.html
+        //html和xml的区别xml可以自定标签
+        //DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。DOM对象即为宿主对象，由浏览器厂商定义，用来操作html和css功能的一类对象的集合。也有人称DOM是对HTML以及XML的标准编程接口
         // XML和HTML最的不同是xml可自定义标签存放数据
         // DOM是HTML和XML的编程接口（DOcument Object Model)    
         // 在文档对象模型中每个DOM节点都是一个对象，DOM节点有三个中重要的属性：
@@ -40,8 +43,8 @@
         let oDiv1 = document.getElementsByTagName('div')// 获取的是节点列表 nodeList   无兼容性问题
         let oDiv2 = document.getElementsByClassName("qwe")// 获取的是节点的列表 nodeList，可以多个class一起  ie8和ie8以下版本中没有此方法 
         let oDiv3 = document.getElementsByName("pwd");//通过元素的name属性获取  IE不支持，低版本浏览器只有部分比标签生效（表单元素、img、iframe）
-        let oDiv4 = document.querySelector("div > span")// 与css选择器用法相同  ie7及以下浏览器不支持
-        let oDiv5 = document.querySelectorAll("div > span")// 与css选择器用法相同   ie7及以下浏览器不支持
+        let oDiv4 = document.querySelector("div > span")// 与css选择器用法相同  ie7及以下浏览器不支持 获取完一次就不会在更新了
+        let oDiv5 = document.querySelectorAll("div > span")// 与css选择器用法相同   ie7及以下浏览器不支持 获取完一次就不会在更新了
         // 2、创建节点
         let oSpan1 = document.createElement('span');
         let oText = document.createTextNode("你好");
@@ -62,6 +65,11 @@
         let repDiv = document.getElementsByClassName("replace")[0];
         let repText = repDiv.firstChild;
         repDiv.replaceChild(oText, repText);
+
+         //document的构造函数是HTMLDocument,HTMLDocument.prototype继承于Document.prototype
+         Element.prototype.myChildren = function () {
+            
+        }
     </script>
 </body>
 </html>

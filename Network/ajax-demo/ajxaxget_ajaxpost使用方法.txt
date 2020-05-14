@@ -1,0 +1,11 @@
+
+
+�� ajaxget.html ajaxpost.html getNews.php pos.php ���� ajax-demo �ļ�����
+
+����������
+
+����localhost/ajaxget.html  ���� localhost/ajaxpost.html
+
+
+
+

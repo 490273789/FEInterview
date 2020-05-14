@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Incident</title>
 </head>
+
 <body>
-    <div style="height: 100px;width: 100px;background-color: forestgreen;" onclick="console.log('a')"></div>
+    <div id="drag" style="position:absolute;top:0;left:0;height: 100px;width: 100px;background-color: forestgreen;"></div>
 
     <script type="text/javascript">
         // var div = document.getElementsByTagName('div')[0];
@@ -33,24 +35,34 @@
         //     },false);
         //     }(i))
         // }
-        
-       function drag(elem) {
-           var disX,
-               disY;
-            elem.onmuosedown = function (e) {
-                disX = e.pageX - parseInt(elem.style.left);
-                disY = e.pageY - parseInt(elem.style.top);
+        // 拖动小滑块
+        /**
+         * msg@: 拖动小滑块
+         * @params {Object: elem} 元素对象
+         * e.clientX：https://www.cnblogs.com/deerfig/p/6432683.html
+         * elem.style.left: style只能获取和设置行间样式
+        */
+
+        function drag(elem) {
+            let disX,
+                disY;
+            elem.onmousedown = function (e) {
+                disX = e.clientX - parseInt(elem.style.left);
+                disY = e.clientY - parseInt(elem.style.top);
                 document.onmousemove = function (e) {
-                    var event = e || window.event;
-                    elem.style.left = e.pageX - disX + "px";
-                    elem.style.top = e.pageY - disY + "px";
-                }
-                document.onmouseup = function () {
-                    elem.onmousemove = null;
+                    let event = e || window.event;
+                    elem.style.left = event.clientX - disX + "px";
+                    elem.style.top = event.clientY - disY + "px";
                 }
             }
-       }
-            
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+        const oDiv = document.getElementById('drag')
+        drag(oDiv)
+
     </script>
 </body>
+
 </html>

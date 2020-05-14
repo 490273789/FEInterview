@@ -174,13 +174,17 @@ function getElementPostion (ele) {
     }
 }
 
-// 获取样式
-function getStyle (obj, styleProp) {
-
-    if (obj.currentStyle) {
-        return obj.currentStyle[styleProp];
-    } else {
-        return window.getComputedStyle(obj, null)[styleProp];
+//封装兼容性方法
+// style可以设置样式，只能获取行间样式
+// getComputedStyle和currentStyle - 不能设置样式，只能获取样
+// getComputedStyle - 该属性是兼容火狐谷歌,不兼容IE
+// currentStyle - 该属性只兼容IE,不兼容火狐和谷歌
+// https://www.cnblogs.com/cythia/p/6721145.html
+function getStyle(elem, prop){
+    if(window.getComputedStyle){
+        return window.getComputedStyle(elem, null)[prop];
+    }else{
+        return elem.currentStyle[prop];
     }
 }
 
