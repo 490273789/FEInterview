@@ -14,7 +14,7 @@
 		document.cookie = "age=18;max-age=1000";
 		document.cookie = "name=aime;expires=" + oDate;
 		document.cookie = "age=19;max-age=1000;path=/";
-		//分装cookie的增删改查方法。
+		//封装cookie的增删改查方法。
 		var manageCookie = {
 			setCookie: function (name,value,time) {
 				document.cookie = name + '=' + value + ';max-age=' + time;

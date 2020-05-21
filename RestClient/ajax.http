@@ -1,0 +1,8 @@
+@contentType = application/json
+###
+POST http://lantiandev.e-edusky.com/diagnosis/manager/userManager/getTeacherInfo?requestId=123342341231
+Content-Type: {{contentType}}
+
+{
+	"userId":671
+}

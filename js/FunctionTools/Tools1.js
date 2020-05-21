@@ -336,3 +336,46 @@ let obj = {
 
 let obj2 = deepClone(obj)
 console.log(obj2)
+
+/**
+ *
+ *
+ * @param {*} componmentName
+ * @param {*} eventName
+ * @param {*} params
+ */
+function dispatch(componmentName, eventName, params) {
+    let parent = this.parent;
+    let name = this.$options.name;
+
+    while (parent && (!name || name !== componmentName)) {
+        parent = parent.$parent;
+        if (parent) {
+            name = parent.$options.name;
+        }
+    }
+
+    if (parent) {
+        parent.$emit.call(parent, eventName, params);
+    }
+}
+
+// $broadcast
+
+/**
+ *
+ *
+ * @param {*} componmentName
+ * @param {*} eventName
+ * @param {*} params
+ */
+function broadcast(componmentName, eventName, params) {
+    this.child.forEach(child => {
+        const name = child.$options.name;
+        if (name === componmentName) {
+            child.$emit.apply(child, [eventName].concat[params]);
+        } else {
+            broadcast.apply(child, [eventName].concat[params]);
+        }
+    })
+}

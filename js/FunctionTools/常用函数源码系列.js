@@ -70,7 +70,7 @@ let obj = {
         age:16
     }
 }
-// 1、浅拷贝
+// 浅拷贝
 // 可以使用for in、Object.assign()、...、Array.prototype.slice、Array.prototype.concat()
 // 1.1for in实现
 let obj1 = cloneForIn(obj);
@@ -84,7 +84,7 @@ function cloneForIn (val) {
     return newObj;
 }
 console.log(obj)
-// 1.2 Object.assign(obj1,obj2，...) 次方方法是将后面对象上的属性拼接到第一个对象上，在改变obj1的同时还会返回一个新的对象
+// 2 Object.assign(obj1,obj2，...) 次方方法是将后面对象上的属性拼接到第一个对象上，在改变obj1的同时还会返回一个新的对象
 let obj2 = Object.assign({},obj)
 console.log(obj2)
 // slice()
