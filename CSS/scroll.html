@@ -86,5 +86,14 @@
         </div>
         <!-- <footer></footer> -->
     </div>
+    <script>
+        const oScroll = document.getElementsByClassName('list')[0]
+        let scrollTop = oScroll.scrollTop
+        oScroll.addEventListener('scroll', ()=> {
+            scrollTop = oScroll.scrollTop
+            console.log(scrollTop);
+        })
+        
+    </script>
 </body>
 </html>

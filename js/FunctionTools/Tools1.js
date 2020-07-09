@@ -54,14 +54,11 @@ function throttle (func, wait, type) {
 
 // 节流函数和防抖函数结合，
 
-// 获取当前滚动条的位置
+// 获取Body元素当前滚动条的位置
 /**
  * @msg: 节流函数  - 每次间隔相同的时间执行一次函数
  * 使用场景：比如获取滚动条当前位置
- * @param {Function: func}  回调函数
- * @param {Number: wait} 等待时间
- * @param {*: type} type == 1 - 会立即执行一次；type == 2 - 不会立即执行
- * @return: Function 
+ * @return: Object 当前body元素滚动条的x, y坐标 
  */
 function getScrollOffset () {
     if (window.pageYOffset) { // 可以忽略该步骤为了熟悉api

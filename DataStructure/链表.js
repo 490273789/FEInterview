@@ -27,13 +27,11 @@ class LinkList {
                 let current = this.head
                 let index = 0
                 while (current.next && current.element !== node) {
-                    index ++
+                    index++
                     current = current.next
                 }
                 return current.next ? index : -1
             }
-
-
         }
 
     }
@@ -85,8 +83,19 @@ class LinkList {
     /**
      *删除节点
      */
-    remove () {
-
+    remove (val) {
+        let current = this.head
+        let pre = null
+        if (this.head.element === val) {
+            this.head = current.next
+        } else {
+            while (current.next && current.element !== val) {
+                pre = current
+                current = current.next
+            }
+            pre.next = current.next
+            this.length--
+        }
     }
 
     /**

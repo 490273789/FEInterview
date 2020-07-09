@@ -1,0 +1,36 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: wangshaonan
+ * @Date: 2020-06-07 23:08:37
+ * @LastEditors: wangshaonan
+ * @LastEditTime: 2020-06-08 08:19:55
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo">123</div>
+    <script>
+        document.getElementsByClassName
+        
+        /**
+         * @msg: 监听陀螺仪事件，需要有陀螺仪的设备
+         * @param {alpha} 水平的度数
+         * @param {beta} 手机竖着转动的度数
+         * @param {gamma} 手机横着转动的度数
+         * @param {alpha} 水平的度数
+         * @return: 
+         */        
+        window.addEventListener("deviceorientation",function(event){
+            document.getElementById("demo").innerHTML = `alpha: ${event.alpha}</br>
+                                                        beta: ${event.beta}</br>
+                                                        gamma: ${event.gamma}`
+        })
+    </script>
+</body>
+</html>
