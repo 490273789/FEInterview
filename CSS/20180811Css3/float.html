@@ -1,0 +1,50 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-15 14:47:32
+ * @LastEditTime: 2020-07-15 15:53:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /FEInterview/CSS/20180811Css3/float.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            border: 1px solid #9966ff;
+            width: 150px;
+            color: rgba(241, 92, 128, 1);
+            /* display: inline-block; */
+            /* position: absolute; */
+            /* overflow: hidden; */
+        }
+        .wrapper::after {
+            content: '';
+            clear: both;
+            display: block;
+        }
+        .item {
+            float: left;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            background: #6699ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+</body>
+</html>

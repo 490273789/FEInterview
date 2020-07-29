@@ -376,3 +376,57 @@ function broadcast(componmentName, eventName, params) {
         }
     })
 }
+// trim函数实现
+function trim (str) {
+    return str.replace(/^(\s)|*(\s)*$/g, "");
+}
+let str = "  iiq  "
+console.log(trim(str));
+console.log("iiq");
+
+// 下划线转驼峰函数
+// replace函数，第一个参数会将为正则或者字符串
+// 第二个参数可以是字符串，$1$2... 或者是字符串，或者是函数，函数第一个值为匹配到项，第二个值为子项，第三个值为匹配到位置的索引，第四个至为整个字符串
+// 没匹配到一次函数就会执行一次
+function toHump (str) {
+    return str.replace(/-(\w)/g, (str1, str2, str3, str4) => {//(\w) 没有括号就只有一个表达式，函数也就只有一个参数，多一个子表达式函数就多一个参数
+        console.log(str1, str2, str3, str4);
+        return str2.toUpperCase();
+    })
+}
+let hump = toHump("qw-er-rt");
+console.log(hump);
+
+// 驼峰转下划线
+function toLine (str) {
+    return str.replace(/([A-Z])/g, "_$1").toLowerCase();//注意正则表达式中的括号
+}
+let str8 = "sdDateCase"
+console.log(toLine(str8));
+
+/**
+ * @msg: 工具函数获取前（后）n天的时间
+ * @param {Number} AddDayCount 传入要减少的天数
+ * @param {String} type 日期之间连接的字符，不传默认为‘-’
+ * @return: {String} 格式化后的日期字符串 eg：2020-04-29
+ */
+function getDateStr (AddDayCount, type = '-') {
+    const date = new Date();
+    date.setDate(date.getDate() + AddDayCount);//获取AddDayCount天后的日期
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);//获取当前月份的日期，不足10补0
+    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();//获取当前几号，不足10补0
+    return [year, month, day].join(type)
+}
+
+/**
+ * @msg: 选择后展示在头部上的日期格式
+ * @param {Date} date 日期 
+ * @param {String} type 日期连接的字符
+ * @return: {String} 格式化后的日期字符串
+ */
+function formatDate(date, type) {
+    const month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);//获取当前月份的日期，不足10补0
+    const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();//获取当前几号，不足10补0
+    return `${date.getFullYear()}${type}${month}${type}${day}`
+}

@@ -10,16 +10,32 @@
 
 <body>
     <script>
+        function* t1(){
+            console.log("第3次运行(next(30)):", '新函数内部');
+            let info4 = yield "a"
+            console.log("第4次运行(next(40)):", info4);
+            let info5 = yield "b"
+            console.log("第5次运行(next(50)):", info5);
+            return 't1' // 会给父级函数yield的返回值 info3
+        }
         function* test() {
-            console.log("第1次运行")
-            yield 1;
-            console.log("第2次运行")
-            yield 2;
-            console.log("第3次运行");
-            return 10;
+            console.log("第1次运行(next(10)):",'next传值无效')
+            let info1 = yield 1;
+            console.log("第2次运行(next(20)):", info1)
+            let info2 = yield 2 + info1;
+            console.log("第3次运行(next(30)):", info2);
+            let info3 = yield * t1();
+            console.log("第5次运行(next(50)):", info3);
+            return 10; // 会出现在第一次done为true的value中
         }
 
         const generator = test();
+        // generator.next(10) // 第1次运行(next(10)): next传值无效 , {value: 1, done: false}
+        // generator.next(20) // 第2次运行(next(20)): 20 , {value: 22, done: false}
+        // generator.next(30) // 第3次运行(next(30)): 30 , {value: 'a', done: false} 第3次运行(next(30)): 新函数内部
+        // generator.next(40) // 第4次运行(next(40)): 40 , {value: 'b', done: false} 
+        // generator.next(50) // 第5次运行(next(50)): 50 , {value: 10, done: false} 第5次运行(next(50)): 't1'
+
     </script>
 </body>
 

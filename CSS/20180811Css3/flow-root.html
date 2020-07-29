@@ -1,0 +1,45 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-15 16:37:59
+ * @LastEditTime: 2020-07-15 16:41:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /FEInterview/CSS/20180811Css3/flow-root.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            outline: solid deepskyblue;
+        }
+        
+        .flow-root {
+            display: flow-root;
+            /* overflow: hidden; */
+        }
+
+        .box {
+            background-color: #f0f3f9;
+        }
+
+        .box p {
+            margin: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <p>margin: 2em;</p>
+    </div>
+    <div class="box flow-root">
+        <p>margin: 2em;</p>
+    </div>
+</body>
+
+</html>

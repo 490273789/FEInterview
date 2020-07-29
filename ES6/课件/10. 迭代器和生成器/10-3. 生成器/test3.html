@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-10-29 16:53:42
+ * @LastEditTime: 2020-07-15 11:33:52
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /FEInterview/ES6/课件/10. 迭代器和生成器/10-3. 生成器/test3.html
+--> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +24,7 @@
                 prev2 = 1, //当前位置的前1位和前2位
                 n = 1; //当前是第几位
             while (true) {
+                console.log(n);
                 if (n <= 2) {
                     yield 1;
                 } else {
@@ -29,6 +38,7 @@
         }
 
         const iterator = createFeiboIterator();
+        console.log(iterator);
     </script>
 </body>
 

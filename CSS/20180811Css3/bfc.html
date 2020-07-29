@@ -1,0 +1,37 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-15 19:10:56
+ * @LastEditTime: 2020-07-15 19:19:10
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /FEInterview/CSS/20180811Css3/bfc.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .demo1 {
+            width: 100px;
+            height: 100px;
+            background: #ff6699;
+            margin-top: 200px;
+            /* position: absolute; */
+        }
+        .demo1-child {
+            width: 50px;
+            height: 50px;
+            background: #6699ff;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!--  如果没有bfc则会取两个margin-top较大的相对body进行计算，有bfc则会相对父级进行计算 -->
+    <div class="demo1">
+        <div class="demo1-child"></div>
+    </div>
+</body>
+</html>
