@@ -21,7 +21,7 @@ class Animal {
     a = 1
     // 字段初始化 此写法是定义在成员中而不再原型上
     eat = () => { }
-    constructor(type, name, age, sex) { //私有属性，定义的方法和属性每个实例中都会有
+    constructor(type='猫科', name='宝宝', age=6, sex='公') { //私有属性，定义的方法和属性每个实例中都会有
         this.type = type
         this.name = name
         this.age = age
@@ -70,8 +70,9 @@ class Dog extends Animal {
         console.log(`【性别】: ${this.love}`);
     }
 }
-
-const dog = new Dog('66', 100, '公', '骨头')
+const animal = new Animal()
+console.log('animal:',animal);
+const dog = new Dog('六六', 100, '公', '骨头')
 dog.love = '狗粮'
 console.log(dog.love);
 console.log(dog[isFly]('不会飞'));

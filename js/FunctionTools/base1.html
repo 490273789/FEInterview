@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    function Parent(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Parent.prototype.sex = 'man';
+    let son1 = new Parent('wsn', 27);
+    let son2 = new Parent('wsz',29);
+
+    //isPrototypeOf  判断某个prototype对象和实例之间的关系
+    console.log(Parent.isPrototypeOf(son1));//false
+    console.log(Parent.prototype.isPrototypeOf(son1));//true
+    //hasOwnPrototype 判断某个属性是本地属性，还是原型的属性
+    console.log(son1.hasOwnProperty("name"))//true
+    console.log(son1.hasOwnProperty("sex"))//false
+//    in  判断某个实例是否含有某个属性，原型链上的也算,
+//    in 也可以遍历对象上的所有属性，包括原型上的属性
+    console.log("name" in son1);//true
+    console.log("sex" in son1);//true
+    for (let pro in son1) {
+        console.log(pro);
+        console.log(son1[pro]);
+    }
+
+    function Parent1 () {
+        this.name = 'wsn';
+        this.age = 23;
+    }
+
+    function Parent2 () {
+        this.name = 'wsz';
+        this.age = '21';
+    }
+
+    Parent2.prototype.country = "China";
+
+    let inherit = (function () {
+        let F = function () {};
+        return function (target, origin) {
+            F.prototype = origin.prototype;
+            target.prototype = new F();
+            target.constructor = target;
+            target.uber = origin.prototype;
+        }
+    })()
+
+    inherit(Parent1, Parent2);
+
+    let son3 = new Parent1();
+</script>
+</body>
+</html>

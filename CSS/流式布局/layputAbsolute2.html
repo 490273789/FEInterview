@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper  {
+            height: 200px;
+            position: relative;
+            padding-left: 200px;
+            padding-right: 200px;
+        }
+        .left {
+            width: 200px;
+            height: 100%;
+            background: #9966ff;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .center {
+            height: 100%;
+            background: #ff6699;
+        }
+        .right {
+            height: 100%;
+            width: 200px;
+            background: #66ff99;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

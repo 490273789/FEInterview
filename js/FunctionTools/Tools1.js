@@ -30,9 +30,9 @@ function debounce (func, wait, immediate) {
  */
 function throttle (func, wait, type) {
     if (type == 1) {
-        let previous = 0
+        var previous = 0
     } else if (type == 2) {
-        let timeout
+        var timeout
     } else {
         throw Error(`'type' Error`)
     }
