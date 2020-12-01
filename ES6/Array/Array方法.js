@@ -38,10 +38,10 @@ let arr55 = arr5.join('-'); //将数组中的每一位使用-连接成字符串:
 let arr66 = str.split("-") //按照括号内的字符进行拆分，拆分成数组.
 let arr77 = arr5.concat(0, 0, 0); //将数组添加三位(可以添加n位),不会改变原数组.
 let arr88 = arr5.concat(arr1); //参数是数组，拼接两个数组，不写参数，就是copy原数组，数组克隆
-let arr99 = arr5.lenth; //返回数组的长度
+let arr99 = arr5.length; //返回数组的长度
 let arr100 = arr5.toString(); //将数组以字符串的形式展示出来"1,2,3,4"
 let arr110 = arr5.indexOf(n); //返回n在数组中第一次出现的索引值,如果数组中没有n则返回-1.
-let arr120 = arr5.lastindexOf(n); //返回n在数组中最后一次出现的索引值.
+let arr120 = arr5.lastIndexOf(n); //返回n在数组中最后一次出现的索引值.
 let arr130 = arr5.slice(n, m) //两个参数从n位开始截取到m位（包含第n位，不包含m位）,一个参数，是从该位截取到最后,不写参数，复制整个数组，多数用在将类数组转化为数组
 //判断数组的每一位是否都满足条件，返回值为布尔类型
 //相当于逻辑运算的"与",都满足条件才会返回true

@@ -21,6 +21,7 @@ class Animal {
     a = 1
     // 字段初始化 此写法是定义在成员中而不再原型上
     eat = () => { }
+    b
     constructor(type='猫科', name='宝宝', age=6, sex='公') { //私有属性，定义的方法和属性每个实例中都会有
         this.type = type
         this.name = name
